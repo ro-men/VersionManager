@@ -16,17 +16,6 @@ namespace VerManagerLibrary
 {
     public class VMLCoordinator
     {
-        public VMLCoordinator(VersionManagerForm versionManagerForm)
-        {
-            this.versionManagerForm = versionManagerForm;
-        }
-
-        private VersionManagerForm Form
-        {
-            get { return this.versionManagerForm; }
-        }
-        private VersionManagerForm versionManagerForm;
-
         public static  Dictionary<string, DocumentClass> InSessionDocumentDictionary { get; } = CollectDocuments(CatiaLauncher());
         public static Dictionary<string, List<string>> ParentsDictionary { get; } = CreateParentDictionary(InSessionDocumentDictionary);
         public static Dictionary<string, DocumentClass> LibraryDocumentDictionary { get; } = CollectLibraryDocuments(ParentsDictionary);

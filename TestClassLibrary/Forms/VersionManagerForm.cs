@@ -27,7 +27,7 @@ namespace VerManagerLibrary
 
         void InitializeTabs()
         {
-            VMLCoordinator coordinator = new VMLCoordinator(this);
+            VMLCoordinator coordinator = new VMLCoordinator();
             this.tabInSessionDocs1.Coordinator = coordinator;
             this.tabStoredLibrary1.Coordinator = coordinator;
         }

@@ -19,7 +19,6 @@ namespace VerManagerLibrary
         public TabInSessionDocs()
         {
             InitializeComponent();
-            this.TreeListView = treeListView_Stablo;
         }
 
         protected override void InitializeTab()

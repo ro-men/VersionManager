@@ -26,12 +26,6 @@ namespace VerManagerLibrary
             }
         }
         private VMLCoordinator coordinator;
-        private TreeListView treeListView;
         protected virtual void InitializeTab() { }
-        public TreeListView TreeListView
-        {
-            get { return this.treeListView; }
-            protected set { this.treeListView = value; }
-        }
     }
 }

@@ -22,7 +22,7 @@ namespace LearningProject
 
         private void CallVM_Form_Load(object sender, EventArgs e)
         {
-            var newForm = new VerManagerLibrary.UpdateLibrary();
+            var newForm = new VerManagerLibrary.VersionManagerForm();
             newForm.Visible = true;
         }
     }

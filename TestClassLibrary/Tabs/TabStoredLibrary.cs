@@ -16,7 +16,6 @@ namespace VerManagerLibrary
         public TabStoredLibrary()
         {
             InitializeComponent();
-            this.TreeListView = treeListView_Stablo;
         }
         protected override void InitializeTab()
         {
