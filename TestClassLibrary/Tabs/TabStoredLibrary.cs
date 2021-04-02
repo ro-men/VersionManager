@@ -11,16 +11,18 @@ using System.Windows.Forms;
 
 namespace VerManagerLibrary
 {
-    public partial class TabStoredLibrary : VmlDemoTab
+    public partial class TabStoredLibrary : UserControl
     {
         public TabStoredLibrary()
         {
             InitializeComponent();
-        }
-        protected override void InitializeTab()
-        {
             SetupTree();
         }
+
+        //protected virtual void InitializeTab() 
+        //{
+        //    SetupTree();
+        //}
         #region Treelistview delegatori
         //TreeListView osnovni delegatori:
         // 1. CanExpandGetter - Info da li cvor ima childrene?

@@ -14,18 +14,13 @@ using System.IO;
 
 namespace VerManagerLibrary
 {
-    public partial class TabInSessionDocs : VmlDemoTab
+    public partial class TabInSessionDocs : UserControl
     {
         public TabInSessionDocs()
         {
             InitializeComponent();
-        }
-
-        protected override void InitializeTab()
-        {
             SetupTree();
         }
-
 
         #region Treelistview delegatori
         //TreeListView osnovni delegatori:

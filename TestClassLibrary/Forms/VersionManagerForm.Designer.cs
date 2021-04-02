@@ -61,7 +61,6 @@ namespace VerManagerLibrary
             this.tabInSessionDocs1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabInSessionDocs1.Coordinator = null;
             this.tabInSessionDocs1.Location = new System.Drawing.Point(0, 0);
             this.tabInSessionDocs1.Name = "tabInSessionDocs1";
             this.tabInSessionDocs1.Size = new System.Drawing.Size(1511, 759);

@@ -112,12 +112,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VMLCoordinator.cs" />
-    <Compile Include="Tabs\VmlDemoTab.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tabs\VmlDemoTab.Designer.cs">
-      <DependentUpon>VmlDemoTab.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\AdNewErrorForm.resx">
