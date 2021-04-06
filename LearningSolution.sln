@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerManagerLibrary_ClassLib"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectListView2012", "ObjectListViewDemo\ObjectListView\ObjectListView2012.csproj", "{18FEDA0C-D147-4286-B39A-01204808106A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "HelloWorld\HelloWorld.csproj", "{4A1CF175-8B48-43F7-AA9F-2234D18DF282}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DailySync", "DailySync\DailySync.csproj", "{4A1CF175-8B48-43F7-AA9F-2234D18DF282}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -17,8 +17,21 @@ namespace VerManagerLibrary
     public static class VMLCoordinator
     {
         public static  Dictionary<string, DocumentClass> InSessionDocumentDictionary { get; } = CollectDocuments(CatiaLauncher());
-        public static Dictionary<string, List<string>> ParentsDictionary { get; } = CreateParentDictionary(InSessionDocumentDictionary);
+        private static Dictionary<string, List<string>> ParentsDictionary { get; } = CreateParentDictionary(InSessionDocumentDictionary);
         public static Dictionary<string, DocumentClass> LibraryDocumentDictionary { get; } = CollectLibraryDocuments(ParentsDictionary);
+        public static List<string> oldAllFiles { get; } = ReadOldAllFilesList();
+
+        private static List<string> ReadOldAllFilesList()
+        {
+            List<string> completeFileList = new List<string>();
+            if (File.Exists(@"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON"))
+            {
+                string oldAllFilesPath = @"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON";
+                string jsonString = System.IO.File.ReadAllText(oldAllFilesPath);
+                completeFileList = JsonSerializer.Deserialize<List<string>>(jsonString);
+            }
+            return completeFileList;
+        }
 
         #region CollectCatiaDocuments region
 

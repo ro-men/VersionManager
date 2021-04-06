@@ -18,7 +18,21 @@ namespace VerManagerLibrary
     {
         public static  Dictionary<string, DocumentClass> InSessionDocumentDictionary { get; } = CollectDocuments(CatiaLauncher());
         public static Dictionary<string, List<string>> ParentsDictionary { get; } = CreateParentDictionary(InSessionDocumentDictionary);
+        public static Dictionary<string, List<string>> ChildrenDictionary { get; } = CreateChildrenDictionary(InSessionDocumentDictionary);
         public static Dictionary<string, DocumentClass> LibraryDocumentDictionary { get; } = CollectLibraryDocuments(ParentsDictionary);
+        public static List<string> oldAllFiles { get; } = ReadOldAllFilesList();
+
+        private static List<string> ReadOldAllFilesList()
+        {
+            List<string> completeFileList = new List<string>();
+            if (System.IO.File.Exists(@"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON"))
+            {
+                string oldAllFilesPath = @"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON";
+                string jsonString = System.IO.File.ReadAllText(oldAllFilesPath);
+                completeFileList = JsonSerializer.Deserialize<List<string>>(jsonString);
+            }
+            return completeFileList;
+        }
 
         #region CollectCatiaDocuments region
 
@@ -115,7 +129,6 @@ namespace VerManagerLibrary
             Dictionary<string, DocumentClass> libraryDocuments = new Dictionary<string, DocumentClass>();
                 string libraryPath = @"D:\DATABASE\Library.JSON";
                 string jsonString = System.IO.File.ReadAllText(libraryPath);
-                //libraryDocuments = costumeConverter.DeserializeData(jsonString);
                 libraryDocuments = JsonSerializer.Deserialize<Dictionary<string, DocumentClass>>(jsonString);
                 foreach (KeyValuePair<string,List<string>> keyValuePair in parentsDictionary)
                 {
@@ -141,6 +154,7 @@ namespace VerManagerLibrary
                 string jsonString = System.IO.File.ReadAllText(libraryPath);
                 parentDictionary = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(jsonString) ?? new Dictionary<string, List<string>>();
                 int removedItems = 0;
+            //brisanje nepostojećih file-ova iz "roditelji" imenika
             foreach (KeyValuePair<string, List<string>> keyValue in parentDictionary)
             {
                 if (!System.IO.File.Exists(keyValue.Key))
@@ -151,24 +165,66 @@ namespace VerManagerLibrary
             }
             Console.WriteLine("Removed items: " + removedItems);
 
+
+            //update "roditelji" imenika s obzirom na učitane dokumente
             foreach (KeyValuePair<string,DocumentClass> keyValue in oDict)
+            {
+                if (keyValue.Value.Used)
+                {
+                    List<string> parentsList = keyValue.Value.ParentsDict.Keys.ToList();
+                    if (parentDictionary.ContainsKey(keyValue.Key))
+                     {
+                        parentDictionary[keyValue.Key] = parentsList;
+                    }
+                    else
+                    {
+                        parentDictionary.Add(keyValue.Key, parentsList);
+                    }
+                }
+            }
+            //zapis novog imenika
+            jsonString = JsonSerializer.Serialize(parentDictionary);
+            System.IO.File.WriteAllText(libraryPath, jsonString);
+            return parentDictionary;
+        }
+        private static Dictionary<string, List<string>> CreateChildrenDictionary(Dictionary<string, DocumentClass> oDict)
+        {
+            Dictionary<string, List<string>> childrenDictionary = new Dictionary<string, List<string>>();
+            string libraryPath = @"D:\DATABASE\Parents.JSON";
+            string jsonString = System.IO.File.ReadAllText(libraryPath);
+            childrenDictionary = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(jsonString) ?? new Dictionary<string, List<string>>();
+            int removedItems = 0;
+            //brisanje nepostojećih file-ova iz "djeca" imenika
+            foreach (KeyValuePair<string, List<string>> keyValue in childrenDictionary)
+            {
+                if (!System.IO.File.Exists(keyValue.Key))
+                {
+                    childrenDictionary.Remove(keyValue.Key);
+                    removedItems += 1;
+                }
+            }
+            Console.WriteLine("Removed items: " + removedItems);
+
+            //update "djeca" imenika s obzirom na učitane dokumente
+            foreach (KeyValuePair<string, DocumentClass> keyValue in oDict)
             {
                 if (keyValue.Value.HasChindren)
                 {
                     List<string> childrenList = keyValue.Value.ChildrenDict.Keys.ToList();
-                    if (parentDictionary.ContainsKey(keyValue.Key))
-                        {
-                        parentDictionary[keyValue.Key] = childrenList;
+                    if (childrenDictionary.ContainsKey(keyValue.Key))
+                    {
+                        childrenDictionary[keyValue.Key] = childrenList;
                     }
                     else
                     {
-                        parentDictionary.Add(keyValue.Key, childrenList);
+                        childrenDictionary.Add(keyValue.Key, childrenList);
                     }
                 }
             }
-            jsonString = JsonSerializer.Serialize(parentDictionary);
+            //zapis novog imenika
+            jsonString = JsonSerializer.Serialize(childrenDictionary);
             System.IO.File.WriteAllText(libraryPath, jsonString);
-            return parentDictionary;
+            return childrenDictionary;
         }
     }
 }

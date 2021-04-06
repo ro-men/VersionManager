@@ -39,7 +39,7 @@ namespace VerManagerLibrary
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonReadAllDirectory = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView_Stablo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -136,21 +136,22 @@ namespace VerManagerLibrary
             this.columnHeader2.Text = "Comment";
             this.columnHeader2.Width = 200;
             // 
-            // button1
+            // buttonReadAllDirectory
             // 
-            this.button1.Location = new System.Drawing.Point(302, 619);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 25);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.buttonReadAllDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonReadAllDirectory.Location = new System.Drawing.Point(302, 619);
+            this.buttonReadAllDirectory.Name = "buttonReadAllDirectory";
+            this.buttonReadAllDirectory.Size = new System.Drawing.Size(114, 25);
+            this.buttonReadAllDirectory.TabIndex = 8;
+            this.buttonReadAllDirectory.Text = "ReadAllDirectory";
+            this.buttonReadAllDirectory.UseVisualStyleBackColor = true;
+            this.buttonReadAllDirectory.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // TabInSessionDocs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonReadAllDirectory);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.buttonNewError);
             this.Controls.Add(this.button_CostumizeColumns);
@@ -173,6 +174,6 @@ namespace VerManagerLibrary
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonReadAllDirectory;
     }
 }

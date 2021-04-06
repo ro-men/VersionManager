@@ -19,38 +19,22 @@ namespace HelloWorld
         public Form1()
         {
             InitializeComponent();
-            //String jsonString = JsonSerializer.Serialize(oldAllFiles);
-            //System.IO.File.WriteAllText(@"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON", jsonString);
-            if (newAllFiles.SequenceEqual(oldAllFiles))
+
+            if (newAllFiles.SequenceEqual(VMLCoordinator.oldAllFiles))
             {
                 textBox1.Text = "Iste";
             }
             else
             {
-                List<string> newItems = newAllFiles.Except(oldAllFiles).ToList();
-                List<string> deletedItems = oldAllFiles.Except(newAllFiles).ToList();
+                List<string> newItems = newAllFiles.Except(VMLCoordinator.oldAllFiles).ToList();
+                List<string> deletedItems = VMLCoordinator.oldAllFiles.Except(newAllFiles).ToList();
                 textBox1.Text = "Nisu iste  " + newItems.Count + "  " + deletedItems.Count;
             }
-            
+
         }
 
         public static List<string> newAllFiles = CreateNewAllFilesList();
-        public static List<string> oldAllFiles = ReadOldAllFilesList();
         public static List<string> megaTree = ReadMegaTree();
-
-
-        private static List<string> ReadOldAllFilesList()
-        {
-            List<string> completeFileList = new List<string>();
-            if (File.Exists(@"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON"))
-            {
-                string oldAllFilesPath = @"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON";
-                string jsonString = System.IO.File.ReadAllText(oldAllFilesPath);
-                completeFileList = JsonSerializer.Deserialize<List<string>>(jsonString);
-            }
-            return completeFileList;
-        }
-
 
         private static List<string> ReadMegaTree()
         {
