@@ -111,7 +111,7 @@
       <DependentUpon>VersionManagerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VMLCoordinator.cs" />
+    <Compile Include="Models\VMLCoordinator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\AdNewErrorForm.resx">

@@ -16,13 +16,14 @@ namespace VerManagerLibrary
         public TabStoredLibrary()
         {
             InitializeComponent();
-            SetupTree();
         }
-
-        //protected virtual void InitializeTab() 
-        //{
-        //    SetupTree();
-        //}
+        private void TabStoredLibrary_Load(object sender, EventArgs e)
+        {
+            if (!this.DesignMode)
+            {
+                SetupTree();
+            }
+        }
         #region Treelistview delegatori
         //TreeListView osnovni delegatori:
         // 1. CanExpandGetter - Info da li cvor ima childrene?
@@ -64,8 +65,8 @@ namespace VerManagerLibrary
                     roots.Add(di);
             }
             this.treeListView_Stablo.Roots = roots;
-            #endregion
         }
+        #endregion
     }
 
 }

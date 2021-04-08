@@ -61,9 +61,9 @@ namespace VerManagerLibrary
             this.tabInSessionDocs1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabInSessionDocs1.Location = new System.Drawing.Point(0, 0);
+            this.tabInSessionDocs1.Location = new System.Drawing.Point(3, 3);
             this.tabInSessionDocs1.Name = "tabInSessionDocs1";
-            this.tabInSessionDocs1.Size = new System.Drawing.Size(1511, 759);
+            this.tabInSessionDocs1.Size = new System.Drawing.Size(1501, 756);
             this.tabInSessionDocs1.TabIndex = 0;
             // 
             // imageList1
@@ -99,9 +99,12 @@ namespace VerManagerLibrary
             // 
             // tabStoredLibrary1
             // 
-            this.tabStoredLibrary1.Location = new System.Drawing.Point(3, 3);
+            this.tabStoredLibrary1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabStoredLibrary1.Location = new System.Drawing.Point(6, 6);
             this.tabStoredLibrary1.Name = "tabStoredLibrary1";
-            this.tabStoredLibrary1.Size = new System.Drawing.Size(1498, 750);
+            this.tabStoredLibrary1.Size = new System.Drawing.Size(1495, 757);
             this.tabStoredLibrary1.TabIndex = 0;
             // 
             // tabPage_Errors
@@ -142,9 +145,9 @@ namespace VerManagerLibrary
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage_Library;
-        private TabInSessionDocs tabInSessionDocs1;
-        private TabStoredLibrary tabStoredLibrary1;
         private System.Windows.Forms.TabPage tabPage_Errors;
         private TabErrorList tabErrorList1;
+        private TabInSessionDocs tabInSessionDocs1;
+        private TabStoredLibrary tabStoredLibrary1;
     }
 }

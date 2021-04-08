@@ -19,7 +19,7 @@ namespace VerManagerLibrary
         public TabInSessionDocs()
         {
             InitializeComponent();
-            SetupTree();
+
         }
 
         #region Treelistview delegatori
@@ -64,6 +64,14 @@ namespace VerManagerLibrary
             this.treeListView_Stablo.Roots = roots;
         }
 
+        private void TabInSessionDocs_Load(object sender, EventArgs e)
+        {
+            if (!this.DesignMode)
+            {
+                SetupTree();
+            }
+        }
+
         #endregion
 
 
@@ -77,7 +85,8 @@ namespace VerManagerLibrary
         private void treeListView_Stablo_SelectionChanged(object sender, EventArgs e)
         {
             this.listView1.Items.Clear();
-            if (this.treeListView_Stablo.SelectedItem != null) {
+            if (this.treeListView_Stablo.SelectedItem != null)
+            {
                 string key = treeListView_Stablo.SelectedItem.SubItems[1].Text;
                 selectedDocumentItem = getDocumentItemByKey(key);
                 //Dictionary<string, ErrorClass> errorDict = documentInstance.ErrorsDict;
@@ -92,7 +101,7 @@ namespace VerManagerLibrary
             }
         }
 
-        public DocumentClass getDocumentItemByKey(string key) 
+        public DocumentClass getDocumentItemByKey(string key)
         {
             Dictionary<string, DocumentClass> documentDictionary = VMLCoordinator.InSessionDocumentDictionary;
             return documentDictionary[key];
@@ -106,14 +115,11 @@ namespace VerManagerLibrary
             newForm.Visible = true;
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void saveLibrary(object sender, EventArgs e)
         {
-            string jsonString = JsonSerializer.Serialize(VMLCoordinator.ParentsDictionary);
-            string path = @"D:\DATABASE\Parents.JSON";
-            File.WriteAllText(path, jsonString);
             Dictionary<string, DocumentClass> allItems = new Dictionary<string, DocumentClass>();
             allItems = allItems.Concat(VMLCoordinator.LibraryDocumentDictionary).ToDictionary(x => x.Key, x => x.Value);
-            foreach(string key in allItems.Keys.ToList())
+            foreach (string key in allItems.Keys.ToList())
             {
                 if (VMLCoordinator.InSessionDocumentDictionary.Keys.Contains(key))
                 {
@@ -121,8 +127,8 @@ namespace VerManagerLibrary
                 }
             }
             allItems = allItems.Concat(VMLCoordinator.InSessionDocumentDictionary).ToDictionary(x => x.Key, x => x.Value);
-            jsonString = JsonSerializer.Serialize(allItems);
-            path = @"D:\DATABASE\Library.JSON";
+            string jsonString = JsonSerializer.Serialize(allItems);
+            string path = @"D:\DATABASE\Library.JSON";
             File.WriteAllText(path, jsonString);
         }
         #endregion

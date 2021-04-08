@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using INFITF;
+using System.IO;
 
 
 namespace VerManagerLibrary
@@ -14,8 +15,7 @@ namespace VerManagerLibrary
         public DocumentClass(String fullName)
         {
             this.FullName = fullName;
-            string[] Name = FullName.Split('\\');
-            this.PartName = Name[Name.Length - 1];
+            this.PartName = Path.GetFileName(fullName);
         }
         public Dictionary<string, DocumentClass> ChildrenDict = new Dictionary<string, DocumentClass>();
         public Dictionary<string, DocumentClass> ParentsDict = new Dictionary<string, DocumentClass>();

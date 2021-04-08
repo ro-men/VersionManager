@@ -40,6 +40,7 @@ namespace VerManagerLibrary
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonReadAllDirectory = new System.Windows.Forms.Button();
+            this.SaveAllLibrary = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView_Stablo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +69,6 @@ namespace VerManagerLibrary
             this.treeListView_Stablo.UseCompatibleStateImageBehavior = false;
             this.treeListView_Stablo.View = System.Windows.Forms.View.Details;
             this.treeListView_Stablo.VirtualMode = true;
-            this.treeListView_Stablo.SelectionChanged += new System.EventHandler(this.treeListView_Stablo_SelectionChanged);
             // 
             // clmn_PartName
             // 
@@ -99,7 +99,6 @@ namespace VerManagerLibrary
             this.button_CostumizeColumns.TabIndex = 5;
             this.button_CostumizeColumns.Text = "CostumizeColumns";
             this.button_CostumizeColumns.UseVisualStyleBackColor = true;
-            this.button_CostumizeColumns.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonNewError
             // 
@@ -110,7 +109,6 @@ namespace VerManagerLibrary
             this.buttonNewError.TabIndex = 6;
             this.buttonNewError.Text = "NewError";
             this.buttonNewError.UseVisualStyleBackColor = true;
-            this.buttonNewError.Click += new System.EventHandler(this.buttonNewError_Click);
             // 
             // listView1
             // 
@@ -145,12 +143,23 @@ namespace VerManagerLibrary
             this.buttonReadAllDirectory.TabIndex = 8;
             this.buttonReadAllDirectory.Text = "ReadAllDirectory";
             this.buttonReadAllDirectory.UseVisualStyleBackColor = true;
-            this.buttonReadAllDirectory.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // SaveAllLibrary
+            // 
+            this.SaveAllLibrary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SaveAllLibrary.Location = new System.Drawing.Point(477, 615);
+            this.SaveAllLibrary.Name = "SaveAllLibrary";
+            this.SaveAllLibrary.Size = new System.Drawing.Size(84, 29);
+            this.SaveAllLibrary.TabIndex = 9;
+            this.SaveAllLibrary.Text = "SaveAllLibrary";
+            this.SaveAllLibrary.UseVisualStyleBackColor = true;
+            this.SaveAllLibrary.Click += new System.EventHandler(this.saveLibrary);
             // 
             // TabInSessionDocs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.SaveAllLibrary);
             this.Controls.Add(this.buttonReadAllDirectory);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.buttonNewError);
@@ -158,6 +167,7 @@ namespace VerManagerLibrary
             this.Controls.Add(this.treeListView_Stablo);
             this.Name = "TabInSessionDocs";
             this.Size = new System.Drawing.Size(1297, 699);
+            this.Load += new System.EventHandler(this.TabInSessionDocs_Load);
             ((System.ComponentModel.ISupportInitialize)(this.treeListView_Stablo)).EndInit();
             this.ResumeLayout(false);
 
@@ -175,5 +185,6 @@ namespace VerManagerLibrary
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Button buttonReadAllDirectory;
+        private System.Windows.Forms.Button SaveAllLibrary;
     }
 }

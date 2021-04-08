@@ -87,6 +87,7 @@ namespace VerManagerLibrary
             this.Controls.Add(this.treeListView_Stablo);
             this.Name = "TabStoredLibrary";
             this.Size = new System.Drawing.Size(1544, 669);
+            this.Load += new System.EventHandler(this.TabStoredLibrary_Load);
             ((System.ComponentModel.ISupportInitialize)(this.treeListView_Stablo)).EndInit();
             this.ResumeLayout(false);
 
