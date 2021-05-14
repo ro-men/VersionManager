@@ -55,13 +55,12 @@ namespace VerManagerLibrary
 
             // Definicija osnovnih cvorova
             ArrayList roots = new ArrayList();
-
-            foreach (DocumentClass di in VMLCoordinator.InSessionDocumentDictionary.Values)
-            {
-                if (!di.Used)
-                    roots.Add(di);
-            }
-            this.treeListView_Stablo.Roots = roots;
+                foreach (DocumentClass di in VMLCoordinator.InSessionDocumentDictionary.Values)
+                {
+                    if (!di.Used)
+                        roots.Add(di);
+                }
+                this.treeListView_Stablo.Roots = roots;
         }
 
         private void TabInSessionDocs_Load(object sender, EventArgs e)
@@ -117,18 +116,24 @@ namespace VerManagerLibrary
 
         private void saveLibrary(object sender, EventArgs e)
         {
-            Dictionary<string, DocumentClass> allItems = new Dictionary<string, DocumentClass>();
-            allItems = allItems.Concat(VMLCoordinator.LibraryDocumentDictionary).ToDictionary(x => x.Key, x => x.Value);
-            foreach (string key in allItems.Keys.ToList())
-            {
-                if (VMLCoordinator.InSessionDocumentDictionary.Keys.Contains(key))
-                {
-                    allItems.Remove(key);
-                }
-            }
-            allItems = allItems.Concat(VMLCoordinator.InSessionDocumentDictionary).ToDictionary(x => x.Key, x => x.Value);
+            //Dictionary<string, DocumentClass> allItems = new Dictionary<string, DocumentClass>();
+            //allItems = allItems.Concat(VMLCoordinator.LibraryDocumentDictionary).ToDictionary(x => x.Key, x => x.Value);
+            //foreach (string key in allItems.Keys.ToList())
+            //{
+            //    if (VMLCoordinator.InSessionDocumentDictionary.Keys.Contains(key))
+            //    {
+            //        allItems.Remove(key);
+            //    }
+            //}
+            //allItems = allItems.Concat(VMLCoordinator.InSessionDocumentDictionary).ToDictionary(x => x.Key, x => x.Value);
+            //string jsonString = JsonSerializer.Serialize(allItems);
+            //string path = @"D:\DATABASE\Library.JSON";
+            //File.WriteAllText(path, jsonString);
+
+
+            Dictionary<string, DocumentClass> allItems = VMLCoordinator.LibraryDocumentDictionary;
             string jsonString = JsonSerializer.Serialize(allItems);
-            string path = @"D:\DATABASE\Library.JSON";
+            string path = @"D:\DATABASE\DocumentLibrary.JSON";
             File.WriteAllText(path, jsonString);
         }
         #endregion

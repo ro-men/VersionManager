@@ -12,14 +12,15 @@ namespace VerManagerLibrary
 {
     public class DocumentClass
     {
-        public DocumentClass(String fullName)
+        public DocumentClass()
         {
-            this.FullName = fullName;
-            this.PartName = Path.GetFileName(fullName);
+
         }
         public Dictionary<string, DocumentClass> ChildrenDict = new Dictionary<string, DocumentClass>();
         public Dictionary<string, DocumentClass> ParentsDict = new Dictionary<string, DocumentClass>();
+        private List<string> parents = new List<string>();
         public Dictionary<string, ErrorClass> ErrorsDict = new Dictionary<string, ErrorClass>();
+
         public String Comment { get 
             {
                 string comment = "";
@@ -33,9 +34,13 @@ namespace VerManagerLibrary
         }
         public Boolean Used { get { return this.ParentsDict.Count != 0; } }
         public Boolean HasChindren { get { return this.ChildrenDict.Count != 0; } }
-        public String PartName { get; }
-        public String FullName { get; }
+        public String PartName { get {return  Path.GetFileName(this.FullName); } }
+        public String FullName { get; set; }
            
+        private void SyncSiblings()
+        {
+
+        }
         
         public void AdChild(DocumentClass documentClassInstance)
         {

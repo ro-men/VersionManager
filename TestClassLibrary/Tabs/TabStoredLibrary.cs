@@ -21,7 +21,8 @@ namespace VerManagerLibrary
         {
             if (!this.DesignMode)
             {
-                SetupTree();
+                SetupTree(VMLCoordinator.LibraryDocumentDictionary);
+                UpdateTree();
             }
         }
         #region Treelistview delegatori
@@ -29,9 +30,8 @@ namespace VerManagerLibrary
         // 1. CanExpandGetter - Info da li cvor ima childrene?
         // 2. ChildrenGetter - children collection
 
-        private void SetupTree()
+        private void SetupTree(Dictionary<string, DocumentClass> documentDictionary)
         {
-            Dictionary<string, DocumentClass> documentDictionary = VMLCoordinator.LibraryDocumentDictionary;
             treeListView_Stablo.CanExpandGetter = delegate (object x)
             {
                 DocumentClass inst = (DocumentClass)x;
@@ -65,8 +65,15 @@ namespace VerManagerLibrary
                     roots.Add(di);
             }
             this.treeListView_Stablo.Roots = roots;
+
         }
         #endregion
+        private async void UpdateTree()
+        {
+            Dictionary<string, DocumentClass> documentDictionary = await VMLCoordinator.InitialDictionariesUpdate();
+            //this.treeListView_Stablo.Clear();
+            //SetupTree(documentDictionary);
+        }
     }
 
 }
