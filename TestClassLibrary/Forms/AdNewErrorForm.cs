@@ -19,7 +19,7 @@ namespace VerManagerLibrary
 
         private void FormAddNewError_Load(object sender, EventArgs e)
         {
-            ErrorClass errorClass = new ErrorClass("Ad Comment");
+            ErrorClass errorClass = new ErrorClass();
             //DocumentClass coreDocument = TabInSessionDocs.selectedDocumentItem;
             //textBoxSelectedItem.Text = coreDocument.FullName;
             //textBoxErrorID.Text = errorClass.ErrorID;

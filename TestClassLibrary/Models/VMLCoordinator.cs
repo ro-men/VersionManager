@@ -17,22 +17,11 @@ namespace VerManagerLibrary
 {
     public static class VMLCoordinator
     {
-        public static Dictionary<string, DocumentClass> InSessionDocumentDictionary { get; } = CollectDocuments(CatiaLauncher());
-        public static Dictionary<string, List<string>> ParentsDictionary { get; } = CreateInitialParentDictionary(InSessionDocumentDictionary);
-        public static Dictionary<string, DocumentClass> LibraryDocumentDictionary { get; set; } = CollectLibraryDocuments(ParentsDictionary);
-        public static List<string> oldAllFiles { get; } = ReadOldAllFilesList();
-
-        private static List<string> ReadOldAllFilesList()
-        {
-            List<string> completeFileList = new List<string>();
-            if (System.IO.File.Exists(@"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON"))
-            {
-                string oldAllFilesPath = @"C:\Users\jagarinecr\Desktop\SyncTest\oldAllFiles.JSON";
-                string jsonString = System.IO.File.ReadAllText(oldAllFilesPath);
-                completeFileList = JsonSerializer.Deserialize<List<string>>(jsonString);
-            }
-            return completeFileList;
-        }
+        public static Dictionary<string, DocumentClass> InSessionDocumentDictionary { get; set; } = CollectDocuments(CatiaLauncher());
+        public static Dictionary<string, DocumentClass> LibraryDocumentDictionary { get; set; } = CollectLibraryDocuments();
+        private static Dictionary<string, DocumentClassRAW> disassembledDocumentClasses = new Dictionary<string, DocumentClassRAW>();
+        public static List<string> dataBaseMissingKeys;
+        public static List<string> deletedFilesKeys;
 
         #region CollectCatiaDocuments region
 
@@ -56,37 +45,81 @@ namespace VerManagerLibrary
 
         //Za svaki dokument u radnoj memoriji CATIA-e program kreira costum made "ClassDocument" objekt sa odgovarajućim atributima
 
-        private static Dictionary<string, DocumentClass> CollectDocuments(INFITF.Application App)
+        public static void UpdateLibrary(List<string> pathList) {
+            INFITF.Application app = CatiaLauncher();
+            if (app.Documents.Count < 2) {
+                pathList.Where(path => !LibraryDocumentDictionary.ContainsKey(path)).ToList().ForEach(path =>
+                {
+                    Document doc = app.Documents.Read(path);
+                    InSessionDocumentDictionary = CollectDocuments(app);
+                    foreach (string key in InSessionDocumentDictionary.Keys.ToList())
+                    {
+                        if (!LibraryDocumentDictionary.ContainsKey(key)) {
+                            LibraryDocumentDictionary.Add(key, InSessionDocumentDictionary[key]);
+                        }
+                        else {
+                            LibraryDocumentDictionary[key].ChildrenDict.Keys.ToList().Where(x => !InSessionDocumentDictionary[key].ChildrenDict.ContainsKey(x)).ToList().ForEach(kk => 
+                            { 
+                                LibraryDocumentDictionary[key].ChildrenDict.Remove(kk);
+                                LibraryDocumentDictionary[key].DocumentClassModified = true;
+                            });
+                            InSessionDocumentDictionary[key].ChildrenDict.Keys.ToList().Where(x => !LibraryDocumentDictionary[key].ChildrenDict.ContainsKey(x)).ToList().ForEach(kk => 
+                            {
+                                LibraryDocumentDictionary[key].ChildrenDict.Add(kk, InSessionDocumentDictionary[kk]);
+                                LibraryDocumentDictionary[key].DocumentClassModified = true;
+                            });
+                            InSessionDocumentDictionary[key].ParentsDict.Keys.ToList().Where(x => !LibraryDocumentDictionary[key].ParentsDict.ContainsKey(x)).ToList().ForEach(kk =>
+                            {
+                                LibraryDocumentDictionary[key].ParentsDict.Add(kk, InSessionDocumentDictionary[kk]);
+                                LibraryDocumentDictionary[key].DocumentClassModified = true;
+                            });
+                        }
+                    };
+                    doc.Close();
+                }
+                );
+                StoreDocumentClassesDict(LibraryDocumentDictionary);
+            }
+        }
+
+        public static Dictionary<string, DocumentClass> CollectDocuments(INFITF.Application App)
         {
             Console.WriteLine("CollectDocuments  ->  Start");
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
 
             Dictionary<string, DocumentClass> CatiaDocuments = new Dictionary<string, DocumentClass>();
+            Regex reSearchPattern = new Regex(@"CATPart|CATProduct", RegexOptions.IgnoreCase);
+
             foreach (Document doc in App.Documents)
             {
-                DocumentClass clsDoc;
-                if (!CatiaDocuments.ContainsKey(doc.FullName))
+                Match match = reSearchPattern.Match(doc.FullName.Split('.').Last());
+                if (match.Success)
                 {
-                    clsDoc = new DocumentClass();
-                    clsDoc.FullName = doc.FullName;
-                    CatiaDocuments.Add(doc.FullName, clsDoc);
-                }
-                else
-                {
-                    clsDoc = CatiaDocuments[doc.FullName];
-                }
-
-                if (doc.FullName.IndexOf(".CATProduct") != -1)
-                {
-                    ProductDocument oProdDoc = (ProductDocument)doc;
-                    Product oProd = oProdDoc.Product;
-                    if (oProd.Products.Count != 0)
+                    DocumentClass clsDoc;
+                    if (!CatiaDocuments.ContainsKey(doc.FullName))
                     {
-                        CollectChildren(oProd, clsDoc, CatiaDocuments);
+                        clsDoc = new DocumentClass();
+                        clsDoc.DocumentClassModified = true;
+                        clsDoc.FullName = doc.FullName;
+                        CatiaDocuments.Add(doc.FullName, clsDoc);
+                    }
+                    else
+                    {
+                        clsDoc = CatiaDocuments[doc.FullName];
+                    }
+
+                    if (doc.FullName.IndexOf(".CATProduct") != -1)
+                    {
+                        ProductDocument oProdDoc = (ProductDocument)doc;
+                        Product oProd = oProdDoc.Product;
+                        if (oProd.Products.Count != 0)
+                        {
+                            CollectChildren(oProd, clsDoc, CatiaDocuments);
+                        }
                     }
                 }
-             }
+            }
             //Za odgovarajuće komponente unutar Producta, program kreira "classDocument objekt" te ga stavlja u dictionary od roditeljskog objekta u funkciju "Child"
             void CollectChildren(Product oProd, DocumentClass clsDoc, Dictionary<string,DocumentClass> DocumentDictionary)
             {
@@ -105,6 +138,7 @@ namespace VerManagerLibrary
                         else
                         {
                             subclsDoc = new DocumentClass();
+                            subclsDoc.DocumentClassModified = true;
                             subclsDoc.FullName = subDoc.FullName;
                             DocumentDictionary.Add(subDoc.FullName, subclsDoc);
                         }
@@ -129,70 +163,56 @@ namespace VerManagerLibrary
 
         #region ReadDocumentLibraryDictionary
         
-        private static Dictionary<string, DocumentClass> CollectLibraryDocuments(Dictionary<string, List<string>> parentsDictionary)
+        private static Dictionary<string, DocumentClass> CollectLibraryDocuments()
         {
-                Dictionary<string, DocumentClass> libraryDocuments = new Dictionary<string, DocumentClass>();
-                string libraryPath = @"D:\DATABASE\Library.JSON";
-                string jsonString = System.IO.File.ReadAllText(libraryPath);
-                libraryDocuments = JsonSerializer.Deserialize<Dictionary<string, DocumentClass>>(jsonString);
-                foreach (KeyValuePair<string,List<string>> keyValuePair in parentsDictionary)
-                {
-                if (libraryDocuments.Keys.Contains(keyValuePair.Key))
-                    {
-                        foreach (string key in keyValuePair.Value)
-                        {
-                            libraryDocuments[keyValuePair.Key].AdParent(libraryDocuments[key]);
-                            libraryDocuments[key].AdChild(libraryDocuments[keyValuePair.Key]);
-                        }
-                    }
-                }
+            Dictionary<string, DocumentClass> libraryDocuments = new Dictionary<string, DocumentClass>();
+            Dictionary<string, DocumentClassRAW> disassembledDocumentClasses = new Dictionary<string, DocumentClassRAW>();
+            string libraryPath = @"D:\DATABASE\TestDict.JSON";
+            string jsonString = System.IO.File.ReadAllText(libraryPath);
+            disassembledDocumentClasses = JsonSerializer.Deserialize<Dictionary<string, DocumentClassRAW>>(jsonString);
+            foreach (KeyValuePair<string, DocumentClassRAW> keyValue in disassembledDocumentClasses) {
+                DocumentClass documentClass = new DocumentClass();
+                documentClass.DocumentClassModified = false;
+                documentClass.FullName = keyValue.Key;
+                documentClass.DataBaseFileDate = keyValue.Value.libraryTime;
+                libraryDocuments.Add(keyValue.Key, documentClass);
+            }
+            foreach (KeyValuePair<string, DocumentClassRAW> keyValue in disassembledDocumentClasses)
+            {
+                keyValue.Value.Children.ForEach(i => libraryDocuments[keyValue.Key].AdChild(libraryDocuments[i]));
+                keyValue.Value.Parents.ForEach(i => libraryDocuments[keyValue.Key].AdParent(libraryDocuments[i]));
+            }
             return libraryDocuments;
         }
 
         #endregion
 
-        private static Dictionary<string, List<string>> CreateInitialParentDictionary(Dictionary<string,DocumentClass> oDict)
-        {
-            Dictionary<string, List<string>> parentDictionary = new Dictionary<string, List<string>>();
-            string libraryPath = @"D:\DATABASE\Parents.JSON";
-            string jsonString = System.IO.File.ReadAllText(libraryPath);
-            parentDictionary = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(jsonString) ?? new Dictionary<string, List<string>>();
-
-            foreach (KeyValuePair<string,DocumentClass> keyValue in oDict)
-            {
-                if (keyValue.Value.Used)
-                {
-                    List<string> parentsList = keyValue.Value.ParentsDict.Keys.ToList();
-                    if (parentDictionary.ContainsKey(keyValue.Key))
-                     {
-                        parentDictionary[keyValue.Key] = parentsList;
-                    }
-                    else
-                    {
-                        parentDictionary.Add(keyValue.Key, parentsList);
-                    }
-                }
-            }
-
-            return parentDictionary;
-        }
-
-        public static async Task<Dictionary<string,DocumentClass>> InitialDictionariesUpdate()
+        public static async Task<Dictionary<string, DocumentClass>> InitialDictionariesUpdate()
         {
             var watchRemoveNonExistend = new System.Diagnostics.Stopwatch();
             int removedItems = 0;
 
             watchRemoveNonExistend.Start();
 
-            string[] existingFiles = await ReadLiveFileList();
-            List<string> parents = VMLCoordinator.ParentsDictionary.Keys.ToList();
-            List<string> deletedFiles = parents.Except(existingFiles).ToList();
-            foreach (string item in deletedFiles)
+            string[] allRealTimeLibraryKeys = await ReadLiveFileList();
+            List<string> allDataBaseFileKeys = VMLCoordinator.LibraryDocumentDictionary.Keys.ToList();
+            deletedFilesKeys = allDataBaseFileKeys.Except(allRealTimeLibraryKeys).ToList();
+            dataBaseMissingKeys = allRealTimeLibraryKeys.Except(allDataBaseFileKeys).ToList();
+            foreach (string item in deletedFilesKeys)
             {
-                VMLCoordinator.ParentsDictionary.Remove(item);
+                DocumentClass documentClass = LibraryDocumentDictionary[item];
+                documentClass.ChildrenDict.Keys.ToList().Where(x => LibraryDocumentDictionary.ContainsKey(x)).ToList().ForEach(key => { 
+                    LibraryDocumentDictionary[key].ParentsDict.Remove(item);
+                    LibraryDocumentDictionary[key].DocumentClassModified = true;
+                });
+                documentClass.ParentsDict.Keys.ToList().Where(x => LibraryDocumentDictionary.ContainsKey(x)).ToList().ForEach(key =>
+                {
+                    LibraryDocumentDictionary[key].ChildrenDict.Remove(item);
+                    LibraryDocumentDictionary[key].DocumentClassModified = true;
+                });
+                LibraryDocumentDictionary.Remove(item);
                 removedItems += 1;
             }
-            VMLCoordinator.LibraryDocumentDictionary  = CollectLibraryDocuments(VMLCoordinator.ParentsDictionary);
             watchRemoveNonExistend.Stop();
             Console.WriteLine($"watchRemoveNonExistend  ->  Execution Time: {watchRemoveNonExistend.ElapsedMilliseconds} ms");
             return VMLCoordinator.LibraryDocumentDictionary;
@@ -204,7 +224,7 @@ namespace VerManagerLibrary
             await Task.Run(() =>
             {
                 watchEnumerateFilesFast.Start();
-                list = EnumerateFilesFast(@"K:\V2 RAZVOJ", @"\.CATPart|\.CATProduct", SearchOption.AllDirectories);
+                list = EnumerateFilesFast(@"K:\V2 TRANSFORMATOR\Knjiznica AD\02_Namoti\01_Namot_Sp2_00", @"\.CATPart|\.CATProduct", SearchOption.AllDirectories);
                 watchEnumerateFilesFast.Stop();
             });
             Console.WriteLine($"EnumerateFilesFast files count::  {list.Count}  -> time: {watchEnumerateFilesFast.ElapsedMilliseconds} ms");
@@ -232,6 +252,24 @@ namespace VerManagerLibrary
                             )
                     ).ToList();
             return files;
+        }
+
+        public static void StoreDocumentClassesDict(Dictionary<string, DocumentClass> oDict) 
+        {
+            var watchStore = new System.Diagnostics.Stopwatch();
+            watchStore.Start();
+            oDict.Keys.ToList().Where(key => oDict[key].DocumentClassModified).ToList().ForEach(x =>
+            {
+               DocumentClass documentClass = oDict[x];
+               documentClass.DataBaseFileDate = documentClass.ActualFileDate;
+               DocumentClassRAW documentClassRAW = new DocumentClassRAW();
+               documentClassRAW.FillDCR(documentClass);
+               disassembledDocumentClasses.Add(x, documentClassRAW);
+            });
+            String jsonString = JsonSerializer.Serialize(disassembledDocumentClasses);
+            System.IO.File.WriteAllText(@"D:\DATABASE\TestDict.JSON", jsonString);
+            watchStore.Stop();
+            Console.WriteLine($"watchStore  ->  Execution Time: {watchStore.ElapsedMilliseconds} ms");
         }
     }
 }

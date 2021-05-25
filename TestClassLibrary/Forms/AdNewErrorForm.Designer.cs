@@ -98,7 +98,7 @@ namespace VerManagerLibrary
             // groupBoxParentsNSiblings
             // 
             this.groupBoxParentsNSiblings.Controls.Add(this.fastDataListView1);
-            this.groupBoxParentsNSiblings.Location = new System.Drawing.Point(18, 74);
+            this.groupBoxParentsNSiblings.Location = new System.Drawing.Point(18, 108);
             this.groupBoxParentsNSiblings.Name = "groupBoxParentsNSiblings";
             this.groupBoxParentsNSiblings.Size = new System.Drawing.Size(1237, 275);
             this.groupBoxParentsNSiblings.TabIndex = 5;
@@ -138,7 +138,7 @@ namespace VerManagerLibrary
             // groupBoxSiblings
             // 
             this.groupBoxSiblings.Controls.Add(this.fastDataListView2);
-            this.groupBoxSiblings.Location = new System.Drawing.Point(15, 370);
+            this.groupBoxSiblings.Location = new System.Drawing.Point(15, 404);
             this.groupBoxSiblings.Name = "groupBoxSiblings";
             this.groupBoxSiblings.Size = new System.Drawing.Size(1237, 275);
             this.groupBoxSiblings.TabIndex = 6;
@@ -180,7 +180,7 @@ namespace VerManagerLibrary
             this.groupBoxLibrary.Controls.Add(this.textBoxFilter);
             this.groupBoxLibrary.Controls.Add(this.labelFilter);
             this.groupBoxLibrary.Controls.Add(this.fastDataListView3);
-            this.groupBoxLibrary.Location = new System.Drawing.Point(18, 675);
+            this.groupBoxLibrary.Location = new System.Drawing.Point(18, 709);
             this.groupBoxLibrary.Name = "groupBoxLibrary";
             this.groupBoxLibrary.Size = new System.Drawing.Size(1237, 275);
             this.groupBoxLibrary.TabIndex = 7;

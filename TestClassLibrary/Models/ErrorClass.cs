@@ -6,25 +6,26 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 
 namespace VerManagerLibrary
-{
+{   
     public class ErrorClass
     {
-        public string ErrorID { get
-            {
-                DateTime today = DateTime.Today;
-                Regex pattern = new Regex("[.:/ ]");
-                string IDValue = Environment.UserName + "_" + today.Date.ToString("MM_dd_yyyy") + "_" + errorIndex.ToString();
-                return IDValue;
-            }
-        }
+        public string ErrorID { get; set; }
         public string Comment { get; set; }
-        private int errorIndex = 1;
-        public ErrorClass (string comment)
+        public void CreateErrorID()
         {
-            this.Comment = comment;
+            DateTime today = DateTime.Today;
+            Regex pattern = new Regex("[.:/ ]");
+            string IDValue = Environment.UserName + "_" + today.Date.ToString("MM_dd_yyyy") + "_" + errorIndex.ToString();
+            ErrorID = IDValue;          
         }
 
-        public Dictionary<string, DocumentClass> FilesWithErrorDict = new Dictionary<string, DocumentClass>();
+        private static int errorIndex = 1;
 
+        public Dictionary<string, bool> CoreDocuments = new Dictionary<string, bool>(); //key -> DocumentClass_key; value -> STATUS: [True(Solved) // False(Unsolved)]
+                                                                                        //izravno odabrani dokumenti kod kreiranja nove "greške"
+        public Dictionary<string, bool> EditedDocuments = new Dictionary<string, bool>(); //key -> DocumentClass_key; value -> STATUS: [True(Solved) // False(Unsolved)]
+                                                                                          //dokumenti identične nomenklature ili tipa koji sadrže istu potrebu za promjenom
+        public Dictionary<string, bool> Siblings = new Dictionary<string, bool>(); //key -> DocumentClass_key; value -> STATUS: [True(Solved) // False(Unsolved)]
+                                                                                   //dokumenti koju su izravno povezani rordoslovnim stablom sa "EditedDocuments" te su kao takvi zastarjeli usljed potrebe za prommjenom
     }
 }

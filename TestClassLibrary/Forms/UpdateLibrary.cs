@@ -18,29 +18,26 @@ namespace VerManagerLibrary
         public UpdateLibrary()
         {
             InitializeComponent();
-            foreach (string item in allFiles)
-            {
-                ListViewItem lvItem = listView1.Items.Add(item);
-                lvItem.SubItems.Add(File.GetLastWriteTime(item).ToString());
-            }
-
-            String jsonString = JsonSerializer.Serialize(allFiles);
-            System.IO.File.WriteAllText(@"D:\DATABASE\allFiles.JSON", jsonString);
+            fillList();
+        }
+        private void fillList()
+        {
+            VMLCoordinator.dataBaseMissingKeys.ForEach(item => 
+            { 
+                FileInfo fileInfo     
+                listView_MissingDoc.Items.Add(item);
+            });
+            VMLCoordinator.deletedFilesKeys.ForEach(item => listView_DeletedDoc.Items.Add(item));
+        }
+        private void button_AutoUpdate_Click(object sender, EventArgs e)
+        {
+            VMLCoordinator.UpdateLibrary(VMLCoordinator.dataBaseMissingKeys);
+            this.Close();
         }
 
-        public static List<string> allFiles = CreateList();
-        private static List<string> CreateList()
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<string> libraryPath = new List<string> { @"K:\V2 RAZVOJ\Knjiznica AD", @"K:\V2 RAZVOJ\Knjiznica MD", @"K:\V2 TRANSFORMATOR\Osnovni Model V2" };
-            List<string> ext = new List<string> { ".catproduct", ".catpart" };
-            List<string> completeFileList = new List<string>();
-            foreach (string dir in libraryPath)
-            {
-                IEnumerable<string> myFiles = Directory.EnumerateFiles(dir, "*.*", SearchOption.AllDirectories)
-                    .Where(s => ext.Contains(Path.GetExtension(s).ToLower()));
-                completeFileList.AddRange(myFiles.ToList());
-            }
-            return completeFileList;
+
         }
     }
 }

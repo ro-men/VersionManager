@@ -81,6 +81,7 @@
     <Compile Include="Forms\AdNewErrorForm.Designer.cs">
       <DependentUpon>AdNewErrorForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocumentClassRAW.cs" />
     <Compile Include="Models\DocumentClass.cs" />
     <Compile Include="Models\ErrorClass.cs" />
     <Compile Include="Tabs\TabErrorList.cs">

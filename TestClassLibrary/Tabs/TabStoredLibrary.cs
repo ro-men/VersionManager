@@ -71,8 +71,15 @@ namespace VerManagerLibrary
         private async void UpdateTree()
         {
             Dictionary<string, DocumentClass> documentDictionary = await VMLCoordinator.InitialDictionariesUpdate();
-            //this.treeListView_Stablo.Clear();
-            //SetupTree(documentDictionary);
+            SetupTree(documentDictionary);
+            if (VMLCoordinator.deletedFilesKeys.Count() != 0) { MessageBox.Show("Number of deleted documents during LibraryUpdate: "+ VMLCoordinator.deletedFilesKeys.Count(), "Library update.", MessageBoxButtons.OK, MessageBoxIcon.Information); }
+            VMLCoordinator.StoreDocumentClassesDict(VMLCoordinator.LibraryDocumentDictionary);
+        }
+
+        private void button_UpdateLibrary_Click(object sender, EventArgs e)
+        {
+            UpdateLibrary updateLibrary = new UpdateLibrary();
+            updateLibrary.Show();
         }
     }
 

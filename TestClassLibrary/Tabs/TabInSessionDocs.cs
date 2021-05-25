@@ -19,7 +19,6 @@ namespace VerManagerLibrary
         public TabInSessionDocs()
         {
             InitializeComponent();
-
         }
 
         #region Treelistview delegatori
@@ -116,27 +115,12 @@ namespace VerManagerLibrary
 
         private void saveLibrary(object sender, EventArgs e)
         {
-            //Dictionary<string, DocumentClass> allItems = new Dictionary<string, DocumentClass>();
-            //allItems = allItems.Concat(VMLCoordinator.LibraryDocumentDictionary).ToDictionary(x => x.Key, x => x.Value);
-            //foreach (string key in allItems.Keys.ToList())
-            //{
-            //    if (VMLCoordinator.InSessionDocumentDictionary.Keys.Contains(key))
-            //    {
-            //        allItems.Remove(key);
-            //    }
-            //}
-            //allItems = allItems.Concat(VMLCoordinator.InSessionDocumentDictionary).ToDictionary(x => x.Key, x => x.Value);
+            //Dictionary<string, DocumentClass> allItems = VMLCoordinator.LibraryDocumentDictionary;
             //string jsonString = JsonSerializer.Serialize(allItems);
-            //string path = @"D:\DATABASE\Library.JSON";
+            //string path = @"D:\DATABASE\DocumentLibrary.JSON";
             //File.WriteAllText(path, jsonString);
-
-
-            Dictionary<string, DocumentClass> allItems = VMLCoordinator.LibraryDocumentDictionary;
-            string jsonString = JsonSerializer.Serialize(allItems);
-            string path = @"D:\DATABASE\DocumentLibrary.JSON";
-            File.WriteAllText(path, jsonString);
+            VMLCoordinator.StoreDocumentClassesDict(VMLCoordinator.InSessionDocumentDictionary);
         }
         #endregion
-
     }
 }
