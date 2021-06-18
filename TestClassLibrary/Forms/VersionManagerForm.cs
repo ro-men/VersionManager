@@ -23,7 +23,5 @@ namespace VerManagerLibrary
         {
             InitializeComponent();
         }
-
-
     }
 }

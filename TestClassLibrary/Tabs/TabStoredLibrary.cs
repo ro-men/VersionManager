@@ -21,6 +21,7 @@ namespace VerManagerLibrary
         {
             if (!this.DesignMode)
             {
+                SetupColumns();
                 SetupTree(VMLCoordinator.LibraryDocumentDictionary);
                 UpdateTree();
             }
@@ -43,7 +44,7 @@ namespace VerManagerLibrary
                 try
                 {
                     DocumentClass inst = (DocumentClass)x;
-                    return new ArrayList(inst.ChildrenDict.Values);
+                    return new ArrayList(inst.ChildrenDict.Values.ToArray());
                 }
                 catch (UnauthorizedAccessException ex)
                 {
@@ -80,6 +81,28 @@ namespace VerManagerLibrary
         {
             UpdateLibrary updateLibrary = new UpdateLibrary();
             updateLibrary.Show();
+        }
+        private void SetupColumns()
+        {
+            this.clmn_PartName.ImageGetter = delegate (object x)
+            {
+                if (((DocumentClass)x).RevisionDict.Count() == 0)
+                {
+                    return 0;
+                }
+                else
+                {
+                    if (((DocumentClass)x).RevisionDict.Values.Contains(0) | ((DocumentClass)x).RevisionDict.Values.Contains(2))
+                    {
+                        return 1;
+                    }
+                    else if (((DocumentClass)x).RevisionDict.Values.Contains(4))
+                    {
+                        return 2;
+                    }
+                    else { return 0;}
+                }
+            };
         }
     }
 

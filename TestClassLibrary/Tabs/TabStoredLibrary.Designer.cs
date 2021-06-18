@@ -30,9 +30,11 @@ namespace VerManagerLibrary
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabStoredLibrary));
             this.treeListView_Stablo = new BrightIdeasSoftware.TreeListView();
             this.clmn_PartName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_FullName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
             this.button_UpdateLibrary = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.treeListView_Stablo)).BeginInit();
             this.SuspendLayout();
@@ -41,6 +43,7 @@ namespace VerManagerLibrary
             // 
             this.treeListView_Stablo.AllColumns.Add(this.clmn_PartName);
             this.treeListView_Stablo.AllColumns.Add(this.clmn_FullName);
+            this.treeListView_Stablo.AlternateRowBackColor = System.Drawing.Color.FloralWhite;
             this.treeListView_Stablo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -49,13 +52,17 @@ namespace VerManagerLibrary
             this.clmn_PartName,
             this.clmn_FullName});
             this.treeListView_Stablo.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeListView_Stablo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.treeListView_Stablo.FullRowSelect = true;
             this.treeListView_Stablo.GridLines = true;
             this.treeListView_Stablo.HideSelection = false;
             this.treeListView_Stablo.Location = new System.Drawing.Point(3, 3);
             this.treeListView_Stablo.Name = "treeListView_Stablo";
             this.treeListView_Stablo.ShowGroups = false;
             this.treeListView_Stablo.Size = new System.Drawing.Size(1533, 658);
+            this.treeListView_Stablo.SmallImageList = this.imageListSmall;
             this.treeListView_Stablo.TabIndex = 0;
+            this.treeListView_Stablo.UseAlternatingBackColors = true;
             this.treeListView_Stablo.UseCompatibleStateImageBehavior = false;
             this.treeListView_Stablo.View = System.Windows.Forms.View.Details;
             this.treeListView_Stablo.VirtualMode = true;
@@ -68,9 +75,17 @@ namespace VerManagerLibrary
             // 
             // clmn_FullName
             // 
-            this.clmn_FullName.AspectName = "FullName";
+            this.clmn_FullName.AspectName = "Key";
             this.clmn_FullName.Text = "FullName";
             this.clmn_FullName.Width = 200;
+            // 
+            // imageListSmall
+            // 
+            this.imageListSmall.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListSmall.ImageStream")));
+            this.imageListSmall.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListSmall.Images.SetKeyName(0, "OK.png");
+            this.imageListSmall.Images.SetKeyName(1, "FALSE.png");
+            this.imageListSmall.Images.SetKeyName(2, "Warning.png");
             // 
             // button_UpdateLibrary
             // 
@@ -102,5 +117,6 @@ namespace VerManagerLibrary
         private BrightIdeasSoftware.OLVColumn clmn_PartName;
         private BrightIdeasSoftware.OLVColumn clmn_FullName;
         private System.Windows.Forms.Button button_UpdateLibrary;
+        private System.Windows.Forms.ImageList imageListSmall;
     }
 }

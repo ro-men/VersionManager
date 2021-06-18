@@ -50,6 +50,8 @@ namespace BrightIdeasSoftware
     /// <para>This is used by normal (non-virtual) ObjectListViews. Virtual lists use
     /// ModelObjectComparer</para>
     /// </remarks>
+    /// 
+
     public class ColumnComparer : IComparer, IComparer<OLVListItem>
     {
         /// <summary>
@@ -84,6 +86,7 @@ namespace BrightIdeasSoftware
         /// <param name="order">The ordering for column values</param>
         /// <param name="col2">The column whose values will be compared for secondary sorting</param>
         /// <param name="order2">The ordering for secondary column values</param>
+        /// 
         public ColumnComparer(OLVColumn col, SortOrder order, OLVColumn col2, SortOrder order2)
             : this(col, order)
         {

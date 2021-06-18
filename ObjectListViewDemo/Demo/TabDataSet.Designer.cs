@@ -51,6 +51,7 @@
             this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.salaryColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.salaryRenderer = new BrightIdeasSoftware.MultiImageRenderer();
             this.heightColumn = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.heightRenderer = new BrightIdeasSoftware.BarRenderer();
             this.olvColumn42 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -61,8 +62,8 @@
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
             this.checkBoxGroups = new System.Windows.Forms.CheckBox();
             this.checkBoxItemCounts = new System.Windows.Forms.CheckBox();
-            this.salaryRenderer = new BrightIdeasSoftware.MultiImageRenderer();
             this.groupBox13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -318,12 +319,12 @@
             this.olvData.GroupWithItemCountFormat = "{0} ({1} people)";
             this.olvData.GroupWithItemCountSingularFormat = "{0} (1 person)";
             this.olvData.HideSelection = false;
-            this.olvData.SelectedBackColor = System.Drawing.Color.Pink;
-            this.olvData.SelectedForeColor = System.Drawing.Color.MidnightBlue;
             this.olvData.LargeImageList = this.imageListLarge;
-            this.olvData.Location = new System.Drawing.Point(6, 19);
+            this.olvData.Location = new System.Drawing.Point(-7, 18);
             this.olvData.Name = "olvData";
             this.olvData.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
+            this.olvData.SelectedBackColor = System.Drawing.Color.Pink;
+            this.olvData.SelectedForeColor = System.Drawing.Color.MidnightBlue;
             this.olvData.ShowCommandMenuOnRightClick = true;
             this.olvData.ShowGroups = false;
             this.olvData.ShowImagesOnSubItems = true;
@@ -383,6 +384,13 @@
             this.salaryColumn.Text = "Salary";
             this.salaryColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.salaryColumn.Width = 95;
+            // 
+            // salaryRenderer
+            // 
+            this.salaryRenderer.ImageName = "star";
+            this.salaryRenderer.MaximumValue = 500000;
+            this.salaryRenderer.MaxNumberImages = 5;
+            this.salaryRenderer.MinimumValue = 10000;
             // 
             // heightColumn
             // 
@@ -504,13 +512,6 @@
             this.checkBoxItemCounts.UseVisualStyleBackColor = true;
             this.checkBoxItemCounts.CheckedChanged += new System.EventHandler(this.checkBoxItemCounts_CheckedChanged);
             // 
-            // salaryRenderer
-            // 
-            this.salaryRenderer.ImageName = "star";
-            this.salaryRenderer.MaximumValue = 500000;
-            this.salaryRenderer.MaxNumberImages = 5;
-            this.salaryRenderer.MinimumValue = 10000;
-            // 
             // TabDataSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -524,6 +525,7 @@
             this.groupBox13.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

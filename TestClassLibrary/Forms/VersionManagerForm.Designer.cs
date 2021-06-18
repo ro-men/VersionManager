@@ -37,7 +37,7 @@ namespace VerManagerLibrary
             this.tabPage_Library = new System.Windows.Forms.TabPage();
             this.tabStoredLibrary1 = new VerManagerLibrary.TabStoredLibrary();
             this.tabPage_Errors = new System.Windows.Forms.TabPage();
-            this.tabErrorList1 = new VerManagerLibrary.TabErrorList();
+            this.tabRevisionList1 = new VerManagerLibrary.TabRevisionLibrary();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             tabPage_InSession = new System.Windows.Forms.TabPage();
             tabPage_InSession.SuspendLayout();
@@ -111,7 +111,7 @@ namespace VerManagerLibrary
             // 
             // tabPage_Errors
             // 
-            this.tabPage_Errors.Controls.Add(this.tabErrorList1);
+            this.tabPage_Errors.Controls.Add(this.tabRevisionList1);
             this.tabPage_Errors.Location = new System.Drawing.Point(4, 22);
             this.tabPage_Errors.Name = "tabPage_Errors";
             this.tabPage_Errors.Padding = new System.Windows.Forms.Padding(3);
@@ -120,12 +120,15 @@ namespace VerManagerLibrary
             this.tabPage_Errors.Text = "Errors";
             this.tabPage_Errors.UseVisualStyleBackColor = true;
             // 
-            // tabErrorList1
+            // tabRevisionList1
             // 
-            this.tabErrorList1.Location = new System.Drawing.Point(3, 3);
-            this.tabErrorList1.Name = "tabErrorList1";
-            this.tabErrorList1.Size = new System.Drawing.Size(1501, 753);
-            this.tabErrorList1.TabIndex = 0;
+            this.tabRevisionList1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabRevisionList1.Location = new System.Drawing.Point(3, 3);
+            this.tabRevisionList1.Name = "tabRevisionList1";
+            this.tabRevisionList1.Size = new System.Drawing.Size(1501, 753);
+            this.tabRevisionList1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -158,7 +161,7 @@ namespace VerManagerLibrary
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage_Library;
         private System.Windows.Forms.TabPage tabPage_Errors;
-        private TabErrorList tabErrorList1;
+        private TabRevisionLibrary tabRevisionList1;
         private TabInSessionDocs tabInSessionDocs1;
         private TabStoredLibrary tabStoredLibrary1;
         private System.Windows.Forms.TabPage tabPage1;

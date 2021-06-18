@@ -292,7 +292,6 @@
             this.olvComplex.UseHyperlinks = true;
             this.olvComplex.UseSubItemCheckBoxes = true;
             this.olvComplex.View = System.Windows.Forms.View.Details;
-            this.olvComplex.SelectedIndexChanged += new System.EventHandler(this.olvComplex_SelectedIndexChanged);
             // 
             // personColumn
             // 

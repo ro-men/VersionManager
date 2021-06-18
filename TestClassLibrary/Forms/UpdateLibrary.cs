@@ -22,22 +22,15 @@ namespace VerManagerLibrary
         }
         private void fillList()
         {
-            VMLCoordinator.dataBaseMissingKeys.ForEach(item => 
-            { 
-                FileInfo fileInfo     
-                listView_MissingDoc.Items.Add(item);
+            List<FileInfo> fileInfos = new List<FileInfo>();
+            VMLCoordinator.newFileKeys.ForEach(item => fileInfos.Add(new FileInfo(item)));
+            fastDataListView_new.SetObjects(fileInfos);
+            VMLCoordinator.deletedFilesKeys.ForEach(item => {
+                string[] row = {Path.GetFileName(item), Path.GetDirectoryName(item)};
+                var listViewItem = new ListViewItem(row);
+                listView_DeletedDoc.Items.Add(listViewItem);
             });
-            VMLCoordinator.deletedFilesKeys.ForEach(item => listView_DeletedDoc.Items.Add(item));
-        }
-        private void button_AutoUpdate_Click(object sender, EventArgs e)
-        {
-            VMLCoordinator.UpdateLibrary(VMLCoordinator.dataBaseMissingKeys);
-            this.Close();
-        }
-
-        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            fastDataListView_modified.SetObjects(VMLCoordinator.LibraryDocumentDictionary.Where(kvp => kvp.Value.DataBaseFileDate != kvp.Value.LocalFileDate));
         }
     }
 }

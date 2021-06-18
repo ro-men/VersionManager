@@ -75,20 +75,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\AdNewErrorForm.cs">
+    <Compile Include="Forms\CreateRevisionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AdNewErrorForm.Designer.cs">
-      <DependentUpon>AdNewErrorForm.cs</DependentUpon>
+    <Compile Include="Forms\CreateRevisionForm.Designer.cs">
+      <DependentUpon>CreateRevisionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DocumentClassRAW.cs" />
     <Compile Include="Models\DocumentClass.cs" />
-    <Compile Include="Models\ErrorClass.cs" />
-    <Compile Include="Tabs\TabErrorList.cs">
+    <Compile Include="Models\RevisionClass.cs" />
+    <Compile Include="Tabs\TabRevisionLibrary.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tabs\TabErrorList.Designer.cs">
-      <DependentUpon>TabErrorList.cs</DependentUpon>
+    <Compile Include="Tabs\TabRevisionLibrary.Designer.cs">
+      <DependentUpon>TabRevisionLibrary.cs</DependentUpon>
     </Compile>
     <Compile Include="Tabs\TabInSessionDocs.cs">
       <SubType>UserControl</SubType>
@@ -118,11 +118,11 @@
     <Compile Include="Models\VMLCoordinator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\AdNewErrorForm.resx">
-      <DependentUpon>AdNewErrorForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CreateRevisionForm.resx">
+      <DependentUpon>CreateRevisionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tabs\TabErrorList.resx">
-      <DependentUpon>TabErrorList.cs</DependentUpon>
+    <EmbeddedResource Include="Tabs\TabRevisionLibrary.resx">
+      <DependentUpon>TabRevisionLibrary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tabs\TabInSessionDocs.resx">
       <DependentUpon>TabInSessionDocs.cs</DependentUpon>

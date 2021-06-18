@@ -44,6 +44,10 @@
             this.comboBoxView = new System.Windows.Forms.ComboBox();
             this.buttonDisable = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
+            this.groupImageList = new System.Windows.Forms.ImageList(this.components);
+            this.imageListLarge = new System.Windows.Forms.ImageList(this.components);
+            this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.olvFast = new BrightIdeasSoftware.FastObjectListView();
             this.olvColumn18 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn19 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -54,10 +58,6 @@
             this.olvColumn31 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn32 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn33 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.groupImageList = new System.Windows.Forms.ImageList(this.components);
-            this.imageListLarge = new System.Windows.Forms.ImageList(this.components);
-            this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.olvFast)).BeginInit();
             this.SuspendLayout();
@@ -233,6 +233,62 @@
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
+            // groupImageList
+            // 
+            this.groupImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("groupImageList.ImageStream")));
+            this.groupImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.groupImageList.Images.SetKeyName(0, "beef");
+            this.groupImageList.Images.SetKeyName(1, "chef");
+            this.groupImageList.Images.SetKeyName(2, "toast");
+            this.groupImageList.Images.SetKeyName(3, "hamburger");
+            this.groupImageList.Images.SetKeyName(4, "not");
+            // 
+            // imageListLarge
+            // 
+            this.imageListLarge.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListLarge.ImageStream")));
+            this.imageListLarge.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListLarge.Images.SetKeyName(0, "user");
+            this.imageListLarge.Images.SetKeyName(1, "compass");
+            this.imageListLarge.Images.SetKeyName(2, "down");
+            this.imageListLarge.Images.SetKeyName(3, "find");
+            this.imageListLarge.Images.SetKeyName(4, "folder");
+            this.imageListLarge.Images.SetKeyName(5, "movie");
+            this.imageListLarge.Images.SetKeyName(6, "music");
+            this.imageListLarge.Images.SetKeyName(7, "no");
+            this.imageListLarge.Images.SetKeyName(8, "readonly");
+            this.imageListLarge.Images.SetKeyName(9, "public");
+            this.imageListLarge.Images.SetKeyName(10, "recycle");
+            this.imageListLarge.Images.SetKeyName(11, "spanner");
+            this.imageListLarge.Images.SetKeyName(12, "star");
+            this.imageListLarge.Images.SetKeyName(13, "tick");
+            this.imageListLarge.Images.SetKeyName(14, "archive");
+            this.imageListLarge.Images.SetKeyName(15, "system");
+            this.imageListLarge.Images.SetKeyName(16, "hidden");
+            this.imageListLarge.Images.SetKeyName(17, "temporary");
+            // 
+            // imageListSmall
+            // 
+            this.imageListSmall.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListSmall.ImageStream")));
+            this.imageListSmall.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListSmall.Images.SetKeyName(0, "compass");
+            this.imageListSmall.Images.SetKeyName(1, "down");
+            this.imageListSmall.Images.SetKeyName(2, "user");
+            this.imageListSmall.Images.SetKeyName(3, "find");
+            this.imageListSmall.Images.SetKeyName(4, "folder");
+            this.imageListSmall.Images.SetKeyName(5, "movie");
+            this.imageListSmall.Images.SetKeyName(6, "music");
+            this.imageListSmall.Images.SetKeyName(7, "no");
+            this.imageListSmall.Images.SetKeyName(8, "readonly");
+            this.imageListSmall.Images.SetKeyName(9, "public");
+            this.imageListSmall.Images.SetKeyName(10, "recycle");
+            this.imageListSmall.Images.SetKeyName(11, "spanner");
+            this.imageListSmall.Images.SetKeyName(12, "star");
+            this.imageListSmall.Images.SetKeyName(13, "tick");
+            this.imageListSmall.Images.SetKeyName(14, "archive");
+            this.imageListSmall.Images.SetKeyName(15, "system");
+            this.imageListSmall.Images.SetKeyName(16, "hidden");
+            this.imageListSmall.Images.SetKeyName(17, "temporary");
+            // 
             // olvFast
             // 
             this.olvFast.AllColumns.Add(this.olvColumn18);
@@ -386,62 +442,6 @@
             this.olvColumn33.Text = "Tells Jokes?";
             this.olvColumn33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.olvColumn33.Width = 74;
-            // 
-            // groupImageList
-            // 
-            this.groupImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("groupImageList.ImageStream")));
-            this.groupImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.groupImageList.Images.SetKeyName(0, "beef");
-            this.groupImageList.Images.SetKeyName(1, "chef");
-            this.groupImageList.Images.SetKeyName(2, "toast");
-            this.groupImageList.Images.SetKeyName(3, "hamburger");
-            this.groupImageList.Images.SetKeyName(4, "not");
-            // 
-            // imageListLarge
-            // 
-            this.imageListLarge.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListLarge.ImageStream")));
-            this.imageListLarge.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListLarge.Images.SetKeyName(0, "user");
-            this.imageListLarge.Images.SetKeyName(1, "compass");
-            this.imageListLarge.Images.SetKeyName(2, "down");
-            this.imageListLarge.Images.SetKeyName(3, "find");
-            this.imageListLarge.Images.SetKeyName(4, "folder");
-            this.imageListLarge.Images.SetKeyName(5, "movie");
-            this.imageListLarge.Images.SetKeyName(6, "music");
-            this.imageListLarge.Images.SetKeyName(7, "no");
-            this.imageListLarge.Images.SetKeyName(8, "readonly");
-            this.imageListLarge.Images.SetKeyName(9, "public");
-            this.imageListLarge.Images.SetKeyName(10, "recycle");
-            this.imageListLarge.Images.SetKeyName(11, "spanner");
-            this.imageListLarge.Images.SetKeyName(12, "star");
-            this.imageListLarge.Images.SetKeyName(13, "tick");
-            this.imageListLarge.Images.SetKeyName(14, "archive");
-            this.imageListLarge.Images.SetKeyName(15, "system");
-            this.imageListLarge.Images.SetKeyName(16, "hidden");
-            this.imageListLarge.Images.SetKeyName(17, "temporary");
-            // 
-            // imageListSmall
-            // 
-            this.imageListSmall.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListSmall.ImageStream")));
-            this.imageListSmall.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListSmall.Images.SetKeyName(0, "compass");
-            this.imageListSmall.Images.SetKeyName(1, "down");
-            this.imageListSmall.Images.SetKeyName(2, "user");
-            this.imageListSmall.Images.SetKeyName(3, "find");
-            this.imageListSmall.Images.SetKeyName(4, "folder");
-            this.imageListSmall.Images.SetKeyName(5, "movie");
-            this.imageListSmall.Images.SetKeyName(6, "music");
-            this.imageListSmall.Images.SetKeyName(7, "no");
-            this.imageListSmall.Images.SetKeyName(8, "readonly");
-            this.imageListSmall.Images.SetKeyName(9, "public");
-            this.imageListSmall.Images.SetKeyName(10, "recycle");
-            this.imageListSmall.Images.SetKeyName(11, "spanner");
-            this.imageListSmall.Images.SetKeyName(12, "star");
-            this.imageListSmall.Images.SetKeyName(13, "tick");
-            this.imageListSmall.Images.SetKeyName(14, "archive");
-            this.imageListSmall.Images.SetKeyName(15, "system");
-            this.imageListSmall.Images.SetKeyName(16, "hidden");
-            this.imageListSmall.Images.SetKeyName(17, "temporary");
             // 
             // TabFastList
             // 
