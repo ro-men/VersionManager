@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     public partial class TabRevisionLibrary : UserControl
     {
@@ -35,10 +35,11 @@ namespace VerManagerLibrary
                 DLV_ItemsList.SetObjects(revisionClass.CoreDocuments.Union(revisionClass.OtherDocuments));
             }
         }
-        private void Setup_DLV_ItemsList(RevisionClass revisionClas)
+        private void Setup_DLV_ItemsList(RevisionClass revisionClass)
         {
+            DLV_Items_RevisionSolved.AspectGetter = delegate (object x) { return Convert.ToBoolean(((KeyValuePair<string, long>)x).Value); };
             DLV_Items_Level.AspectGetter = delegate (object x) {
-                if (revisionClas.CoreDocuments.ContainsKey(((KeyValuePair<string,bool>)x).Key)) {
+                if (revisionClass.CoreDocuments.ContainsKey(((KeyValuePair<string,long>)x).Key)) {
                     return "Core Element";
                 }
                 return "Other Object";

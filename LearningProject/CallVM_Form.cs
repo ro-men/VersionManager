@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using VerManagerLibrary;
+using VerManagerLibrary_ClassLib;
 
 namespace LearningProject
 {
@@ -22,7 +22,7 @@ namespace LearningProject
 
         private void CallVM_Form_Load(object sender, EventArgs e)
         {
-            var newForm = new VerManagerLibrary.VersionManagerForm();
+            var newForm = new VerManagerLibrary_ClassLib.VersionManagerForm();
             newForm.Visible = true;
         }
     }

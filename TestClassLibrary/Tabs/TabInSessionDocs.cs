@@ -12,7 +12,7 @@ using BrightIdeasSoftware;
 using System.Text.Json;
 using System.IO;
 
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     public partial class TabInSessionDocs : UserControl
     {
@@ -87,7 +87,7 @@ namespace VerManagerLibrary
             if (this.treeListView_Stablo.SelectedIndices.Count != 0) {
 
                 IList selectedItems = this.treeListView_Stablo.SelectedObjects;
-                var newForm = new VerManagerLibrary.FormCreateRevision(selectedItems);
+                var newForm = new VerManagerLibrary_ClassLib.FormCreateRevision(selectedItems);
                 newForm.Visible = true;
         }}
 

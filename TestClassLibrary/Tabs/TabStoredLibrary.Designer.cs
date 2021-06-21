@@ -1,5 +1,5 @@
 ﻿
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     partial class TabStoredLibrary
     {

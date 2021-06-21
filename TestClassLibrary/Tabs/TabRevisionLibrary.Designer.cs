@@ -1,5 +1,5 @@
 ﻿
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     partial class TabRevisionLibrary
     {
@@ -100,7 +100,7 @@ namespace VerManagerLibrary
             // 
             // DLV_Items_RevisionSolved
             // 
-            this.DLV_Items_RevisionSolved.AspectName = "Value";
+            this.DLV_Items_RevisionSolved.AspectName = "";
             this.DLV_Items_RevisionSolved.Text = "RevisionSolved";
             this.DLV_Items_RevisionSolved.Width = 120;
             // 

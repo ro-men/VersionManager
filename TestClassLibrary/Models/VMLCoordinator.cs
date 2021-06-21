@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using VerManagerLibrary;
 using System.Runtime.InteropServices;
 using INFITF;
 using ProductStructureTypeLib;
@@ -13,14 +12,16 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
 
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     public static class VMLCoordinator
     {
         public static string localCore = @"D:\CATIA\local\V2 RAZVOJ";
         public static string serverCore = @"K:\V2 RAZVOJ";
-        public static Dictionary<string, DocumentClass> LibraryDocumentDictionary { get; set; } = CollectLibraryDocuments();
         public static Dictionary<string, RevisionClass> RevisionDictionary { get; set; } = CollectRevisionDocuments();
+        //public static Dictionary<string, RevisionClass> RevisionDictionary { get; set; } = new Dictionary<string, RevisionClass>();
+        public static Dictionary<string, DocumentClass> LibraryDocumentDictionary { get; set; } = CollectLibraryDocuments();
+
         private static Dictionary<string, DocumentClassRAW> DisassembledDocumentClasses { get; set; }
         public static List<string> newFileKeys;
         public static List<string> deletedFilesKeys = new List<string>();
@@ -136,7 +137,7 @@ namespace VerManagerLibrary
             DisassembledDocumentClasses = JsonSerializer.Deserialize<Dictionary<string, DocumentClassRAW>>(jsonString);
             foreach (DocumentClassRAW RawClass in DisassembledDocumentClasses.Values) {
                 DocumentClass documentClass = new DocumentClass();
-                documentClass.BuildDocumentClass(RawClass);
+                documentClass.BuildDocumentClass(RawClass, RevisionDictionary);
                 libraryDocuments.Add(RawClass.Key, documentClass);
             }
             foreach (DocumentClassRAW RawClass in DisassembledDocumentClasses.Values)
@@ -243,9 +244,9 @@ namespace VerManagerLibrary
         {
             var watchStore = new System.Diagnostics.Stopwatch();
             watchStore.Start();
-            Dictionary<string, RevisionRAW> dictRAW = new Dictionary<string, RevisionRAW>();
+            Dictionary<string, RevisionClassRAW> dictRAW = new Dictionary<string, RevisionClassRAW>();
             foreach (KeyValuePair<string,RevisionClass> keyValuePair in oDict) {
-                RevisionRAW revisionRAW = new RevisionRAW();
+                RevisionClassRAW revisionRAW = new RevisionClassRAW();
                 revisionRAW.FillRCL(keyValuePair.Value);
                 dictRAW.Add(keyValuePair.Key,revisionRAW);
             }
@@ -260,8 +261,8 @@ namespace VerManagerLibrary
             Dictionary<string, RevisionClass> oDict = new Dictionary<string, RevisionClass>();
             string libraryPath = @"D:\DATABASE\RevisionDict.JSON";
             string jsonString = System.IO.File.ReadAllText(libraryPath);
-            Dictionary<string, RevisionRAW> dictRAW = JsonSerializer.Deserialize<Dictionary<string, RevisionRAW>>(jsonString);
-            foreach (KeyValuePair<string, RevisionRAW> keyValue in dictRAW)
+            Dictionary<string, RevisionClassRAW> dictRAW = JsonSerializer.Deserialize<Dictionary<string, RevisionClassRAW>>(jsonString);
+            foreach (KeyValuePair<string, RevisionClassRAW> keyValue in dictRAW)
             {
                 RevisionClass revisionClass = new RevisionClass();
                 revisionClass.BuildRevisionClass(keyValue.Value);
@@ -269,24 +270,5 @@ namespace VerManagerLibrary
             }
             return oDict;
         }
-    }
-    /// <summary>
-    /// json compatible class
-    /// </summary>
-    public class RevisionRAW
-    {
-        public void FillRCL(RevisionClass oRevision)
-        {
-            RevisionID = oRevision.RevisionID;
-            Comment = oRevision.Comment;
-            CoreDocuments = oRevision.CoreDocuments.ToList();
-            OtherDocuments = oRevision.OtherDocuments.ToList();
-            Siblings = oRevision.Siblings.ToList();
-        }
-        public string RevisionID { get; set; }
-        public string Comment { get; set; }
-        public List<KeyValuePair<string, bool>> CoreDocuments { get; set; }
-        public List<KeyValuePair<string, bool>> OtherDocuments { get; set; }
-        public List<string> Siblings { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using System.IO;
 using System.Text.Json;
 
 
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     public partial class UpdateLibrary : Form
     {

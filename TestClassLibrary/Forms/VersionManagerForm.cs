@@ -13,7 +13,7 @@ using System.Runtime.InteropServices;
 using ProductStructureTypeLib;
 using BrightIdeasSoftware;
 
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
    
     public partial class VersionManagerForm : Form

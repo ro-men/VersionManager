@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
 
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
 
     public partial class FormCreateRevision : Form
     {
         IList selectedItems;
-        RevisionClass oRevision = new RevisionClass();
+        public RevisionClass oRevision = new RevisionClass();
         public FormCreateRevision(IList selectedItems)
         {
            InitializeComponent();
            this.selectedItems = selectedItems;
         }
 
-        private void FormAddNewError_Load(object sender, EventArgs e)
+        private void FormAddNewRevision_Load(object sender, EventArgs e)
         {
             oRevision.CreateRevisionID();
             SetupColumns();
@@ -31,7 +31,7 @@ namespace VerManagerLibrary
             this.FDLV_LibraryList.SetObjects(VMLCoordinator.LibraryDocumentDictionary.Values.Where(x => !selectedItems.Contains(x)));
             List<string> selectedNomenclatureValues = new List<string>();
             foreach (DocumentClass documentClass in selectedItems) {
-                documentClass.CurentRevisionStatus = true;
+                documentClass.CurentRevisionStatus = 1;
                 selectedNomenclatureValues.Add(documentClass.PartName);
             }
                       
@@ -45,8 +45,8 @@ namespace VerManagerLibrary
         }
         private void SetupColumns()
         {
-            this.FDLV_Library_Resolve.AspectGetter = delegate (object x) { return ((DocumentClass)x).CurentRevisionStatus;};
-            this.FDLV_Library_Resolve.AspectPutter = delegate (object x, object newValue) {((DocumentClass)x).CurentRevisionStatus = (bool)newValue;};
+            this.FDLV_Library_Resolve.AspectGetter = delegate (object x) { return Convert.ToBoolean(((DocumentClass)x).CurentRevisionStatus-2);};
+            this.FDLV_Library_Resolve.AspectPutter = delegate (object x, object newValue) {((DocumentClass)x).CurentRevisionStatus = Convert.ToInt64((bool)newValue)+2;};
             this.FDLV_Library_CurrentRevisionStatus.AspectGetter = delegate (object x) {
                 if (!this.FDLV_LibraryList.CheckedObjects.Contains(x))
                 {
@@ -55,7 +55,7 @@ namespace VerManagerLibrary
                 }
                 else
                 {
-                    if (((DocumentClass)x).CurentRevisionStatus) return "Solved";
+                    if (Convert.ToBoolean(((DocumentClass)x).CurentRevisionStatus -2)) return "Solved";
                     return "Unsolved";
                 };
             };
@@ -66,18 +66,18 @@ namespace VerManagerLibrary
                 }
                 else
                 {
-                    if (((DocumentClass)x).CurentRevisionStatus) return 0;
+                    if (Convert.ToBoolean(((DocumentClass)x).CurentRevisionStatus - 2)) return 0;
                     return 1;
                 };
             };
-            this.FDLV_Selected_Resolve.AspectGetter = delegate (object x) { return ((DocumentClass)x).CurentRevisionStatus; };
-            this.FDLV_Selected_Resolve.AspectPutter = delegate (object x, object newValue) { ((DocumentClass)x).CurentRevisionStatus = (bool)newValue; };
+            this.FDLV_Selected_Resolve.AspectGetter = delegate (object x) { return Convert.ToBoolean(((DocumentClass)x).CurentRevisionStatus); };
+            this.FDLV_Selected_Resolve.AspectPutter = delegate (object x, object newValue) { ((DocumentClass)x).CurentRevisionStatus = Convert.ToInt64((bool)newValue); };
             this.FDLV_Selected_CurrentRevisionStatus.AspectGetter = delegate (object x) {
-                if (((DocumentClass)x).CurentRevisionStatus) return "Solved";
+                if (Convert.ToBoolean(((DocumentClass)x).CurentRevisionStatus)) return "Solved";
                 return "Unsolved";
             };
             this.FDLV_Selected_CurrentRevisionStatus.ImageGetter = delegate (object x) {
-                if (((DocumentClass)x).CurentRevisionStatus) return 0;
+                if (Convert.ToBoolean(((DocumentClass)x).CurentRevisionStatus)) return 0;
                 return 1;
             };
             SizeLastColumn(this.FDLV_LibraryList);
@@ -123,35 +123,18 @@ namespace VerManagerLibrary
         {
             foreach (DocumentClass documentClass in selectedItems) {
                 if (oRevision.OtherDocuments.ContainsKey(documentClass.Key)) oRevision.RemoveOtherDocument(documentClass.Key);
-                if (oRevision.Siblings.Contains(documentClass.Key)) oRevision.RemoveSibling(documentClass.Key);
+                if (oRevision.Siblings.ContainsKey(documentClass.Key)) oRevision.RemoveSibling(documentClass.Key);
                 oRevision.AddCoreDocument(documentClass.Key, documentClass.CurentRevisionStatus);
-                if (documentClass.CurentRevisionStatus)
-                {
-                    documentClass.AddRevision(oRevision.RevisionID, 1);
-                    FillParents(documentClass);
-                } 
-                else
-                {
-                    documentClass.AddRevision(oRevision.RevisionID, 0);
-                    FillParents(documentClass);
-                }
-
+                documentClass.AddRevision(oRevision.RevisionID, documentClass.CurentRevisionStatus);
+                FillParents(documentClass);
             }
             IList CheckedItems = this.FDLV_LibraryList.CheckedObjects;
             foreach (DocumentClass documentClass in CheckedItems)
             {
-                if (oRevision.Siblings.Contains(documentClass.Key)) oRevision.RemoveSibling(documentClass.Key);
-                if (!oRevision.CoreDocuments.ContainsKey(documentClass.Key)) { oRevision.AddOtherDocument(documentClass.Key, documentClass.CurentRevisionStatus); }
-                if (documentClass.CurentRevisionStatus)
-                {
-                    documentClass.AddRevision(oRevision.RevisionID, 3);
-                    FillParents(documentClass);
-                }
-                else
-                {
-                    documentClass.AddRevision(oRevision.RevisionID, 2);
-                    FillParents(documentClass);
-                }
+                if (oRevision.Siblings.ContainsKey(documentClass.Key)) oRevision.RemoveSibling(documentClass.Key);
+                if ((!oRevision.CoreDocuments.ContainsKey(documentClass.Key))){oRevision.AddOtherDocument(documentClass.Key, documentClass.CurentRevisionStatus); }
+                documentClass.AddRevision(oRevision.RevisionID, documentClass.CurentRevisionStatus);
+                FillParents(documentClass);
             }
 
             void FillParents(DocumentClass documentClass) {
@@ -162,8 +145,8 @@ namespace VerManagerLibrary
                 {
                     DocumentClass currentDocumentClass = documentClasses.Pop();
                     currentDocumentClass.ParentsDict.Values.ToList().ForEach(x => documentClasses.Push(x));
-                    currentDocumentClass.AddRevision(oRevision.RevisionID, 4);
-                    if ((!oRevision.CoreDocuments.ContainsKey(currentDocumentClass.Key)) && (!oRevision.OtherDocuments.ContainsKey(currentDocumentClass.Key))) { oRevision.AddSibling(currentDocumentClass.Key);}
+                    if ((!oRevision.CoreDocuments.ContainsKey(currentDocumentClass.Key)) && (!oRevision.OtherDocuments.ContainsKey(currentDocumentClass.Key))) { oRevision.AddSibling(currentDocumentClass.Key,currentDocumentClass.CurentRevisionStatus);}
+                    currentDocumentClass.AddRevision(oRevision.RevisionID, currentDocumentClass.CurentRevisionStatus);
                 }
             };
 

@@ -84,6 +84,7 @@
     <Compile Include="Models\DocumentClassRAW.cs" />
     <Compile Include="Models\DocumentClass.cs" />
     <Compile Include="Models\RevisionClass.cs" />
+    <Compile Include="Models\RevisionClassRAW.cs" />
     <Compile Include="Tabs\TabRevisionLibrary.cs">
       <SubType>UserControl</SubType>
     </Compile>

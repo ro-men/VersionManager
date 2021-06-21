@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using INFITF;
 using System.IO;
 
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     public class DocumentClass
     {
@@ -65,37 +65,29 @@ namespace VerManagerLibrary
         #region RevisionDictionary
         /// <summary>
         /// Imenik sa svim revizijama koje su vezane na aktualni dokument.<para/>
-        /// Key:<br/> 
-        /// ID revizije<para/>
         /// </summary>
-        /// <returns>
-        /// 0 - izvorno odabran dokument u reviziji - unsolved revision <br/>
-        /// 1 - izvorno odabran dokument u reviziji - solved revision <br/>
-        /// 2 - dokument iste/slične nomenklature - unsolved revision <br/>
-        /// 3 - dokument iste/slične nomenklature - solved revision <br/>
-        /// 4 - dokument roditelj koji postaje zastarjeli usljed ove revizije <br/>
-        /// </returns>
         private Dictionary<string, long> revisionDict = new Dictionary<string, long>();
         /// <summary>
         /// Add a new Revision to dictionary::
         /// </summary>
         /// <param name="RevisionID">[Key] -> RevisionID</param>
-        /// <param name="RevisionLevel"> <para/>    
+        /// <param name="infoLevel">        
         /// 0 - izvorno odabran dokument u reviziji - unsolved revision <br/>
         /// 1 - izvorno odabran dokument u reviziji - solved revision <br/>
         /// 2 - dokument iste/slične nomenklature - unsolved revision <br/>
         /// 3 - dokument iste/slične nomenklature - solved revision <br/>
         /// 4 - dokument roditelj koji postaje zastarjeli usljed ove revizije <br/>
-        public void AddRevision(string RevisionID, long RevisionLevel)
+        /// </param>    
+        public void AddRevision(string RevisionID, long infoLevel)
         {
             if (!revisionDict.ContainsKey(RevisionID))
             {
-                revisionDict.Add(RevisionID, RevisionLevel);
+                revisionDict.Add(RevisionID, infoLevel);
                 modified = true;
             }
-            else if (revisionDict[RevisionID] > RevisionLevel)
+            else if (revisionDict[RevisionID] > infoLevel)
             {
-                revisionDict[RevisionID] = RevisionLevel;
+                revisionDict[RevisionID] = infoLevel;
                 modified = true;
             }
         }
@@ -126,7 +118,15 @@ namespace VerManagerLibrary
         public bool OnServer { get { return System.IO.File.Exists(VMLCoordinator.serverCore + key); } }
         public bool OnLocalDisc { get { return System.IO.File.Exists(VMLCoordinator.localCore + key); } }
         public bool InSession { get; set; }
-        public bool CurentRevisionStatus { get; set; }
+        /// <summary>
+        /// 0 - izvorno odabran dokument u reviziji - unsolved revision <br/>
+        /// 1 - izvorno odabran dokument u reviziji - solved revision <br/>
+        /// 2 - dokument iste/slične nomenklature - unsolved revision <br/>
+        /// 3 - dokument iste/slične nomenklature - solved revision <br/>
+        /// 4 - dokument roditelj koji postaje zastarjeli usljed ove revizije - unsolved revision <br/>
+        /// 5 - dokument roditelj koji postaje zastarjeli usljed ove revizije - solved revision <br/>
+        /// </summary>
+        public long CurentRevisionStatus { get; set; }
         public bool HasChindren { get { return childrenDict.Count != 0; } }
 
         private bool modified; 
@@ -140,12 +140,14 @@ namespace VerManagerLibrary
         /// Metoda koja izgradi "DocumentClass" instancu na temelju "sirove" instance koja je ucitana JsonSerializer-om.
         /// </summary>
         /// <param name="RawClass"></param>
-        public void BuildDocumentClass(DocumentClassRAW RawClass) {
+        public void BuildDocumentClass(DocumentClassRAW RawClass, Dictionary<string, RevisionClass> completeRevisionsDict) {
             key = RawClass.Key;
-            dataBaseFileDate = RawClass.libraryTime;
+            completeRevisionsDict.Where(kvp => kvp.Value.CoreDocuments.ContainsKey(key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.CoreDocuments[key]));
+            completeRevisionsDict.Where(kvp => kvp.Value.OtherDocuments.ContainsKey(key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.OtherDocuments[key]));
+            completeRevisionsDict.Where(kvp => kvp.Value.Siblings.ContainsKey(key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.Siblings[key]));
+            dataBaseFileDate = RawClass.LibraryTime;
             OldNomenclature = RawClass.Nomenclture;
             newNomenclature = RawClass.Nomenclture;
-            if(RawClass.Revisions != null) RawClass.Revisions.ForEach(x => revisionDict.Add(x.Key, x.Value));
         }
         public void FillSiblings(DocumentClassRAW RawClass,Dictionary<string,DocumentClass> DCLibrary)
         {

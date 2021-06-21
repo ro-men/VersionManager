@@ -1,5 +1,5 @@
 ﻿
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     partial class VersionManagerForm
     {
@@ -31,13 +31,13 @@ namespace VerManagerLibrary
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TabPage tabPage_InSession;
-            this.tabInSessionDocs1 = new VerManagerLibrary.TabInSessionDocs();
+            this.tabInSessionDocs1 = new VerManagerLibrary_ClassLib.TabInSessionDocs();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Library = new System.Windows.Forms.TabPage();
-            this.tabStoredLibrary1 = new VerManagerLibrary.TabStoredLibrary();
+            this.tabStoredLibrary1 = new VerManagerLibrary_ClassLib.TabStoredLibrary();
             this.tabPage_Errors = new System.Windows.Forms.TabPage();
-            this.tabRevisionList1 = new VerManagerLibrary.TabRevisionLibrary();
+            this.tabRevisionList1 = new VerManagerLibrary_ClassLib.TabRevisionLibrary();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             tabPage_InSession = new System.Windows.Forms.TabPage();
             tabPage_InSession.SuspendLayout();

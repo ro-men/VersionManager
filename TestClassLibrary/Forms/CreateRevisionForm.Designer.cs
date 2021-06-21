@@ -1,5 +1,5 @@
 ﻿
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     partial class FormCreateRevision
     {
@@ -322,7 +322,7 @@ namespace VerManagerLibrary
             this.Controls.Add(this.label_RevisionID);
             this.Name = "FormCreateRevision";
             this.Text = "CreateRevision";
-            this.Load += new System.EventHandler(this.FormAddNewError_Load);
+            this.Load += new System.EventHandler(this.FormAddNewRevision_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

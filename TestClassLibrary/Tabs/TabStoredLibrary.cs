@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace VerManagerLibrary
+namespace VerManagerLibrary_ClassLib
 {
     public partial class TabStoredLibrary : UserControl
     {
@@ -94,11 +94,11 @@ namespace VerManagerLibrary
                 {
                     if (((DocumentClass)x).RevisionDict.Values.Contains(0) | ((DocumentClass)x).RevisionDict.Values.Contains(2))
                     {
-                        return 1;
+                        return 2;
                     }
                     else if (((DocumentClass)x).RevisionDict.Values.Contains(4))
                     {
-                        return 2;
+                        return 1;
                     }
                     else { return 0;}
                 }
