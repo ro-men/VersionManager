@@ -15,15 +15,10 @@ namespace VerManagerLibrary_ClassLib
             {
                 RevisionID = oRevision.RevisionID;
                 Comment = oRevision.Comment;
-                CoreDocuments = oRevision.CoreDocuments.ToList();
-                OtherDocuments = oRevision.OtherDocuments.ToList();
-                Siblings = oRevision.Siblings.ToList();
+                RevisionDocuments = oRevision.RevisionDocuments.ToList();
             }
             public string RevisionID { get; set; }
             public string Comment { get; set; }
-            public List<KeyValuePair<string, long>> CoreDocuments { get; set; }
-            public List<KeyValuePair<string, long>> OtherDocuments { get; set; }
-            public List<KeyValuePair<string, long>> Siblings { get; set; }
-
+            public List<KeyValuePair<string, long>> RevisionDocuments { get; set; }
     }
 }

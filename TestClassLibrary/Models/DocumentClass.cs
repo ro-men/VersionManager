@@ -52,8 +52,11 @@ namespace VerManagerLibrary_ClassLib
         }
         public void RemoveParent(string key)
         {
-            parentsDict.Remove(key); 
-            modified = true;
+            if (parentsDict.ContainsKey(key))
+            {
+                parentsDict.Remove(key);
+                modified = true;
+            }
         }
         public void ClearParents()
         {
@@ -71,23 +74,23 @@ namespace VerManagerLibrary_ClassLib
         /// Add a new Revision to dictionary::
         /// </summary>
         /// <param name="RevisionID">[Key] -> RevisionID</param>
-        /// <param name="infoLevel">        
+        /// <param name="rD_Info">        
         /// 0 - izvorno odabran dokument u reviziji - unsolved revision <br/>
-        /// 1 - izvorno odabran dokument u reviziji - solved revision <br/>
-        /// 2 - dokument iste/slične nomenklature - unsolved revision <br/>
-        /// 3 - dokument iste/slične nomenklature - solved revision <br/>
-        /// 4 - dokument roditelj koji postaje zastarjeli usljed ove revizije <br/>
+        /// 1 - dokument iste/slične nomenklature - unsolved revision <br/>
+        /// 2 - dokument roditelj koji postaje zastarjeli usljed ove revizije <br/>
+        /// 3 - izvorno odabran dokument u reviziji - solved revision <br/>
+        /// 4 - dokument iste/slične nomenklature - solved revision <br/>
         /// </param>    
-        public void AddRevision(string RevisionID, long infoLevel)
+        public void AddRevision(string RevisionID, long rD_Info)
         {
             if (!revisionDict.ContainsKey(RevisionID))
             {
-                revisionDict.Add(RevisionID, infoLevel);
+                revisionDict.Add(RevisionID, rD_Info);
                 modified = true;
             }
-            else if (revisionDict[RevisionID] > infoLevel)
+            else if (revisionDict[RevisionID] > rD_Info)
             {
-                revisionDict[RevisionID] = infoLevel;
+                revisionDict[RevisionID] = rD_Info;
                 modified = true;
             }
         }
@@ -101,58 +104,146 @@ namespace VerManagerLibrary_ClassLib
             revisionDict.Clear();
             modified = true;
         }
+        public void ModifyRevision(string RevisionID, long rD_Info)
+        {
+            if (revisionDict.ContainsKey(RevisionID))
+            {
+                revisionDict[RevisionID] = rD_Info;
+                modified = true;
+            }
+        }
         public IReadOnlyDictionary<string, long> RevisionDict => revisionDict;
         #endregion
-        private DateTime dataBaseFileDate;
-        public DateTime DataBaseFileDate { 
+
+        private string version;
+        /// <summary>
+        /// Environment.UserName + "_V_" + Number
+        /// </summary>
+        public string Version { get { return version; } }
+        public void IncreaseVersion()
+        {
+            int number;
+            if (version != null)
+            {
+                number = Int32.Parse(version.Split('_').Last()) + 1;
+                modified = true;
+            }
+            else
+            {
+                number = 1;
+            }
+            version = Environment.UserName + "_V_" + number.ToString();
+        }
+        private DateTime? dataBaseFileDate;
+        public DateTime? DataBaseFileDate { 
             get { return dataBaseFileDate; } 
             set { dataBaseFileDate = value; modified = true; }}
-        public DateTime LocalFileDate { get { return new FileInfo(VMLCoordinator.localCore + key).LastWriteTime; } }
-        public DateTime ServerFileDate { get { return new FileInfo(VMLCoordinator.serverCore + key).LastWriteTime; } }
-        public string OldNomenclature { get; set; }
+        public DateTime LocalFileDate { get { return new FileInfo(VMLCoordinator.localCore + Key).LastWriteTime; } }
+        public DateTime ServerFileDate { get { return new FileInfo(VMLCoordinator.serverCore + Key).LastWriteTime; } }
+        private string oldNomenclature;
+        public string OldNomenclature { get { return oldNomenclature; } }
         private string newNomenclature;
         public string NewNomenclature { 
             get { return newNomenclature; } 
             set { newNomenclature = value; modified = true; } }
+        public void SetInitaialNomenclature(string oValue)
+        {
+            oldNomenclature = oValue;
+            newNomenclature = oValue;
+        }
         public bool Used { get { return ParentsDict.Count != 0; } }
-        public bool OnServer { get { return System.IO.File.Exists(VMLCoordinator.serverCore + key); } }
-        public bool OnLocalDisc { get { return System.IO.File.Exists(VMLCoordinator.localCore + key); } }
-        public bool InSession { get; set; }
+        public bool OnServer { get { return System.IO.File.Exists(VMLCoordinator.serverCore + Key); } }
+        public bool OnLocalDisc { get { return System.IO.File.Exists(VMLCoordinator.localCore + Key); } }
+        public string Status { get {
+                if (dataBaseFileDate == null)
+                {
+                    if (!OnServer)
+                    {
+                        return "New";
+                    }
+                    else
+                    {
+                        return "Missing Database Input";
+                    }
+                }
+                else
+                {
+                    if (!OnServer)
+                    {
+                        return "Missing server file - " + version;
+                    }
+                    else
+                    {
+                        if (ServerFileDate < dataBaseFileDate)
+                        {
+                            return "Server version obsolete: " + version;
+                        }
+                        else
+                        {
+                            if (LocalFileDate == dataBaseFileDate)
+                            {
+                                return "";
+                            }
+                            else
+                            {
+                                return "Local version modified.";
+                            }
+                        }
+                    }
+                }
+            } }
+        public bool InSession { get { return VMLCoordinator.CheckInSession(Key); } }
         /// <summary>
         /// 0 - izvorno odabran dokument u reviziji - unsolved revision <br/>
-        /// 1 - izvorno odabran dokument u reviziji - solved revision <br/>
-        /// 2 - dokument iste/slične nomenklature - unsolved revision <br/>
-        /// 3 - dokument iste/slične nomenklature - solved revision <br/>
-        /// 4 - dokument roditelj koji postaje zastarjeli usljed ove revizije - unsolved revision <br/>
-        /// 5 - dokument roditelj koji postaje zastarjeli usljed ove revizije - solved revision <br/>
+        /// 1 - dokument iste/slične nomenklature - unsolved revision <br/>
+        /// 2 - dokument roditelj koji postaje zastarjeli usljed ove revizije <br/>
+        /// 3 - izvorno odabran dokument u reviziji - solved revision <br/>
+        /// 4 - dokument iste/slične nomenklature - solved revision <br/>
+        /// 5 - dokument nema pridodanu reviziju i ni jedna revizija ne utječe na njega<br/>
         /// </summary>
-        public long CurentRevisionStatus { get; set; }
+        public long RevisionStatus(string revisionID) {
+            if (revisionDict.ContainsKey(revisionID)) return revisionDict[revisionID];
+            return 5;
+        }
         public bool HasChindren { get { return childrenDict.Count != 0; } }
-
-        private bool modified; 
+        private bool modified = false;
+        public void UploadDoc()
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(VMLCoordinator.serverCore + Key));
+            System.IO.File.Copy(VMLCoordinator.localCore + Key, VMLCoordinator.serverCore + Key,true);
+            modified = false;
+        }
         public bool Modified { get { return modified; } }
-        public string PartName { get { return Path.GetFileName(key); } }
-        private string key;
-        public string Key { 
-            get { return key;} 
-            set { key = value; modified = true; } }
+        public string PartName { get { return Path.GetFileName(Key); } }
+        public string Key { get; set; }
+
         /// <summary>
         /// Metoda koja izgradi "DocumentClass" instancu na temelju "sirove" instance koja je ucitana JsonSerializer-om.
         /// </summary>
         /// <param name="RawClass"></param>
         public void BuildDocumentClass(DocumentClassRAW RawClass, Dictionary<string, RevisionClass> completeRevisionsDict) {
-            key = RawClass.Key;
-            completeRevisionsDict.Where(kvp => kvp.Value.CoreDocuments.ContainsKey(key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.CoreDocuments[key]));
-            completeRevisionsDict.Where(kvp => kvp.Value.OtherDocuments.ContainsKey(key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.OtherDocuments[key]));
-            completeRevisionsDict.Where(kvp => kvp.Value.Siblings.ContainsKey(key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.Siblings[key]));
+            Key = RawClass.Key;
+            completeRevisionsDict.Where(kvp => kvp.Value.RevisionDocuments.ContainsKey(Key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.RevisionDocuments[Key]));
             dataBaseFileDate = RawClass.LibraryTime;
-            OldNomenclature = RawClass.Nomenclture;
-            newNomenclature = RawClass.Nomenclture;
+            SetInitaialNomenclature(RawClass.Nomenclture);
+            version = RawClass.Version;
         }
         public void FillSiblings(DocumentClassRAW RawClass,Dictionary<string,DocumentClass> DCLibrary)
         {
-            RawClass.Children.ForEach(i => childrenDict.Add(i,DCLibrary[i]));
-            RawClass.Parents.ForEach(i => parentsDict.Add(i, DCLibrary[i]));
+            RawClass.Children.ForEach(i =>
+            {
+                if (DCLibrary.ContainsKey(i))
+                {
+                    childrenDict.Add(i, DCLibrary[i]);
+                };
+            });
+            RawClass.Parents.ForEach(i => 
+            {
+                if (DCLibrary.ContainsKey(i))
+                {
+                    parentsDict.Add(i, DCLibrary[i]);
+                };
+            });
         }
     }
 }

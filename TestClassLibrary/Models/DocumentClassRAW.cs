@@ -14,11 +14,13 @@ namespace VerManagerLibrary_ClassLib
             Key = oDocumentClass.Key;
             Nomenclture = oDocumentClass.NewNomenclature;
             LibraryTime = oDocumentClass.DataBaseFileDate;
+            Version = oDocumentClass.Version;
         }
         public List<string> Children { get; set; }
         public List<string> Parents { get; set; }
         public String Key { get; set; }
+        public String Version { get; set; }
         public String Nomenclture { get; set; }
-        public DateTime LibraryTime { get; set; }
+        public DateTime? LibraryTime { get; set; }
     }
 }

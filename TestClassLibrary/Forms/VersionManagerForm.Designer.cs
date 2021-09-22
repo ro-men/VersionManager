@@ -33,17 +33,16 @@ namespace VerManagerLibrary_ClassLib
             System.Windows.Forms.TabPage tabPage_InSession;
             this.tabInSessionDocs1 = new VerManagerLibrary_ClassLib.TabInSessionDocs();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage_Library = new System.Windows.Forms.TabPage();
             this.tabStoredLibrary1 = new VerManagerLibrary_ClassLib.TabStoredLibrary();
-            this.tabPage_Errors = new System.Windows.Forms.TabPage();
+            this.tabControl_Main = new System.Windows.Forms.TabControl();
             this.tabRevisionList1 = new VerManagerLibrary_ClassLib.TabRevisionLibrary();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage_Revisions = new System.Windows.Forms.TabPage();
             tabPage_InSession = new System.Windows.Forms.TabPage();
             tabPage_InSession.SuspendLayout();
-            this.tabControl1.SuspendLayout();
             this.tabPage_Library.SuspendLayout();
-            this.tabPage_Errors.SuspendLayout();
+            this.tabControl_Main.SuspendLayout();
+            this.tabPage_Revisions.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage_InSession
@@ -73,21 +72,6 @@ namespace VerManagerLibrary_ClassLib
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(tabPage_InSession);
-            this.tabControl1.Controls.Add(this.tabPage_Library);
-            this.tabControl1.Controls.Add(this.tabPage_Errors);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(18, 13);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1515, 785);
-            this.tabControl1.TabIndex = 1;
-            // 
             // tabPage_Library
             // 
             this.tabPage_Library.Controls.Add(this.tabStoredLibrary1);
@@ -109,16 +93,19 @@ namespace VerManagerLibrary_ClassLib
             this.tabStoredLibrary1.Size = new System.Drawing.Size(1495, 757);
             this.tabStoredLibrary1.TabIndex = 0;
             // 
-            // tabPage_Errors
+            // tabControl_Main
             // 
-            this.tabPage_Errors.Controls.Add(this.tabRevisionList1);
-            this.tabPage_Errors.Location = new System.Drawing.Point(4, 22);
-            this.tabPage_Errors.Name = "tabPage_Errors";
-            this.tabPage_Errors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_Errors.Size = new System.Drawing.Size(1507, 759);
-            this.tabPage_Errors.TabIndex = 2;
-            this.tabPage_Errors.Text = "Errors";
-            this.tabPage_Errors.UseVisualStyleBackColor = true;
+            this.tabControl_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl_Main.Controls.Add(tabPage_InSession);
+            this.tabControl_Main.Controls.Add(this.tabPage_Library);
+            this.tabControl_Main.Controls.Add(this.tabPage_Revisions);
+            this.tabControl_Main.Location = new System.Drawing.Point(18, 13);
+            this.tabControl_Main.Name = "tabControl_Main";
+            this.tabControl_Main.SelectedIndex = 0;
+            this.tabControl_Main.Size = new System.Drawing.Size(1515, 785);
+            this.tabControl_Main.TabIndex = 1;
             // 
             // tabRevisionList1
             // 
@@ -130,40 +117,40 @@ namespace VerManagerLibrary_ClassLib
             this.tabRevisionList1.Size = new System.Drawing.Size(1501, 753);
             this.tabRevisionList1.TabIndex = 0;
             // 
-            // tabPage1
+            // tabPage_Revisions
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1507, 759);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage_Revisions.Controls.Add(this.tabRevisionList1);
+            this.tabPage_Revisions.Location = new System.Drawing.Point(4, 22);
+            this.tabPage_Revisions.Name = "tabPage_Revisions";
+            this.tabPage_Revisions.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage_Revisions.Size = new System.Drawing.Size(1507, 759);
+            this.tabPage_Revisions.TabIndex = 2;
+            this.tabPage_Revisions.Text = "Revisions";
+            this.tabPage_Revisions.UseVisualStyleBackColor = true;
             // 
             // VersionManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1545, 810);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl_Main);
             this.Name = "VersionManagerForm";
             this.Text = "VersionManager";
             tabPage_InSession.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
             this.tabPage_Library.ResumeLayout(false);
-            this.tabPage_Errors.ResumeLayout(false);
+            this.tabControl_Main.ResumeLayout(false);
+            this.tabPage_Revisions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage_Library;
-        private System.Windows.Forms.TabPage tabPage_Errors;
-        private TabRevisionLibrary tabRevisionList1;
-        private TabInSessionDocs tabInSessionDocs1;
         private TabStoredLibrary tabStoredLibrary1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private TabInSessionDocs tabInSessionDocs1;
+        private System.Windows.Forms.TabControl tabControl_Main;
+        private System.Windows.Forms.TabPage tabPage_Revisions;
+        private TabRevisionLibrary tabRevisionList1;
     }
 }

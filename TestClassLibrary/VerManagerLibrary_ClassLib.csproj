@@ -37,6 +37,8 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -75,16 +77,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\CreateRevisionForm.cs">
+    <Compile Include="Forms\RevisionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\CreateRevisionForm.Designer.cs">
-      <DependentUpon>CreateRevisionForm.cs</DependentUpon>
+    <Compile Include="Forms\RevisionForm.Designer.cs">
+      <DependentUpon>RevisionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DocumentClassRAW.cs" />
     <Compile Include="Models\DocumentClass.cs" />
     <Compile Include="Models\RevisionClass.cs" />
     <Compile Include="Models\RevisionClassRAW.cs" />
+    <Compile Include="Forms\RegisterMissingDataBaseInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RegisterMissingDataBaseInput.Designer.cs">
+      <DependentUpon>RegisterMissingDataBaseInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tabs\TabRevisionLibrary.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -119,8 +127,11 @@
     <Compile Include="Models\VMLCoordinator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\CreateRevisionForm.resx">
-      <DependentUpon>CreateRevisionForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\RegisterMissingDataBaseInput.resx">
+      <DependentUpon>RegisterMissingDataBaseInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RevisionForm.resx">
+      <DependentUpon>RevisionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tabs\TabRevisionLibrary.resx">
       <DependentUpon>TabRevisionLibrary.cs</DependentUpon>

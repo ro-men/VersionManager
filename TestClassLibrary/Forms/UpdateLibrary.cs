@@ -18,19 +18,6 @@ namespace VerManagerLibrary_ClassLib
         public UpdateLibrary()
         {
             InitializeComponent();
-            fillList();
-        }
-        private void fillList()
-        {
-            List<FileInfo> fileInfos = new List<FileInfo>();
-            VMLCoordinator.newFileKeys.ForEach(item => fileInfos.Add(new FileInfo(item)));
-            fastDataListView_new.SetObjects(fileInfos);
-            VMLCoordinator.deletedFilesKeys.ForEach(item => {
-                string[] row = {Path.GetFileName(item), Path.GetDirectoryName(item)};
-                var listViewItem = new ListViewItem(row);
-                listView_DeletedDoc.Items.Add(listViewItem);
-            });
-            fastDataListView_modified.SetObjects(VMLCoordinator.LibraryDocumentDictionary.Where(kvp => kvp.Value.DataBaseFileDate != kvp.Value.LocalFileDate));
         }
     }
 }
