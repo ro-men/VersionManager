@@ -84,7 +84,6 @@ namespace VerManagerLibrary_ClassLib
                     roots.Add(di);
             }
             this.treeListView_Stablo.Roots = roots;
-
         }
 
         private void treeListView_Stablo_FormatRow(object sender, FormatRowEventArgs e)

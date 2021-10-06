@@ -61,7 +61,6 @@ namespace VerManagerLibrary_ClassLib
 
             // Definicija osnovnih cvorova
             ArrayList roots = new ArrayList();
-
             foreach (DocumentClass di in documentDictionary.Values)
             {
                 if (!di.Used)

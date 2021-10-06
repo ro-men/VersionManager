@@ -32,7 +32,6 @@ namespace VerManagerLibrary_ClassLib
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabStoredLibrary));
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
-            this.button_UpdateLibrary = new System.Windows.Forms.Button();
             this.checkBox_DisplayAsList = new System.Windows.Forms.CheckBox();
             this.panel_DataOutput = new System.Windows.Forms.Panel();
             this.treeListView_Stablo = new BrightIdeasSoftware.TreeListView();
@@ -65,16 +64,6 @@ namespace VerManagerLibrary_ClassLib
             this.imageListSmall.Images.SetKeyName(0, "OK.png");
             this.imageListSmall.Images.SetKeyName(1, "FALSE.png");
             this.imageListSmall.Images.SetKeyName(2, "Warning.png");
-            // 
-            // button_UpdateLibrary
-            // 
-            this.button_UpdateLibrary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_UpdateLibrary.Location = new System.Drawing.Point(9, 694);
-            this.button_UpdateLibrary.Name = "button_UpdateLibrary";
-            this.button_UpdateLibrary.Size = new System.Drawing.Size(139, 44);
-            this.button_UpdateLibrary.TabIndex = 1;
-            this.button_UpdateLibrary.Text = "UpdateLibrary";
-            this.button_UpdateLibrary.UseVisualStyleBackColor = true;
             // 
             // checkBox_DisplayAsList
             // 
@@ -255,7 +244,6 @@ namespace VerManagerLibrary_ClassLib
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel_DataOutput);
             this.Controls.Add(this.checkBox_DisplayAsList);
-            this.Controls.Add(this.button_UpdateLibrary);
             this.Name = "TabStoredLibrary";
             this.Size = new System.Drawing.Size(1539, 768);
             this.Load += new System.EventHandler(this.TabStoredLibrary_Load);
@@ -271,7 +259,6 @@ namespace VerManagerLibrary_ClassLib
         }
 
         #endregion
-        private System.Windows.Forms.Button button_UpdateLibrary;
         private System.Windows.Forms.ImageList imageListSmall;
         private System.Windows.Forms.CheckBox checkBox_DisplayAsList;
         private System.Windows.Forms.Panel panel_DataOutput;

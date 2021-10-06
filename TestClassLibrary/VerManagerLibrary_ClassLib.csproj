@@ -111,12 +111,6 @@
     <Compile Include="Tabs\TabStoredLibrary.Designer.cs">
       <DependentUpon>TabStoredLibrary.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UpdateLibrary.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\UpdateLibrary.Designer.cs">
-      <DependentUpon>UpdateLibrary.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\VersionManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,9 +135,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tabs\TabStoredLibrary.resx">
       <DependentUpon>TabStoredLibrary.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UpdateLibrary.resx">
-      <DependentUpon>UpdateLibrary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\VersionManagerForm.resx">
       <DependentUpon>VersionManagerForm.cs</DependentUpon>

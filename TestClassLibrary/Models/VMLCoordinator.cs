@@ -70,7 +70,10 @@ namespace VerManagerLibrary_ClassLib
                 return false;
             }
         }
-
+        /// <summary>
+        /// Ucitava u radnu memoriju Catia-e sve dokumente iz liste.
+        /// </summary>
+        /// <param name="listToRead"></param>
         public static async void ReadList(List<DocumentClass> listToRead) 
         {
             INFITF.Application App = CatiaLauncher();
@@ -98,7 +101,7 @@ namespace VerManagerLibrary_ClassLib
             }
             InSessionDocumentDictionary = await VMLCoordinator.CollectInSessionDocuments();
         }
-
+        
         public static async Task<Dictionary<string, DocumentClass>> CollectInSessionDocuments()
         {
             Console.WriteLine("CollectDocuments  ->  Start");
@@ -145,10 +148,6 @@ namespace VerManagerLibrary_ClassLib
                             }
                             if (Path.GetExtension(doc.FullName).ToUpper() == ".CATPRODUCT")
                             {
-                                //clsDoc.ChildrenDict.Keys.ToList().ForEach(key => {
-                                //    LibraryDocumentDictionary[key].RemoveParent(clsDoc.Key);
-                                //});
-                                //clsDoc.ClearChildren();
                                 ProductDocument oProdDoc = (ProductDocument)doc;
                                 Product oProd = oProdDoc.Product;
                                 products.Add(oProd);
@@ -233,8 +232,11 @@ namespace VerManagerLibrary_ClassLib
         }
         #endregion
 
-        #region ReadDocumentLibraryDictionary
-
+        #region DocumentLibrary_Setup_And_Edit
+        /// <summary>
+        /// Učitava sve dokumente iz baze podataka te im pridodaje potrebne atribute.
+        /// </summary>
+        /// <returns></returns>
         private static Dictionary<string, DocumentClass> CollectLibraryDocuments()
         {
             Dictionary<string, DocumentClass> libraryDocuments = new Dictionary<string, DocumentClass>();
@@ -263,29 +265,13 @@ namespace VerManagerLibrary_ClassLib
                             currentDocumentClass.AddRevision(kvp.Key, 2);
                         }
                     }));
-
-
             return libraryDocuments;
         }
-        #endregion
-
-        public static void RemoveSelectionFromLibrary(List<DocumentClass> selectedDocuments)
-        {
-            foreach(DocumentClass documentClass in selectedDocuments)
-            {
-                documentClass.ChildrenDict.Keys.ToList().Where(x => LibraryDocumentDictionary.ContainsKey(x)).ToList().ForEach(key =>
-                {
-                    LibraryDocumentDictionary[key].RemoveParent(documentClass.Key);
-                });
-                documentClass.ParentsDict.Keys.ToList().Where(x => LibraryDocumentDictionary.ContainsKey(x)).ToList().ForEach(key =>
-                {
-                    LibraryDocumentDictionary[key].RemoveChild(documentClass.Key);
-                });
-                documentClass.RevisionDict.Keys.ToList().ForEach(key => RevisionDictionary[key].RemoveRevisionDocument(documentClass.Key));
-                LibraryDocumentDictionary.Remove(documentClass.Key);
-            };
-        }
-
+        /// <summary>
+        /// Provjerava da li na serveru postoje Catia dokumenti koji se ne nalaze u bazi podataka.
+        /// U slučaju da ih ima, za iste kreira objekte u "DocumentLibrary".
+        /// </summary>
+        /// <returns></returns>
         public static async Task<Dictionary<string, DocumentClass>> InitialDictionaryUpdate()
         {
             var watchFindNonExistend = new System.Diagnostics.Stopwatch();
@@ -305,7 +291,6 @@ namespace VerManagerLibrary_ClassLib
             });
             watchFindNonExistend.Stop();
             Console.WriteLine($"watchRemoveNonExistend  ->  Execution Time: {watchFindNonExistend.ElapsedMilliseconds} ms");
-
             return LibraryDocumentDictionary;
         }
         public static async Task<List<string>> CreateServerFileList()
@@ -321,7 +306,6 @@ namespace VerManagerLibrary_ClassLib
             Console.WriteLine($"EnumerateFilesFast files count::  {list.Count}  -> time: {watchEnumerateFilesFast.ElapsedMilliseconds} ms");
             return list.Select(file => file.FullName.Remove(0, serverCore.Length)).ToList();
         }
-
         public static List<FileInfo> EnumerateFilesFast(string path, string searchPatternExpression, SearchOption searchOption)
         {
             var dirInfo = new DirectoryInfo(path);
@@ -344,7 +328,23 @@ namespace VerManagerLibrary_ClassLib
                     ).ToList();
             return files;
         }
-
+        public static void RemoveSelectionFromLibrary(List<DocumentClass> selectedDocuments)
+        {
+            foreach (DocumentClass documentClass in selectedDocuments)
+            {
+                documentClass.ChildrenDict.Keys.ToList().Where(x => LibraryDocumentDictionary.ContainsKey(x)).ToList().ForEach(key =>
+                {
+                    LibraryDocumentDictionary[key].RemoveParent(documentClass.Key);
+                });
+                documentClass.ParentsDict.Keys.ToList().Where(x => LibraryDocumentDictionary.ContainsKey(x)).ToList().ForEach(key =>
+                {
+                    LibraryDocumentDictionary[key].RemoveChild(documentClass.Key);
+                });
+                documentClass.RevisionDict.Keys.ToList().ForEach(key => RevisionDictionary[key].RemoveRevisionDocument(documentClass.Key));
+                LibraryDocumentDictionary.Remove(documentClass.Key);
+            };
+        }
+        #endregion
         public static void StoreDocumentClassesDict()
         {
             var watchStore = new System.Diagnostics.Stopwatch();
@@ -371,22 +371,6 @@ namespace VerManagerLibrary_ClassLib
             watchStore.Stop();
             Console.WriteLine($"watchStore  ->  Execution Time: {watchStore.ElapsedMilliseconds} ms");
         }
-        public static void StoreRevisionDict()
-        {
-            var watchStore = new System.Diagnostics.Stopwatch();
-            watchStore.Start();
-            Dictionary<string, RevisionClassRAW> dictRAW = new Dictionary<string, RevisionClassRAW>();
-            foreach (KeyValuePair<string,RevisionClass> keyValuePair in RevisionDictionary) {
-                RevisionClassRAW revisionRAW = new RevisionClassRAW();
-                revisionRAW.FillRCL(keyValuePair.Value);
-                dictRAW.Add(keyValuePair.Key,revisionRAW);
-            }
-            String jsonString = JsonSerializer.Serialize(dictRAW);
-            System.IO.File.WriteAllText(@"D:\DATABASE\RevisionDict.JSON", jsonString);
-            watchStore.Stop();
-            Console.WriteLine($"watchStore  ->  Execution Time: {watchStore.ElapsedMilliseconds} ms");
-        }
-
         private static Dictionary<string, RevisionClass> CollectRevisionDocuments()
         {
             Dictionary<string, RevisionClass> oDict = new Dictionary<string, RevisionClass>();
@@ -403,6 +387,21 @@ namespace VerManagerLibrary_ClassLib
                 oDict.Add(keyValue.Key, revisionClass);
             }
             return oDict;
+        }
+        public static void StoreRevisionDict()
+        {
+            var watchStore = new System.Diagnostics.Stopwatch();
+            watchStore.Start();
+            Dictionary<string, RevisionClassRAW> dictRAW = new Dictionary<string, RevisionClassRAW>();
+            foreach (KeyValuePair<string,RevisionClass> keyValuePair in RevisionDictionary) {
+                RevisionClassRAW revisionRAW = new RevisionClassRAW();
+                revisionRAW.FillRCL(keyValuePair.Value);
+                dictRAW.Add(keyValuePair.Key,revisionRAW);
+            }
+            String jsonString = JsonSerializer.Serialize(dictRAW);
+            System.IO.File.WriteAllText(@"D:\DATABASE\RevisionDict.JSON", jsonString);
+            watchStore.Stop();
+            Console.WriteLine($"watchStore  ->  Execution Time: {watchStore.ElapsedMilliseconds} ms");
         }
     }
 }

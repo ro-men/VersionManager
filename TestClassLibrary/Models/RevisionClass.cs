@@ -19,6 +19,15 @@ namespace VerManagerLibrary_ClassLib
         public string Comment { 
             get { return comment; } 
             set { comment = value; modified = true; } }
+        private int importanceLvl;
+        /// <summary>
+        /// Value from 1 (high) to 3 (low)
+        /// </summary>
+        public int ImportanceLvl
+        {
+            get { return importanceLvl; }
+            set { importanceLvl = value; modified = true; }
+        }
         private bool modified;
         public bool Modified { get { return modified; } }
         public void CreateRevisionID()
