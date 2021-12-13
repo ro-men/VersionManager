@@ -15,8 +15,6 @@ namespace VerManagerLibrary_ClassLib
         private Dictionary<string, DocumentClass> childrenDict = new Dictionary<string, DocumentClass>();
         /// <summary>
         /// Add child to this document.
-        /// </summary>
-        /// <param name="documentClassInstance"></param>
         public void AddChild(DocumentClass documentClassInstance)
         {
             if (!childrenDict.ContainsKey(documentClassInstance.Key))
@@ -114,6 +112,8 @@ namespace VerManagerLibrary_ClassLib
         }
         public IReadOnlyDictionary<string, long> RevisionDict => revisionDict;
         #endregion
+        private string oldVersion;
+        public string OldVersion { get { return oldVersion; } }
 
         private string version;
         /// <summary>
@@ -132,7 +132,13 @@ namespace VerManagerLibrary_ClassLib
             {
                 number = 1;
             }
+            oldVersion = version;
             version = Environment.UserName + "_V_" + number.ToString();
+        }
+        public void UndoVersionIncrease()
+        {
+            version = oldVersion;
+            oldVersion = null;
         }
         private DateTime? dataBaseFileDate;
         public DateTime? DataBaseFileDate { 
@@ -192,7 +198,7 @@ namespace VerManagerLibrary_ClassLib
                     }
                 }
             } }
-        public bool InSession { get { return VMLCoordinator.CheckInSession(Key); } }
+        public bool InSession { get; set; }
         /// <summary>
         /// 0 - izvorno odabran dokument u reviziji - unsolved revision <br/>
         /// 1 - dokument iste/slične nomenklature - unsolved revision <br/>
@@ -223,7 +229,7 @@ namespace VerManagerLibrary_ClassLib
         /// <param name="RawClass"></param>
         public void BuildDocumentClass(DocumentClassRAW RawClass, Dictionary<string, RevisionClass> completeRevisionsDict) {
             Key = RawClass.Key;
-            completeRevisionsDict.Where(kvp => kvp.Value.RevisionDocuments.ContainsKey(Key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.RevisionDocuments[Key]));
+            completeRevisionsDict.Where(kvp => kvp.Value.RevisionDocuments.ContainsKey(Key)).ToList().ForEach(x => revisionDict.Add(x.Key, Int32.Parse(x.Value.RevisionDocuments[Key][0])));
             dataBaseFileDate = RawClass.LibraryTime;
             SetInitaialNomenclature(RawClass.Nomenclture);
             version = RawClass.Version;

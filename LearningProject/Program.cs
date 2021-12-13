@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VerManagerLibrary_ClassLib;
 
 namespace LearningProject
 {
@@ -16,7 +17,7 @@ namespace LearningProject
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CallVM_Form());
+            Application.Run(new VersionManagerForm());      
         }
     }
 }

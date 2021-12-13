@@ -14,11 +14,13 @@ namespace VerManagerLibrary_ClassLib
             public void FillRCL(RevisionClass oRevision)
             {
                 RevisionID = oRevision.RevisionID;
+                ImportanceLevel = oRevision.ImportanceLvl;
                 Comment = oRevision.Comment;
                 RevisionDocuments = oRevision.RevisionDocuments.ToList();
             }
             public string RevisionID { get; set; }
+            public int ImportanceLevel { get; set; }
             public string Comment { get; set; }
-            public List<KeyValuePair<string, long>> RevisionDocuments { get; set; }
+            public List<KeyValuePair<string, string[]>> RevisionDocuments { get; set; }
     }
 }

@@ -111,12 +111,12 @@ namespace VerManagerLibrary_ClassLib
                     UpdateFileParameters(documentClass);
                     try
                     {
-                        VMLCoordinator.LibraryDocumentDictionary.Add(documentClass.Key, documentClass);
+                        VMLCoordinator.DocumentDictionary.Add(documentClass.Key, documentClass);
                     }
                     catch (Exception)
                     {
 
-                        VMLCoordinator.LibraryDocumentDictionary[documentClass.Key]= documentClass;
+                        VMLCoordinator.DocumentDictionary[documentClass.Key]= documentClass;
                     }
                 }
                 VMLCoordinator.StoreDocumentClassesDict();

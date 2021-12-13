@@ -12,14 +12,14 @@ namespace VerManagerLibrary_ClassLib
         private string revisionID;
         public string RevisionID { get { return revisionID; } }
         public bool SolvedStatus { get {
-                if(revisionDocuments.Values.Min() < 2 ) return false;
+                if(revisionDocuments.Values.Where(x => Int32.Parse(x[0]) < 2).ToList().Count() > 0 ) return false;
                 return true;
             }}
         private string comment;
         public string Comment { 
             get { return comment; } 
             set { comment = value; modified = true; } }
-        private int importanceLvl;
+        private int importanceLvl = 0;
         /// <summary>
         /// Value from 1 (high) to 3 (low)
         /// </summary>
@@ -48,13 +48,13 @@ namespace VerManagerLibrary_ClassLib
         /// <summary>
         /// Kolekcija slika određene revizije.
         /// </summary>
-        public HashSet<string> RevisionPics { get; set; }
+        public HashSet<string> RevisionPics { get; set; } = new HashSet<string>();
         #endregion
         #region RevisionDocuments
         /// <summary>
         /// Odabrani dokumenti kod kreiranja nove nove revizije.
         /// </summary>
-        private Dictionary<string, long> revisionDocuments = new Dictionary<string, long>(); //key -> DocumentClass_key; value -> RevisionDocument Info
+        private Dictionary<string, string[]> revisionDocuments = new Dictionary<string, string[]>(); //key -> DocumentClass_key; value -> RevisionDocument Info
         /// <summary>
         /// Add Document to revision and define its solved status.
         /// </summary>
@@ -62,9 +62,14 @@ namespace VerManagerLibrary_ClassLib
         /// <param name="rD_Info">      
         /// 0 - izvorno odabran dokument u reviziji - unsolved revision <br/>
         /// 1 - dokument iste/slične nomenklature - unsolved revision <br/>
+        /// 2 - dokument roditelj koji postaje zastarjeli usljed ove revizije <br/>
         /// 3 - izvorno odabran dokument u reviziji - solved revision <br/>
         /// 4 - dokument iste/slične nomenklature - solved revision <br/>
-        public void AddRevisionDocument(string DocumentKey, long rD_Info)
+        /// string[2]::  <br/> 
+        /// 0 - [0-1-2-3-4] gornji opis  <br/>
+        /// 1 - solvedVersion - verzija u koju je prešao dokument kad je revizija riješena <br/>
+        /// 2 - oldVersion - verzija dokumenta kad je dodan u reviziju <br/>
+        public void AddRevisionDocument(string DocumentKey, string[] rD_Info)
         {
             if (!revisionDocuments.ContainsKey(DocumentKey))
             {
@@ -72,7 +77,7 @@ namespace VerManagerLibrary_ClassLib
                 modified = true;
             }
         }
-        public void ModifyRevisionDocument(string DocumentKey, long rD_Info)
+        public void ModifyRevisionDocument(string DocumentKey, string[] rD_Info)
         {
             revisionDocuments[DocumentKey] = rD_Info;
             modified = true;
@@ -87,11 +92,13 @@ namespace VerManagerLibrary_ClassLib
             revisionDocuments.Clear();
             modified = true;
         }
-        public IReadOnlyDictionary<string, long> RevisionDocuments => revisionDocuments;
+        public IReadOnlyDictionary<string, string[]> RevisionDocuments => revisionDocuments;
         #endregion
         public void BuildRevisionClass(RevisionClassRAW RawClass)
         {
             revisionID = RawClass.RevisionID;
+            importanceLvl = 0;
+            if (RawClass.Comment != "" && RawClass.Comment != null) comment = RawClass.Comment;
             revisionDocuments = RawClass.RevisionDocuments.ToDictionary(x => x.Key, x => x.Value);
         }
     }

@@ -35,10 +35,14 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_Glavni = new System.Windows.Forms.SplitContainer();
             this.splitContainer_Display = new System.Windows.Forms.SplitContainer();
             this.splitContainer_LeftSide = new System.Windows.Forms.SplitContainer();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.splitContainer_ID_Importance_Comment = new System.Windows.Forms.SplitContainer();
+            this.splitContainer_ID_and_Importance = new System.Windows.Forms.SplitContainer();
+            this.groupBox_ID = new System.Windows.Forms.GroupBox();
             this.label_RevisionID = new System.Windows.Forms.Label();
             this.textBoxRevisionID = new System.Windows.Forms.TextBox();
+            this.groupBox_Importance = new System.Windows.Forms.GroupBox();
+            this.comboBox_Importance = new System.Windows.Forms.ComboBox();
+            this.label_Importance_level = new System.Windows.Forms.Label();
             this.groupBox_Comment = new System.Windows.Forms.GroupBox();
             this.textBoxComent = new System.Windows.Forms.TextBox();
             this.splitContainer_Liste = new System.Windows.Forms.SplitContainer();
@@ -47,14 +51,14 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_Selected_PartName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FDLV_Selected_FullName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FDLV_Selected_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.FDLV_Selected_Resolve = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.FDLV_Selected_Resolved = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FDLV_Selected_CurrentRevisionStatus = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.FOLV_LibraryList = new BrightIdeasSoftware.FastObjectListView();
             this.FOLV_Library_PartName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FOLV_Library_FullName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FOLV_Library_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.FOLV_Library_Resolve = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.FOLV_Library_Resolved = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FOLV_Library_CurrentRevisionStatus = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -67,11 +71,15 @@ namespace VerManagerLibrary_ClassLib
             this.columnHeader_ImageName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_ImagePath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PicturePanel = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox_ImageDisplay = new System.Windows.Forms.PictureBox();
             this.button_AddPic = new System.Windows.Forms.Button();
             this.button_StoreRevision = new System.Windows.Forms.Button();
             this.contextMenuStrip_Images = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip_SelectedItems = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.FOLV_Library_OldVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.FOLV_Library_SolvedVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Glavni)).BeginInit();
             this.splitContainer_Glavni.Panel1.SuspendLayout();
             this.splitContainer_Glavni.Panel2.SuspendLayout();
@@ -84,11 +92,16 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_LeftSide.Panel1.SuspendLayout();
             this.splitContainer_LeftSide.Panel2.SuspendLayout();
             this.splitContainer_LeftSide.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer_ID_Importance_Comment)).BeginInit();
+            this.splitContainer_ID_Importance_Comment.Panel1.SuspendLayout();
+            this.splitContainer_ID_Importance_Comment.Panel2.SuspendLayout();
+            this.splitContainer_ID_Importance_Comment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer_ID_and_Importance)).BeginInit();
+            this.splitContainer_ID_and_Importance.Panel1.SuspendLayout();
+            this.splitContainer_ID_and_Importance.Panel2.SuspendLayout();
+            this.splitContainer_ID_and_Importance.SuspendLayout();
+            this.groupBox_ID.SuspendLayout();
+            this.groupBox_Importance.SuspendLayout();
             this.groupBox_Comment.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Liste)).BeginInit();
             this.splitContainer_Liste.Panel1.SuspendLayout();
@@ -105,8 +118,9 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_ImageContainer.Panel2.SuspendLayout();
             this.splitContainer_ImageContainer.SuspendLayout();
             this.PicturePanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ImageDisplay)).BeginInit();
             this.contextMenuStrip_Images.SuspendLayout();
+            this.contextMenuStrip_SelectedItems.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageListSmall
@@ -132,8 +146,8 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.splitContainer_Glavni.Panel2.Controls.Add(this.button_AddPic);
             this.splitContainer_Glavni.Panel2.Controls.Add(this.button_StoreRevision);
-            this.splitContainer_Glavni.Size = new System.Drawing.Size(1457, 999);
-            this.splitContainer_Glavni.SplitterDistance = 885;
+            this.splitContainer_Glavni.Size = new System.Drawing.Size(1729, 856);
+            this.splitContainer_Glavni.SplitterDistance = 742;
             this.splitContainer_Glavni.TabIndex = 12;
             // 
             // splitContainer_Display
@@ -149,8 +163,8 @@ namespace VerManagerLibrary_ClassLib
             // splitContainer_Display.Panel2
             // 
             this.splitContainer_Display.Panel2.Controls.Add(this.splitContainer_ImageContainer);
-            this.splitContainer_Display.Size = new System.Drawing.Size(1457, 885);
-            this.splitContainer_Display.SplitterDistance = 988;
+            this.splitContainer_Display.Size = new System.Drawing.Size(1729, 742);
+            this.splitContainer_Display.SplitterDistance = 1293;
             this.splitContainer_Display.TabIndex = 16;
             // 
             // splitContainer_LeftSide
@@ -162,66 +176,122 @@ namespace VerManagerLibrary_ClassLib
             // 
             // splitContainer_LeftSide.Panel1
             // 
-            this.splitContainer_LeftSide.Panel1.Controls.Add(this.splitContainer1);
+            this.splitContainer_LeftSide.Panel1.Controls.Add(this.splitContainer_ID_Importance_Comment);
             // 
             // splitContainer_LeftSide.Panel2
             // 
             this.splitContainer_LeftSide.Panel2.Controls.Add(this.splitContainer_Liste);
-            this.splitContainer_LeftSide.Size = new System.Drawing.Size(988, 885);
-            this.splitContainer_LeftSide.SplitterDistance = 250;
+            this.splitContainer_LeftSide.Size = new System.Drawing.Size(1293, 742);
+            this.splitContainer_LeftSide.SplitterDistance = 209;
             this.splitContainer_LeftSide.TabIndex = 18;
             // 
-            // splitContainer1
+            // splitContainer_ID_Importance_Comment
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer_ID_Importance_Comment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer_ID_Importance_Comment.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.splitContainer_ID_Importance_Comment.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer_ID_Importance_Comment.Name = "splitContainer_ID_Importance_Comment";
+            this.splitContainer_ID_Importance_Comment.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
+            // splitContainer_ID_Importance_Comment.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
+            this.splitContainer_ID_Importance_Comment.Panel1.Controls.Add(this.splitContainer_ID_and_Importance);
             // 
-            // splitContainer1.Panel2
+            // splitContainer_ID_Importance_Comment.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupBox_Comment);
-            this.splitContainer1.Size = new System.Drawing.Size(988, 250);
-            this.splitContainer1.TabIndex = 23;
+            this.splitContainer_ID_Importance_Comment.Panel2.Controls.Add(this.groupBox_Comment);
+            this.splitContainer_ID_Importance_Comment.Size = new System.Drawing.Size(1293, 209);
+            this.splitContainer_ID_Importance_Comment.TabIndex = 23;
             // 
-            // groupBox1
+            // splitContainer_ID_and_Importance
             // 
-            this.groupBox1.Controls.Add(this.label_RevisionID);
-            this.groupBox1.Controls.Add(this.textBoxRevisionID);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(988, 50);
-            this.groupBox1.TabIndex = 23;
-            this.groupBox1.TabStop = false;
+            this.splitContainer_ID_and_Importance.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer_ID_and_Importance.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainer_ID_and_Importance.IsSplitterFixed = true;
+            this.splitContainer_ID_and_Importance.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer_ID_and_Importance.Name = "splitContainer_ID_and_Importance";
+            // 
+            // splitContainer_ID_and_Importance.Panel1
+            // 
+            this.splitContainer_ID_and_Importance.Panel1.Controls.Add(this.groupBox_ID);
+            this.splitContainer_ID_and_Importance.Panel1MinSize = 250;
+            // 
+            // splitContainer_ID_and_Importance.Panel2
+            // 
+            this.splitContainer_ID_and_Importance.Panel2.Controls.Add(this.groupBox_Importance);
+            this.splitContainer_ID_and_Importance.Panel2MinSize = 200;
+            this.splitContainer_ID_and_Importance.Size = new System.Drawing.Size(1293, 50);
+            this.splitContainer_ID_and_Importance.SplitterDistance = 1075;
+            this.splitContainer_ID_and_Importance.SplitterWidth = 1;
+            this.splitContainer_ID_and_Importance.TabIndex = 0;
+            // 
+            // groupBox_ID
+            // 
+            this.groupBox_ID.Controls.Add(this.label_RevisionID);
+            this.groupBox_ID.Controls.Add(this.textBoxRevisionID);
+            this.groupBox_ID.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_ID.Location = new System.Drawing.Point(0, 0);
+            this.groupBox_ID.Name = "groupBox_ID";
+            this.groupBox_ID.Size = new System.Drawing.Size(1075, 50);
+            this.groupBox_ID.TabIndex = 26;
+            this.groupBox_ID.TabStop = false;
             // 
             // label_RevisionID
             // 
             this.label_RevisionID.AutoSize = true;
-            this.label_RevisionID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_RevisionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_RevisionID.Location = new System.Drawing.Point(3, 16);
+            this.label_RevisionID.Location = new System.Drawing.Point(15, 18);
             this.label_RevisionID.Name = "label_RevisionID";
             this.label_RevisionID.Size = new System.Drawing.Size(77, 16);
-            this.label_RevisionID.TabIndex = 22;
+            this.label_RevisionID.TabIndex = 32;
             this.label_RevisionID.Text = "RevisionID:";
             // 
             // textBoxRevisionID
             // 
+            this.textBoxRevisionID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxRevisionID.CausesValidation = false;
             this.textBoxRevisionID.Enabled = false;
             this.textBoxRevisionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxRevisionID.Location = new System.Drawing.Point(86, 13);
+            this.textBoxRevisionID.Location = new System.Drawing.Point(98, 15);
             this.textBoxRevisionID.Name = "textBoxRevisionID";
-            this.textBoxRevisionID.Size = new System.Drawing.Size(704, 21);
-            this.textBoxRevisionID.TabIndex = 21;
-            this.textBoxRevisionID.Enter += new System.EventHandler(this.RemoveText);
-            this.textBoxRevisionID.Leave += new System.EventHandler(this.AddText);
+            this.textBoxRevisionID.Size = new System.Drawing.Size(940, 21);
+            this.textBoxRevisionID.TabIndex = 31;
+            // 
+            // groupBox_Importance
+            // 
+            this.groupBox_Importance.Controls.Add(this.comboBox_Importance);
+            this.groupBox_Importance.Controls.Add(this.label_Importance_level);
+            this.groupBox_Importance.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_Importance.Location = new System.Drawing.Point(0, 0);
+            this.groupBox_Importance.Name = "groupBox_Importance";
+            this.groupBox_Importance.Size = new System.Drawing.Size(217, 50);
+            this.groupBox_Importance.TabIndex = 27;
+            this.groupBox_Importance.TabStop = false;
+            // 
+            // comboBox_Importance
+            // 
+            this.comboBox_Importance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_Importance.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Importance.Items.AddRange(new object[] {
+            "High",
+            "Medium",
+            "Low"});
+            this.comboBox_Importance.Location = new System.Drawing.Point(132, 15);
+            this.comboBox_Importance.Name = "comboBox_Importance";
+            this.comboBox_Importance.Size = new System.Drawing.Size(69, 21);
+            this.comboBox_Importance.TabIndex = 34;
+            this.comboBox_Importance.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Importance_SelectedIndexChanged);
+            // 
+            // label_Importance_level
+            // 
+            this.label_Importance_level.AutoSize = true;
+            this.label_Importance_level.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_Importance_level.Location = new System.Drawing.Point(10, 18);
+            this.label_Importance_level.Name = "label_Importance_level";
+            this.label_Importance_level.Size = new System.Drawing.Size(114, 16);
+            this.label_Importance_level.TabIndex = 33;
+            this.label_Importance_level.Text = "Importance_level:";
             // 
             // groupBox_Comment
             // 
@@ -229,7 +299,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_Comment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_Comment.Location = new System.Drawing.Point(0, 0);
             this.groupBox_Comment.Name = "groupBox_Comment";
-            this.groupBox_Comment.Size = new System.Drawing.Size(988, 196);
+            this.groupBox_Comment.Size = new System.Drawing.Size(1293, 155);
             this.groupBox_Comment.TabIndex = 22;
             this.groupBox_Comment.TabStop = false;
             this.groupBox_Comment.Text = "Comment";
@@ -242,7 +312,7 @@ namespace VerManagerLibrary_ClassLib
             this.textBoxComent.Location = new System.Drawing.Point(3, 16);
             this.textBoxComent.Multiline = true;
             this.textBoxComent.Name = "textBoxComent";
-            this.textBoxComent.Size = new System.Drawing.Size(982, 177);
+            this.textBoxComent.Size = new System.Drawing.Size(1287, 136);
             this.textBoxComent.TabIndex = 13;
             this.textBoxComent.Text = "Enter comment here...";
             this.textBoxComent.Enter += new System.EventHandler(this.RemoveText);
@@ -264,8 +334,8 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_Liste.Panel2.Controls.Add(this.panel2);
             this.splitContainer_Liste.Panel2.Controls.Add(this.splitter1);
             this.splitContainer_Liste.Panel2.Controls.Add(this.panel1);
-            this.splitContainer_Liste.Size = new System.Drawing.Size(988, 631);
-            this.splitContainer_Liste.SplitterDistance = 182;
+            this.splitContainer_Liste.Size = new System.Drawing.Size(1293, 529);
+            this.splitContainer_Liste.SplitterDistance = 151;
             this.splitContainer_Liste.TabIndex = 18;
             // 
             // groupBoxSelected
@@ -274,7 +344,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBoxSelected.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxSelected.Location = new System.Drawing.Point(0, 0);
             this.groupBoxSelected.Name = "groupBoxSelected";
-            this.groupBoxSelected.Size = new System.Drawing.Size(988, 182);
+            this.groupBoxSelected.Size = new System.Drawing.Size(1293, 151);
             this.groupBoxSelected.TabIndex = 9;
             this.groupBoxSelected.TabStop = false;
             this.groupBoxSelected.Text = "SelectedItems";
@@ -284,14 +354,14 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_SelectedList.AllColumns.Add(this.FDLV_Selected_PartName);
             this.FDLV_SelectedList.AllColumns.Add(this.FDLV_Selected_FullName);
             this.FDLV_SelectedList.AllColumns.Add(this.FDLV_Selected_Nomenclature);
-            this.FDLV_SelectedList.AllColumns.Add(this.FDLV_Selected_Resolve);
+            this.FDLV_SelectedList.AllColumns.Add(this.FDLV_Selected_Resolved);
             this.FDLV_SelectedList.AllColumns.Add(this.FDLV_Selected_CurrentRevisionStatus);
             this.FDLV_SelectedList.CellEditUseWholeCell = false;
             this.FDLV_SelectedList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.FDLV_Selected_PartName,
             this.FDLV_Selected_FullName,
             this.FDLV_Selected_Nomenclature,
-            this.FDLV_Selected_Resolve,
+            this.FDLV_Selected_Resolved,
             this.FDLV_Selected_CurrentRevisionStatus});
             this.FDLV_SelectedList.Cursor = System.Windows.Forms.Cursors.Default;
             this.FDLV_SelectedList.DataSource = null;
@@ -300,12 +370,13 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_SelectedList.Location = new System.Drawing.Point(3, 16);
             this.FDLV_SelectedList.Name = "FDLV_SelectedList";
             this.FDLV_SelectedList.ShowGroups = false;
-            this.FDLV_SelectedList.Size = new System.Drawing.Size(982, 163);
+            this.FDLV_SelectedList.Size = new System.Drawing.Size(1287, 132);
             this.FDLV_SelectedList.SmallImageList = this.imageListSmall;
             this.FDLV_SelectedList.TabIndex = 5;
             this.FDLV_SelectedList.UseCompatibleStateImageBehavior = false;
             this.FDLV_SelectedList.View = System.Windows.Forms.View.Details;
             this.FDLV_SelectedList.VirtualMode = true;
+            this.FDLV_SelectedList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FDLV_SelectedList_MouseClick);
             // 
             // FDLV_Selected_PartName
             // 
@@ -322,14 +393,17 @@ namespace VerManagerLibrary_ClassLib
             // FDLV_Selected_Nomenclature
             // 
             this.FDLV_Selected_Nomenclature.Text = "Nomenclature";
+            this.FDLV_Selected_Nomenclature.Width = 91;
             // 
-            // FDLV_Selected_Resolve
+            // FDLV_Selected_Resolved
             // 
-            this.FDLV_Selected_Resolve.CheckBoxes = true;
-            this.FDLV_Selected_Resolve.Text = "Resolve";
+            this.FDLV_Selected_Resolved.CheckBoxes = true;
+            this.FDLV_Selected_Resolved.Text = "Resolved";
+            this.FDLV_Selected_Resolved.Width = 85;
             // 
             // FDLV_Selected_CurrentRevisionStatus
             // 
+            this.FDLV_Selected_CurrentRevisionStatus.FillsFreeSpace = true;
             this.FDLV_Selected_CurrentRevisionStatus.Text = "CurrentResolveStatus";
             // 
             // panel2
@@ -338,7 +412,7 @@ namespace VerManagerLibrary_ClassLib
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 68);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(988, 377);
+            this.panel2.Size = new System.Drawing.Size(1293, 306);
             this.panel2.TabIndex = 2;
             // 
             // FOLV_LibraryList
@@ -346,16 +420,20 @@ namespace VerManagerLibrary_ClassLib
             this.FOLV_LibraryList.AllColumns.Add(this.FOLV_Library_PartName);
             this.FOLV_LibraryList.AllColumns.Add(this.FOLV_Library_FullName);
             this.FOLV_LibraryList.AllColumns.Add(this.FOLV_Library_Nomenclature);
-            this.FOLV_LibraryList.AllColumns.Add(this.FOLV_Library_Resolve);
+            this.FOLV_LibraryList.AllColumns.Add(this.FOLV_Library_Resolved);
             this.FOLV_LibraryList.AllColumns.Add(this.FOLV_Library_CurrentRevisionStatus);
+            this.FOLV_LibraryList.AllColumns.Add(this.FOLV_Library_SolvedVersion);
+            this.FOLV_LibraryList.AllColumns.Add(this.FOLV_Library_OldVersion);
             this.FOLV_LibraryList.CellEditUseWholeCell = false;
             this.FOLV_LibraryList.CheckBoxes = true;
             this.FOLV_LibraryList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.FOLV_Library_PartName,
             this.FOLV_Library_FullName,
             this.FOLV_Library_Nomenclature,
-            this.FOLV_Library_Resolve,
-            this.FOLV_Library_CurrentRevisionStatus});
+            this.FOLV_Library_Resolved,
+            this.FOLV_Library_CurrentRevisionStatus,
+            this.FOLV_Library_SolvedVersion,
+            this.FOLV_Library_OldVersion});
             this.FOLV_LibraryList.Cursor = System.Windows.Forms.Cursors.Default;
             this.FOLV_LibraryList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FOLV_LibraryList.HideSelection = false;
@@ -363,7 +441,7 @@ namespace VerManagerLibrary_ClassLib
             this.FOLV_LibraryList.Name = "FOLV_LibraryList";
             this.FOLV_LibraryList.ShowGroups = false;
             this.FOLV_LibraryList.ShowImagesOnSubItems = true;
-            this.FOLV_LibraryList.Size = new System.Drawing.Size(988, 377);
+            this.FOLV_LibraryList.Size = new System.Drawing.Size(1293, 306);
             this.FOLV_LibraryList.SmallImageList = this.imageListSmall;
             this.FOLV_LibraryList.StateImageList = this.imageListSmall;
             this.FOLV_LibraryList.TabIndex = 10;
@@ -372,7 +450,6 @@ namespace VerManagerLibrary_ClassLib
             this.FOLV_LibraryList.UseFiltering = true;
             this.FOLV_LibraryList.View = System.Windows.Forms.View.Details;
             this.FOLV_LibraryList.VirtualMode = true;
-            this.FOLV_LibraryList.Resize += new System.EventHandler(this.fastDataListView_Library_Resize);
             // 
             // FOLV_Library_PartName
             // 
@@ -392,10 +469,10 @@ namespace VerManagerLibrary_ClassLib
             this.FOLV_Library_Nomenclature.Text = "Nomenclature";
             this.FOLV_Library_Nomenclature.Width = 200;
             // 
-            // FOLV_Library_Resolve
+            // FOLV_Library_Resolved
             // 
-            this.FOLV_Library_Resolve.CheckBoxes = true;
-            this.FOLV_Library_Resolve.Text = "Resolve";
+            this.FOLV_Library_Resolved.CheckBoxes = true;
+            this.FOLV_Library_Resolved.Text = "Resolved";
             // 
             // FOLV_Library_CurrentRevisionStatus
             // 
@@ -407,7 +484,7 @@ namespace VerManagerLibrary_ClassLib
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitter1.Location = new System.Drawing.Point(0, 65);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(988, 3);
+            this.splitter1.Size = new System.Drawing.Size(1293, 3);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
@@ -417,7 +494,7 @@ namespace VerManagerLibrary_ClassLib
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(988, 65);
+            this.panel1.Size = new System.Drawing.Size(1293, 65);
             this.panel1.TabIndex = 0;
             // 
             // groupBoxFilter
@@ -428,7 +505,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBoxFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxFilter.Location = new System.Drawing.Point(0, 0);
             this.groupBoxFilter.Name = "groupBoxFilter";
-            this.groupBoxFilter.Size = new System.Drawing.Size(988, 65);
+            this.groupBoxFilter.Size = new System.Drawing.Size(1293, 65);
             this.groupBoxFilter.TabIndex = 11;
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filter";
@@ -442,7 +519,7 @@ namespace VerManagerLibrary_ClassLib
             this.checkBox_FilterLibrary.TabIndex = 10;
             this.checkBox_FilterLibrary.Text = "ShowOnlyChecked";
             this.checkBox_FilterLibrary.UseVisualStyleBackColor = true;
-            this.checkBox_FilterLibrary.CheckedChanged += new System.EventHandler(this.checkBox_FilterLibrary_CheckedChanged);
+            this.checkBox_FilterLibrary.CheckedChanged += new System.EventHandler(this.CheckBox_FilterLibrary_CheckedChanged);
             // 
             // comboBoxFilterColumn
             // 
@@ -452,7 +529,7 @@ namespace VerManagerLibrary_ClassLib
             this.comboBoxFilterColumn.Name = "comboBoxFilterColumn";
             this.comboBoxFilterColumn.Size = new System.Drawing.Size(111, 21);
             this.comboBoxFilterColumn.TabIndex = 8;
-            this.comboBoxFilterColumn.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterColumn_SelectedIndexChanged);
+            this.comboBoxFilterColumn.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFilterColumn_SelectedIndexChanged);
             // 
             // textBoxFilterLibraryItems
             // 
@@ -462,7 +539,7 @@ namespace VerManagerLibrary_ClassLib
             this.textBoxFilterLibraryItems.Name = "textBoxFilterLibraryItems";
             this.textBoxFilterLibraryItems.Size = new System.Drawing.Size(273, 21);
             this.textBoxFilterLibraryItems.TabIndex = 7;
-            this.textBoxFilterLibraryItems.TextChanged += new System.EventHandler(this.textBoxFilterLibraryItems_TextChanged);
+            this.textBoxFilterLibraryItems.TextChanged += new System.EventHandler(this.TextBoxFilterLibraryItems_TextChanged);
             // 
             // splitContainer_ImageContainer
             // 
@@ -478,9 +555,9 @@ namespace VerManagerLibrary_ClassLib
             // splitContainer_ImageContainer.Panel2
             // 
             this.splitContainer_ImageContainer.Panel2.Controls.Add(this.PicturePanel);
-            this.splitContainer_ImageContainer.Size = new System.Drawing.Size(465, 885);
-            this.splitContainer_ImageContainer.SplitterDistance = 392;
-            this.splitContainer_ImageContainer.TabIndex = 0;
+            this.splitContainer_ImageContainer.Size = new System.Drawing.Size(432, 742);
+            this.splitContainer_ImageContainer.SplitterDistance = 326;
+            this.splitContainer_ImageContainer.TabIndex = 2;
             // 
             // listView_Images
             // 
@@ -491,13 +568,12 @@ namespace VerManagerLibrary_ClassLib
             this.listView_Images.HideSelection = false;
             this.listView_Images.Location = new System.Drawing.Point(0, 0);
             this.listView_Images.Name = "listView_Images";
-            this.listView_Images.Size = new System.Drawing.Size(465, 392);
+            this.listView_Images.Size = new System.Drawing.Size(432, 326);
             this.listView_Images.TabIndex = 0;
             this.listView_Images.UseCompatibleStateImageBehavior = false;
             this.listView_Images.View = System.Windows.Forms.View.Details;
-            this.listView_Images.SelectedIndexChanged += new System.EventHandler(this.listView_Images_SelectedIndexChanged);
-            this.listView_Images.DoubleClick += new System.EventHandler(this.listView_Images_DoubleClick);
-            this.listView_Images.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listView_Images_MouseClick);
+            this.listView_Images.SelectedIndexChanged += new System.EventHandler(this.ListView_Images_SelectedIndexChanged);
+            this.listView_Images.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView_Images_MouseClick);
             // 
             // columnHeader_ImageName
             // 
@@ -512,42 +588,44 @@ namespace VerManagerLibrary_ClassLib
             // PicturePanel
             // 
             this.PicturePanel.BackColor = System.Drawing.Color.White;
-            this.PicturePanel.Controls.Add(this.pictureBox1);
+            this.PicturePanel.Controls.Add(this.pictureBox_ImageDisplay);
             this.PicturePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PicturePanel.Location = new System.Drawing.Point(0, 0);
             this.PicturePanel.Name = "PicturePanel";
-            this.PicturePanel.Size = new System.Drawing.Size(465, 489);
+            this.PicturePanel.Size = new System.Drawing.Size(432, 412);
             this.PicturePanel.TabIndex = 0;
             // 
-            // pictureBox1
+            // pictureBox_ImageDisplay
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(465, 489);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.pictureBox_ImageDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox_ImageDisplay.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox_ImageDisplay.Name = "pictureBox_ImageDisplay";
+            this.pictureBox_ImageDisplay.Size = new System.Drawing.Size(432, 412);
+            this.pictureBox_ImageDisplay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_ImageDisplay.TabIndex = 0;
+            this.pictureBox_ImageDisplay.TabStop = false;
             // 
             // button_AddPic
             // 
-            this.button_AddPic.Location = new System.Drawing.Point(1337, 16);
+            this.button_AddPic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_AddPic.Location = new System.Drawing.Point(1609, 16);
             this.button_AddPic.Name = "button_AddPic";
             this.button_AddPic.Size = new System.Drawing.Size(108, 31);
             this.button_AddPic.TabIndex = 12;
             this.button_AddPic.Text = "Add Pictures";
             this.button_AddPic.UseVisualStyleBackColor = true;
-            this.button_AddPic.Click += new System.EventHandler(this.button_AddImages_Click);
+            this.button_AddPic.Click += new System.EventHandler(this.Button_AddImages_Click);
             // 
             // button_StoreRevision
             // 
-            this.button_StoreRevision.Location = new System.Drawing.Point(1214, 16);
+            this.button_StoreRevision.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_StoreRevision.Location = new System.Drawing.Point(1486, 16);
             this.button_StoreRevision.Name = "button_StoreRevision";
             this.button_StoreRevision.Size = new System.Drawing.Size(117, 32);
             this.button_StoreRevision.TabIndex = 11;
             this.button_StoreRevision.Text = "Save Revision";
             this.button_StoreRevision.UseVisualStyleBackColor = true;
-            this.button_StoreRevision.Click += new System.EventHandler(this.button_StoreRevision_Click);
+            this.button_StoreRevision.Click += new System.EventHandler(this.Button_StoreRevision_Click);
             // 
             // contextMenuStrip_Images
             // 
@@ -559,16 +637,44 @@ namespace VerManagerLibrary_ClassLib
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteImage);
+            // 
+            // contextMenuStrip_SelectedItems
+            // 
+            this.contextMenuStrip_SelectedItems.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.contextMenuStrip_SelectedItems.Name = "contextMenuStrip_Images";
+            this.contextMenuStrip_SelectedItems.Size = new System.Drawing.Size(108, 26);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItem1.Text = "Delete";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.DeleteSelectedItem);
+            // 
+            // FOLV_Library_OldVersion
+            // 
+            this.FOLV_Library_OldVersion.AspectName = "";
+            this.FOLV_Library_OldVersion.FillsFreeSpace = true;
+            this.FOLV_Library_OldVersion.Text = "Old version";
+            this.FOLV_Library_OldVersion.Width = 120;
+            // 
+            // FOLV_Library_SolvedVersion
+            // 
+            this.FOLV_Library_SolvedVersion.AspectName = "";
+            this.FOLV_Library_SolvedVersion.Text = "Solved version";
+            this.FOLV_Library_SolvedVersion.Width = 120;
             // 
             // RevisionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1457, 999);
+            this.ClientSize = new System.Drawing.Size(1729, 856);
             this.Controls.Add(this.splitContainer_Glavni);
+            this.MinimumSize = new System.Drawing.Size(800, 550);
             this.Name = "RevisionForm";
             this.Text = "RevisionForm";
             this.Load += new System.EventHandler(this.RevisionForm_Load);
@@ -584,12 +690,18 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_LeftSide.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_LeftSide)).EndInit();
             this.splitContainer_LeftSide.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.splitContainer_ID_Importance_Comment.Panel1.ResumeLayout(false);
+            this.splitContainer_ID_Importance_Comment.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer_ID_Importance_Comment)).EndInit();
+            this.splitContainer_ID_Importance_Comment.ResumeLayout(false);
+            this.splitContainer_ID_and_Importance.Panel1.ResumeLayout(false);
+            this.splitContainer_ID_and_Importance.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer_ID_and_Importance)).EndInit();
+            this.splitContainer_ID_and_Importance.ResumeLayout(false);
+            this.groupBox_ID.ResumeLayout(false);
+            this.groupBox_ID.PerformLayout();
+            this.groupBox_Importance.ResumeLayout(false);
+            this.groupBox_Importance.PerformLayout();
             this.groupBox_Comment.ResumeLayout(false);
             this.groupBox_Comment.PerformLayout();
             this.splitContainer_Liste.Panel1.ResumeLayout(false);
@@ -608,8 +720,9 @@ namespace VerManagerLibrary_ClassLib
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_ImageContainer)).EndInit();
             this.splitContainer_ImageContainer.ResumeLayout(false);
             this.PicturePanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ImageDisplay)).EndInit();
             this.contextMenuStrip_Images.ResumeLayout(false);
+            this.contextMenuStrip_SelectedItems.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -625,21 +738,15 @@ namespace VerManagerLibrary_ClassLib
         private BrightIdeasSoftware.OLVColumn FDLV_Selected_PartName;
         private BrightIdeasSoftware.OLVColumn FDLV_Selected_FullName;
         private BrightIdeasSoftware.OLVColumn FDLV_Selected_Nomenclature;
-        private BrightIdeasSoftware.OLVColumn FDLV_Selected_Resolve;
+        private BrightIdeasSoftware.OLVColumn FDLV_Selected_Resolved;
         private BrightIdeasSoftware.OLVColumn FDLV_Selected_CurrentRevisionStatus;
         private System.Windows.Forms.Button button_StoreRevision;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label_RevisionID;
-        private System.Windows.Forms.TextBox textBoxRevisionID;
-        private System.Windows.Forms.GroupBox groupBox_Comment;
-        private System.Windows.Forms.TextBox textBoxComent;
         private System.Windows.Forms.Panel panel2;
         private BrightIdeasSoftware.FastObjectListView FOLV_LibraryList;
         private BrightIdeasSoftware.OLVColumn FOLV_Library_PartName;
         private BrightIdeasSoftware.OLVColumn FOLV_Library_FullName;
         private BrightIdeasSoftware.OLVColumn FOLV_Library_Nomenclature;
-        private BrightIdeasSoftware.OLVColumn FOLV_Library_Resolve;
+        private BrightIdeasSoftware.OLVColumn FOLV_Library_Resolved;
         private BrightIdeasSoftware.OLVColumn FOLV_Library_CurrentRevisionStatus;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.Panel panel1;
@@ -647,14 +754,28 @@ namespace VerManagerLibrary_ClassLib
         public System.Windows.Forms.CheckBox checkBox_FilterLibrary;
         private System.Windows.Forms.ComboBox comboBoxFilterColumn;
         private System.Windows.Forms.TextBox textBoxFilterLibraryItems;
-        private System.Windows.Forms.SplitContainer splitContainer_ImageContainer;
-        private System.Windows.Forms.ListView listView_Images;
-        private System.Windows.Forms.Panel PicturePanel;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ColumnHeader columnHeader_ImageName;
-        private System.Windows.Forms.ColumnHeader columnHeader_ImagePath;
         private System.Windows.Forms.Button button_AddPic;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_Images;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.SplitContainer splitContainer_ImageContainer;
+        private System.Windows.Forms.ListView listView_Images;
+        private System.Windows.Forms.ColumnHeader columnHeader_ImageName;
+        private System.Windows.Forms.ColumnHeader columnHeader_ImagePath;
+        private System.Windows.Forms.Panel PicturePanel;
+        private System.Windows.Forms.PictureBox pictureBox_ImageDisplay;
+        private System.Windows.Forms.SplitContainer splitContainer_ID_Importance_Comment;
+        private System.Windows.Forms.SplitContainer splitContainer_ID_and_Importance;
+        private System.Windows.Forms.GroupBox groupBox_ID;
+        private System.Windows.Forms.Label label_RevisionID;
+        private System.Windows.Forms.TextBox textBoxRevisionID;
+        private System.Windows.Forms.GroupBox groupBox_Importance;
+        private System.Windows.Forms.ComboBox comboBox_Importance;
+        private System.Windows.Forms.Label label_Importance_level;
+        private System.Windows.Forms.GroupBox groupBox_Comment;
+        private System.Windows.Forms.TextBox textBoxComent;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_SelectedItems;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private BrightIdeasSoftware.OLVColumn FOLV_Library_OldVersion;
+        private BrightIdeasSoftware.OLVColumn FOLV_Library_SolvedVersion;
     }
 }

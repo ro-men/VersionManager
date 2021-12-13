@@ -77,6 +77,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AddPicture.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddPicture.Designer.cs">
+      <DependentUpon>AddPicture.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RevisionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,17 +105,11 @@
     <Compile Include="Tabs\TabRevisionLibrary.Designer.cs">
       <DependentUpon>TabRevisionLibrary.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\TabInSessionDocs.cs">
+    <Compile Include="Tabs\TabDocumentsLibrary.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tabs\TabInSessionDocs.Designer.cs">
-      <DependentUpon>TabInSessionDocs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Tabs\TabStoredLibrary.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tabs\TabStoredLibrary.Designer.cs">
-      <DependentUpon>TabStoredLibrary.cs</DependentUpon>
+    <Compile Include="Tabs\TabDocumentsLibrary.Designer.cs">
+      <DependentUpon>TabDocumentsLibrary.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\VersionManagerForm.cs">
       <SubType>Form</SubType>
@@ -121,6 +121,9 @@
     <Compile Include="Models\VMLCoordinator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\AddPicture.resx">
+      <DependentUpon>AddPicture.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RegisterMissingDataBaseInput.resx">
       <DependentUpon>RegisterMissingDataBaseInput.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,17 +133,23 @@
     <EmbeddedResource Include="Tabs\TabRevisionLibrary.resx">
       <DependentUpon>TabRevisionLibrary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tabs\TabInSessionDocs.resx">
-      <DependentUpon>TabInSessionDocs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tabs\TabStoredLibrary.resx">
-      <DependentUpon>TabStoredLibrary.cs</DependentUpon>
+    <EmbeddedResource Include="Tabs\TabDocumentsLibrary.resx">
+      <DependentUpon>TabDocumentsLibrary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\VersionManagerForm.resx">
       <DependentUpon>VersionManagerForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="CATSmarTeamInteg">
+      <Guid>{37EB6106-2CBA-4A69-B0F7-185EDF69CFC7}</Guid>
+      <VersionMajor>0</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
     <COMReference Include="INFITF">
       <Guid>{14F197B2-0771-11D1-A5B1-00A0C9575177}</Guid>
       <VersionMajor>0</VersionMajor>

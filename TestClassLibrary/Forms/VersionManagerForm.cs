@@ -18,16 +18,9 @@ namespace VerManagerLibrary_ClassLib
    
     public partial class VersionManagerForm : Form
     {
-
         public VersionManagerForm()
         {
             InitializeComponent();
-            tabStoredLibrary1.switchTabCallBack = new SwitchTab(this.SwitchTabCallBackFn);
-        }
-        public delegate void SwitchTab(int index);
-        private void SwitchTabCallBackFn(int index)
-        {
-            tabControl_Main.SelectedIndex = index;
         }
     }
 

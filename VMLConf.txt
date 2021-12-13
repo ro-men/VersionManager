@@ -1,0 +1,5 @@
+localCore	C:\Users\jagarinecr\Desktop\VML_Test\Local
+serverCore	C:\Users\jagarinecr\Desktop\VML_Test\Server
+pictureFolder	D:\vb_projects\TestnoPodrucje_CSharp\LearningSolution\pictures
+doc_JSON	D:\DATABASE\TestDict.JSON
+rev_JSON	D:\DATABASE\RevisionDict.JSON
