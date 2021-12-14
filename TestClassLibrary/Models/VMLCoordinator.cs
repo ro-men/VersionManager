@@ -29,11 +29,20 @@ namespace VerManagerLibrary_ClassLib
         public static Dictionary<string, DocumentClass> DocumentDictionary { get; set; } = CollectLibraryDocuments();
         private static HashSet<string> CollectPictures() {
             HashSet<string> pictures = new HashSet<string>();
-            string[] files = Directory.GetFiles(pictureFolder, "*.jpg");
-            foreach (string path in files) {
-                if (!pictures.Contains(path))
-                    pictures.Add(path);
+            try
+            {
+                string[] files = Directory.GetFiles(pictureFolder, "*.jpg");
+                foreach (string path in files)
+                {
+                    if (!pictures.Contains(path))
+                        pictures.Add(path);
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             return pictures;
         }
         private static Dictionary<string, DocumentClassRAW> DisassembledDocumentClasses { get; set; }
