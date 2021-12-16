@@ -81,7 +81,7 @@ namespace VerManagerLibrary_ClassLib
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip_SelectedItems = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.kwForm1 = new VerManagerLibrary_ClassLib.UserControls.KWForm();
+            this.kwForm1 = new VerManagerLibrary_ClassLib.KWForm();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Glavni)).BeginInit();
             this.splitContainer_Glavni.Panel1.SuspendLayout();
             this.splitContainer_Glavni.Panel2.SuspendLayout();
@@ -810,6 +810,6 @@ namespace VerManagerLibrary_ClassLib
         private BrightIdeasSoftware.OLVColumn FOLV_Library_OldVersion;
         private BrightIdeasSoftware.OLVColumn FOLV_Library_SolvedVersion;
         private System.Windows.Forms.Button button_AddKW;
-        private UserControls.KWForm kwForm1;
+        private KWForm kwForm1;
     }
 }

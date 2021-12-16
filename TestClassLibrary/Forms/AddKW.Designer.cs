@@ -29,7 +29,7 @@ namespace VerManagerLibrary_ClassLib
         /// </summary>
         private void InitializeComponent()
         {
-            this.kwForm1 = new VerManagerLibrary_ClassLib.UserControls.KWForm();
+            this.kwForm1 = new VerManagerLibrary_ClassLib.KWForm();
             this.SuspendLayout();
             // 
             // kwForm1
@@ -56,6 +56,6 @@ namespace VerManagerLibrary_ClassLib
 
         #endregion
 
-        private UserControls.KWForm kwForm1;
+        private KWForm kwForm1;
     }
 }

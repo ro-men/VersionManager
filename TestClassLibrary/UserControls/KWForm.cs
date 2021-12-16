@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace VerManagerLibrary_ClassLib.UserControls
+namespace VerManagerLibrary_ClassLib
 {
     public partial class KWForm : UserControl
     {

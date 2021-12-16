@@ -1,5 +1,5 @@
 ﻿
-namespace VerManagerLibrary_ClassLib.UserControls
+namespace VerManagerLibrary_ClassLib
 {
     partial class KWForm
     {
