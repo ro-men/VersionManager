@@ -1,0 +1,5 @@
+##Type:##	0
+##Name:##	
+##Input_1:##	
+##Language:##	KW
+##Value:##	new rule

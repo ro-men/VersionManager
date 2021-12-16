@@ -36,6 +36,7 @@ namespace VerManagerLibrary_ClassLib
                 SetupColumns();
                 ComboBoxSetup();
                 List<string> selectedNomenclatureValues = new List<string>();
+                SizeLastColumn(listView_Attachments);
                 this.FOLV_Library_PartName.MakeEqualGroupies(selectedNomenclatureValues.ToArray(), selectedNomenclatureValues.ToArray(), new object[] { }, new string[] { }, new string[] { });
                 this.FOLV_LibraryList.ShowGroups = true;
                 this.FOLV_LibraryList.BuildList();
@@ -317,43 +318,92 @@ namespace VerManagerLibrary_ClassLib
             }
 
         }
-        private void ListView_Images_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListView_Attachments_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listView_Images.SelectedItems.Count != 0)
+            if (listView_Attachments.SelectedItems.Count != 0)
             {
-                string path = listView_Images.FocusedItem.SubItems[1].Text;
-                if (pictureBox_ImageDisplay.Image != null) pictureBox_ImageDisplay.Image.Dispose();
-                pictureBox_ImageDisplay.Image = Image.FromFile(path);
+                string path = listView_Attachments.FocusedItem.SubItems[1].Text;
+                if (path.Contains("IMG_"))
+                {
+                    if (pictureBox_ImageDisplay.Image != null) pictureBox_ImageDisplay.Image.Dispose();
+                    pictureBox_ImageDisplay.Image = Image.FromFile(path);
+                    pictureBox_ImageDisplay.Visible = true;
+                    kwForm1.Visible = false;
+                }
+                else
+                {
+                    kwForm1.InitialInput(path, true, ORevision);
+                    pictureBox_ImageDisplay.Visible = false;
+                    kwForm1.Visible = true;
+                }
             }
         }
-        private void ListView_Images_DoubleClick(object sender, EventArgs e)
+        private void ListView_Attachments_DoubleClick(object sender, EventArgs e)
         {
-            if (listView_Images.SelectedItems.Count != 0)
+            if (listView_Attachments.SelectedItems.Count != 0)
             {
-                string path = listView_Images.FocusedItem.SubItems[1].Text;
-                Process.Start(path);
+                string path = listView_Attachments.FocusedItem.SubItems[1].Text;
+                if (path.Contains("IMG_"))
+                {
+                    Process.Start(path);
+                }
+                else
+                {
+                    AddKW addKWForm = new AddKW();
+                    addKWForm.SetRevision(ORevision, path);
+                    addKWForm.ShowDialog();
+                }
             }
+        }
+        private void DeleteAttachment(object sender, EventArgs e)
+        {
+            if (pictureBox_ImageDisplay.Image != null)   pictureBox_ImageDisplay.Image.Dispose();
+            pictureBox_ImageDisplay.Image = null;
+            pictureBox_ImageDisplay.BringToFront();
+            foreach (ListViewItem item in listView_Attachments.SelectedItems)
+            {
+                string attachmentPath = item.SubItems[1].Text;
+                File.Delete(attachmentPath);
+                ORevision.Attachments.Remove(attachmentPath);
+            }
+            UpdateImages();
+        }
+        private void ListView_Attachments_Resize(object sender, System.EventArgs e)
+        {
+            SizeLastColumn((ListView)sender);
+        }
+
+        private void SizeLastColumn(ListView lv)
+        {
+            lv.Columns[lv.Columns.Count - 1].Width = -2;
         }
         private void Button_AddImages_Click(object sender, EventArgs e)
         {
             AddPicture addPictureForm = new AddPicture();
             RevisionObjectDelegate sendRevisionObject = new RevisionObjectDelegate(addPictureForm.SetRevision);
             sendRevisionObject(ORevision);
-            addPictureForm.FormClosed += new FormClosedEventHandler(AddPictureClosed);
+            addPictureForm.FormClosed += new FormClosedEventHandler(ChildClosed);
             addPictureForm.ShowDialog();
         }
-        private void AddPictureClosed(object sender, EventArgs e)
+        private void button_AddKW_Click(object sender, EventArgs e)
+        {
+            AddKW AddKnowldgewareForm = new AddKW();
+            AddKnowldgewareForm.SetRevision(ORevision, "");
+            AddKnowldgewareForm.FormClosed += new FormClosedEventHandler(ChildClosed);
+            AddKnowldgewareForm.ShowDialog();
+        }
+        private void ChildClosed(object sender, EventArgs e)
         {
             UpdateImages();
         }
         private void UpdateImages()
         {
-            listView_Images.Items.Clear();
-            if (ORevision.RevisionPics != null)
+            listView_Attachments.Items.Clear();
+            if (ORevision.Attachments != null)
             {
-                ORevision.RevisionPics.ToList().ForEach(item =>
+                ORevision.Attachments.ToList().ForEach(item =>
                 {
-                    ListViewItem listViewItem = listView_Images.Items.Add(Path.GetFileName(item));
+                    ListViewItem listViewItem = listView_Attachments.Items.Add(Path.GetFileName(item));
                     listViewItem.SubItems.Add(item);
                 });
             }
@@ -362,21 +412,10 @@ namespace VerManagerLibrary_ClassLib
         {
             if (e.Button == MouseButtons.Right)
             {
-                if (listView_Images.FocusedItem != null) contextMenuStrip_Images.Show(Cursor.Position);
+                if (listView_Attachments.FocusedItem != null) contextMenuStrip_Images.Show(Cursor.Position);
             }
         }
-        private void DeleteImage(object sender, EventArgs e)
-        {
-            pictureBox_ImageDisplay.Image.Dispose();
-            pictureBox_ImageDisplay.Image = null;
-            foreach (ListViewItem item in listView_Images.SelectedItems)
-            {
-                string imagePath = item.SubItems[1].Text;
-                File.Delete(imagePath);
-                ORevision.RevisionPics.Remove(imagePath);
-            }
-            UpdateImages();
-        }
+
         private void FDLV_SelectedList_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -396,6 +435,5 @@ namespace VerManagerLibrary_ClassLib
             FOLV_LibraryList.AddObjects(FDLV_SelectedList.SelectedObjects);
             FDLV_SelectedList.RemoveObjects(FDLV_SelectedList.SelectedObjects);
         }
-
     }
 }

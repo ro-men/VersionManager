@@ -83,6 +83,12 @@
     <Compile Include="Forms\AddPicture.Designer.cs">
       <DependentUpon>AddPicture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddKW.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddKW.Designer.cs">
+      <DependentUpon>AddKW.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RevisionForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,16 +105,22 @@
     <Compile Include="Forms\RegisterMissingDataBaseInput.Designer.cs">
       <DependentUpon>RegisterMissingDataBaseInput.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\TabRevisionLibrary.cs">
+    <Compile Include="UserControls\KWForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tabs\TabRevisionLibrary.Designer.cs">
+    <Compile Include="UserControls\KWForm.Designer.cs">
+      <DependentUpon>KWForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TabRevisionLibrary.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TabRevisionLibrary.Designer.cs">
       <DependentUpon>TabRevisionLibrary.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\TabDocumentsLibrary.cs">
+    <Compile Include="UserControls\TabDocumentsLibrary.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Tabs\TabDocumentsLibrary.Designer.cs">
+    <Compile Include="UserControls\TabDocumentsLibrary.Designer.cs">
       <DependentUpon>TabDocumentsLibrary.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\VersionManagerForm.cs">
@@ -121,6 +133,9 @@
     <Compile Include="Models\VMLCoordinator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\AddKW.resx">
+      <DependentUpon>AddKW.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddPicture.resx">
       <DependentUpon>AddPicture.cs</DependentUpon>
     </EmbeddedResource>
@@ -130,10 +145,13 @@
     <EmbeddedResource Include="Forms\RevisionForm.resx">
       <DependentUpon>RevisionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tabs\TabRevisionLibrary.resx">
+    <EmbeddedResource Include="UserControls\KWForm.resx">
+      <DependentUpon>KWForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TabRevisionLibrary.resx">
       <DependentUpon>TabRevisionLibrary.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Tabs\TabDocumentsLibrary.resx">
+    <EmbeddedResource Include="UserControls\TabDocumentsLibrary.resx">
       <DependentUpon>TabDocumentsLibrary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\VersionManagerForm.resx">

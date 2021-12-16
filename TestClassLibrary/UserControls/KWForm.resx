@@ -117,35 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="imageListSmall.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="imageListSmall.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACg
-        AgAAAk1TRnQBSQFMAgEBAgEAAVwBAAFcAQABDQEAAQ0BAAP/AQABIQEACP8BQgFNATYHAAE2AwABKAMA
-        ATQDAAENAwABAQEAASAFAAGQAQoSAAMmAf8DJgH/AyYB/wMmAf8DJgH/AyYB/wMmAf8DJgH/AyYB/wMm
-        Af8DJgH/AyYB/wMmAf8DJgH/AyYB/wMmAf8DJgH/AyYB/wMmAf8DJgH/AyYB/wMmAf8DJgH/AyYB/wMm
-        Af8DJgH/aAADJi3/AyYB/wMmLf8DJgH/aAADJi3/AyYB/wMmLf8DJgH/aAADJi3/AyYB/wMmCf8D9gH/
-        A14B/wNeAf8D9hX/AyYB/2gAAyYt/wMmAf8DJgX/A/YB/wNeAf8DOwH/AzsB/wNeAf8D9hH/AyYB/2gA
-        AyYt/wMmAf8DJgH/A/YB/wNeAf8DOwH/A+IB/wPiAf8DOwH/A14B/wP2Df8DJgH/aAADJi3/AyYB/wMm
-        Af8DuAH/AzsB/wPiCf8D4gH/AzsB/wNeAf8D9gn/AyYB/2gAAyYt/wMmAf8DJhn/A+IB/wM7Af8DXgH/
-        A/YF/wMmAf9oAAMmLf8DJgH/AyYd/wPiAf8DOwH/A14B/wP2Af8DJgH/aAADJi3/AyYB/wMmIf8D4gH/
-        AzsB/wO4Af8DJgH/aAADJi3/AyYB/wMmLf8DJgH/aAADJi3/AyYB/wMmLf8DJgH/bAADJgH/AyYB/wMm
-        Af8DJgH/AyYB/wMmAf8DJgH/AyYB/wMmAf8DJgH/AyYB/wMmAf8DJgH/AyYB/wMmAf8DJgH/AyYB/wMm
-        Af8DJgH/AyYB/wMmAf8DJgH/AyYB/wMmAf8DJgH/aAABQgFNAT4HAAE+AwABKAMAATQDAAENAwABAQEA
-        AQEFAAFoFwAD/2EAAYAHAAs=
-</value>
-  </data>
-  <metadata name="contextMenuStrip_Images.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>150, 17</value>
-  </metadata>
-  <metadata name="contextMenuStrip_SelectedItems.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>344, 19</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>81</value>
-  </metadata>
 </root>

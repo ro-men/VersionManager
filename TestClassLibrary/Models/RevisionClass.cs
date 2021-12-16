@@ -44,11 +44,11 @@ namespace VerManagerLibrary_ClassLib
             revisionID = IDValue;
             modified = true;
         }
-        #region RevisionPics
+        #region RevisionAttachments
         /// <summary>
-        /// Kolekcija slika određene revizije.
+        /// Kolekcija dokumenata koji dolaze uz određenu reviziju.
         /// </summary>
-        public HashSet<string> RevisionPics { get; set; } = new HashSet<string>();
+        public HashSet<string> Attachments { get; set; } = new HashSet<string>();
         #endregion
         #region RevisionDocuments
         /// <summary>

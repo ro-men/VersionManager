@@ -21,21 +21,21 @@ namespace VerManagerLibrary_ClassLib
         private static readonly string[] confData = System.IO.File.ReadAllLines(confAddress);
         public static string localCore = GetConfigurationLine("localCore");
         public static string serverCore = GetConfigurationLine("serverCore");
-        public static string pictureFolder = GetConfigurationLine("pictureFolder");
+        public static string attachmentsFolder = GetConfigurationLine("attachmentsFolder");
         private static string doc_JSON = GetConfigurationLine("doc_JSON");
         private static string rev_JSON = GetConfigurationLine("rev_JSON");
         //public static Dictionary<string, RevisionClass> RevisionDictionary { get; set; } = new Dictionary<string, RevisionClass>();
         public static Dictionary<string, RevisionClass> RevisionDictionary { get; set; } = CollectRevisionDocuments();
         public static Dictionary<string, DocumentClass> DocumentDictionary { get; set; } = CollectLibraryDocuments();
         private static HashSet<string> CollectPictures() {
-            HashSet<string> pictures = new HashSet<string>();
+            HashSet<string> attachments = new HashSet<string>();
             try
             {
-                string[] files = Directory.GetFiles(pictureFolder, "*.jpg");
+                string[] files = Directory.GetFiles(attachmentsFolder, "*.jpg").Concat(Directory.GetFiles(attachmentsFolder, "*.txt")).ToArray();
                 foreach (string path in files)
                 {
-                    if (!pictures.Contains(path))
-                        pictures.Add(path);
+                    if (!attachments.Contains(path))
+                        attachments.Add(path);
                 }
             }
             catch (Exception ex)
@@ -43,7 +43,7 @@ namespace VerManagerLibrary_ClassLib
                 Console.WriteLine(ex.Message);
             }
 
-            return pictures;
+            return attachments;
         }
         private static Dictionary<string, DocumentClassRAW> DisassembledDocumentClasses { get; set; }
         public static List<string> newFileKeys;
@@ -404,13 +404,13 @@ namespace VerManagerLibrary_ClassLib
             string libraryPath = rev_JSON;
             string jsonString = System.IO.File.ReadAllText(libraryPath);
             Dictionary<string, RevisionClassRAW> dictRAW = JsonSerializer.Deserialize<Dictionary<string, RevisionClassRAW>>(jsonString);
-            HashSet<string> pics = CollectPictures();
+            HashSet<string> attachmentDocs = CollectPictures();
             foreach (KeyValuePair<string, RevisionClassRAW> keyValue in dictRAW)
             {
                 RevisionClass revisionClass = new RevisionClass();
                 revisionClass.BuildRevisionClass(keyValue.Value);
 
-                revisionClass.RevisionPics = pics.Where(path => path.Contains("_" + revisionClass.RevisionID + "_")).ToHashSet();
+                revisionClass.Attachments = attachmentDocs.Where(path => path.Contains("_" + revisionClass.RevisionID + "_")).ToHashSet();
                 oDict.Add(keyValue.Key, revisionClass);
             }
             return oDict;

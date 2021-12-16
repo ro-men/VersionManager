@@ -20,7 +20,7 @@ namespace VerManagerLibrary_ClassLib
             InitializeComponent();
         }
         private RevisionClass ORevision;
-        private string sLocation = VMLCoordinator.pictureFolder + @"\";
+        private string sLocation = VMLCoordinator.attachmentsFolder + @"\";
         public void SetRevision(RevisionClass oRevision) {
             ORevision = oRevision;
         }
@@ -36,7 +36,7 @@ namespace VerManagerLibrary_ClassLib
                 string[] files = ofd.FileNames;
                 foreach(string file in files)
                 {
-                    int index = ORevision.RevisionPics.Count() + 1;
+                    int index = ORevision.Attachments.Count() + 1;
                     string newName = "IMG_" + ORevision.RevisionID + "_" + index.ToString() + Path.GetExtension(file);
                     while (File.Exists(sLocation + newName))
                     {
@@ -44,9 +44,9 @@ namespace VerManagerLibrary_ClassLib
                         newName = "IMG_" + ORevision.RevisionID + "_" + index.ToString() + Path.GetExtension(file);
                     }
                     File.Copy(file, sLocation + newName);
-                    if (!ORevision.RevisionPics.Contains(sLocation + newName))
+                    if (!ORevision.Attachments.Contains(sLocation + newName))
                     {
-                        ORevision.RevisionPics.Add(sLocation + newName);
+                        ORevision.Attachments.Add(sLocation + newName);
                     }
                 }
             this.Close();
@@ -71,12 +71,13 @@ namespace VerManagerLibrary_ClassLib
         {
             if (pictureBox_Screenshot.Image != null)
             {
-                int index = ORevision.RevisionPics.Count() + 1;
+                int index = ORevision.Attachments.Count() + 1;
                 string newName = "IMG_" + ORevision.RevisionID + "_" + index.ToString() + ".jpg";
+                System.IO.Directory.CreateDirectory(sLocation);
                 pictureBox_Screenshot.Image.Save(sLocation + newName, ImageFormat.Jpeg);
-                if (!ORevision.RevisionPics.Contains(sLocation + newName))
+                if (!ORevision.Attachments.Contains(sLocation + newName))
                 {
-                    ORevision.RevisionPics.Add(sLocation + newName);
+                    ORevision.Attachments.Add(sLocation + newName);
                 }
                 this.Close();
             }

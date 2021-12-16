@@ -60,6 +60,8 @@ namespace VerManagerLibrary_ClassLib
             this.FOLV_Library_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FOLV_Library_Resolved = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FOLV_Library_CurrentRevisionStatus = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.FOLV_Library_SolvedVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.FOLV_Library_OldVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxFilter = new System.Windows.Forms.GroupBox();
@@ -67,19 +69,19 @@ namespace VerManagerLibrary_ClassLib
             this.comboBoxFilterColumn = new System.Windows.Forms.ComboBox();
             this.textBoxFilterLibraryItems = new System.Windows.Forms.TextBox();
             this.splitContainer_ImageContainer = new System.Windows.Forms.SplitContainer();
-            this.listView_Images = new System.Windows.Forms.ListView();
-            this.columnHeader_ImageName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader_ImagePath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listView_Attachments = new System.Windows.Forms.ListView();
+            this.columnHeader_AttachmentName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader_AttachmentPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PicturePanel = new System.Windows.Forms.Panel();
             this.pictureBox_ImageDisplay = new System.Windows.Forms.PictureBox();
+            this.button_AddKW = new System.Windows.Forms.Button();
             this.button_AddPic = new System.Windows.Forms.Button();
             this.button_StoreRevision = new System.Windows.Forms.Button();
             this.contextMenuStrip_Images = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip_SelectedItems = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.FOLV_Library_OldVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.FOLV_Library_SolvedVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.kwForm1 = new VerManagerLibrary_ClassLib.UserControls.KWForm();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Glavni)).BeginInit();
             this.splitContainer_Glavni.Panel1.SuspendLayout();
             this.splitContainer_Glavni.Panel2.SuspendLayout();
@@ -144,6 +146,7 @@ namespace VerManagerLibrary_ClassLib
             // 
             // splitContainer_Glavni.Panel2
             // 
+            this.splitContainer_Glavni.Panel2.Controls.Add(this.button_AddKW);
             this.splitContainer_Glavni.Panel2.Controls.Add(this.button_AddPic);
             this.splitContainer_Glavni.Panel2.Controls.Add(this.button_StoreRevision);
             this.splitContainer_Glavni.Size = new System.Drawing.Size(1729, 856);
@@ -163,8 +166,9 @@ namespace VerManagerLibrary_ClassLib
             // splitContainer_Display.Panel2
             // 
             this.splitContainer_Display.Panel2.Controls.Add(this.splitContainer_ImageContainer);
+            this.splitContainer_Display.Panel2MinSize = 460;
             this.splitContainer_Display.Size = new System.Drawing.Size(1729, 742);
-            this.splitContainer_Display.SplitterDistance = 1293;
+            this.splitContainer_Display.SplitterDistance = 1185;
             this.splitContainer_Display.TabIndex = 16;
             // 
             // splitContainer_LeftSide
@@ -181,7 +185,7 @@ namespace VerManagerLibrary_ClassLib
             // splitContainer_LeftSide.Panel2
             // 
             this.splitContainer_LeftSide.Panel2.Controls.Add(this.splitContainer_Liste);
-            this.splitContainer_LeftSide.Size = new System.Drawing.Size(1293, 742);
+            this.splitContainer_LeftSide.Size = new System.Drawing.Size(1185, 742);
             this.splitContainer_LeftSide.SplitterDistance = 209;
             this.splitContainer_LeftSide.TabIndex = 18;
             // 
@@ -200,7 +204,7 @@ namespace VerManagerLibrary_ClassLib
             // splitContainer_ID_Importance_Comment.Panel2
             // 
             this.splitContainer_ID_Importance_Comment.Panel2.Controls.Add(this.groupBox_Comment);
-            this.splitContainer_ID_Importance_Comment.Size = new System.Drawing.Size(1293, 209);
+            this.splitContainer_ID_Importance_Comment.Size = new System.Drawing.Size(1185, 209);
             this.splitContainer_ID_Importance_Comment.TabIndex = 23;
             // 
             // splitContainer_ID_and_Importance
@@ -220,8 +224,8 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.splitContainer_ID_and_Importance.Panel2.Controls.Add(this.groupBox_Importance);
             this.splitContainer_ID_and_Importance.Panel2MinSize = 200;
-            this.splitContainer_ID_and_Importance.Size = new System.Drawing.Size(1293, 50);
-            this.splitContainer_ID_and_Importance.SplitterDistance = 1075;
+            this.splitContainer_ID_and_Importance.Size = new System.Drawing.Size(1185, 50);
+            this.splitContainer_ID_and_Importance.SplitterDistance = 950;
             this.splitContainer_ID_and_Importance.SplitterWidth = 1;
             this.splitContainer_ID_and_Importance.TabIndex = 0;
             // 
@@ -232,7 +236,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_ID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_ID.Location = new System.Drawing.Point(0, 0);
             this.groupBox_ID.Name = "groupBox_ID";
-            this.groupBox_ID.Size = new System.Drawing.Size(1075, 50);
+            this.groupBox_ID.Size = new System.Drawing.Size(950, 50);
             this.groupBox_ID.TabIndex = 26;
             this.groupBox_ID.TabStop = false;
             // 
@@ -255,7 +259,7 @@ namespace VerManagerLibrary_ClassLib
             this.textBoxRevisionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxRevisionID.Location = new System.Drawing.Point(98, 15);
             this.textBoxRevisionID.Name = "textBoxRevisionID";
-            this.textBoxRevisionID.Size = new System.Drawing.Size(940, 21);
+            this.textBoxRevisionID.Size = new System.Drawing.Size(815, 21);
             this.textBoxRevisionID.TabIndex = 31;
             // 
             // groupBox_Importance
@@ -265,7 +269,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_Importance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_Importance.Location = new System.Drawing.Point(0, 0);
             this.groupBox_Importance.Name = "groupBox_Importance";
-            this.groupBox_Importance.Size = new System.Drawing.Size(217, 50);
+            this.groupBox_Importance.Size = new System.Drawing.Size(234, 50);
             this.groupBox_Importance.TabIndex = 27;
             this.groupBox_Importance.TabStop = false;
             // 
@@ -277,7 +281,7 @@ namespace VerManagerLibrary_ClassLib
             "High",
             "Medium",
             "Low"});
-            this.comboBox_Importance.Location = new System.Drawing.Point(132, 15);
+            this.comboBox_Importance.Location = new System.Drawing.Point(149, 15);
             this.comboBox_Importance.Name = "comboBox_Importance";
             this.comboBox_Importance.Size = new System.Drawing.Size(69, 21);
             this.comboBox_Importance.TabIndex = 34;
@@ -299,7 +303,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_Comment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_Comment.Location = new System.Drawing.Point(0, 0);
             this.groupBox_Comment.Name = "groupBox_Comment";
-            this.groupBox_Comment.Size = new System.Drawing.Size(1293, 155);
+            this.groupBox_Comment.Size = new System.Drawing.Size(1185, 155);
             this.groupBox_Comment.TabIndex = 22;
             this.groupBox_Comment.TabStop = false;
             this.groupBox_Comment.Text = "Comment";
@@ -312,7 +316,7 @@ namespace VerManagerLibrary_ClassLib
             this.textBoxComent.Location = new System.Drawing.Point(3, 16);
             this.textBoxComent.Multiline = true;
             this.textBoxComent.Name = "textBoxComent";
-            this.textBoxComent.Size = new System.Drawing.Size(1287, 136);
+            this.textBoxComent.Size = new System.Drawing.Size(1179, 136);
             this.textBoxComent.TabIndex = 13;
             this.textBoxComent.Text = "Enter comment here...";
             this.textBoxComent.Enter += new System.EventHandler(this.RemoveText);
@@ -334,7 +338,7 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_Liste.Panel2.Controls.Add(this.panel2);
             this.splitContainer_Liste.Panel2.Controls.Add(this.splitter1);
             this.splitContainer_Liste.Panel2.Controls.Add(this.panel1);
-            this.splitContainer_Liste.Size = new System.Drawing.Size(1293, 529);
+            this.splitContainer_Liste.Size = new System.Drawing.Size(1185, 529);
             this.splitContainer_Liste.SplitterDistance = 151;
             this.splitContainer_Liste.TabIndex = 18;
             // 
@@ -344,7 +348,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBoxSelected.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxSelected.Location = new System.Drawing.Point(0, 0);
             this.groupBoxSelected.Name = "groupBoxSelected";
-            this.groupBoxSelected.Size = new System.Drawing.Size(1293, 151);
+            this.groupBoxSelected.Size = new System.Drawing.Size(1185, 151);
             this.groupBoxSelected.TabIndex = 9;
             this.groupBoxSelected.TabStop = false;
             this.groupBoxSelected.Text = "SelectedItems";
@@ -370,7 +374,7 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_SelectedList.Location = new System.Drawing.Point(3, 16);
             this.FDLV_SelectedList.Name = "FDLV_SelectedList";
             this.FDLV_SelectedList.ShowGroups = false;
-            this.FDLV_SelectedList.Size = new System.Drawing.Size(1287, 132);
+            this.FDLV_SelectedList.Size = new System.Drawing.Size(1179, 132);
             this.FDLV_SelectedList.SmallImageList = this.imageListSmall;
             this.FDLV_SelectedList.TabIndex = 5;
             this.FDLV_SelectedList.UseCompatibleStateImageBehavior = false;
@@ -412,7 +416,7 @@ namespace VerManagerLibrary_ClassLib
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 68);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1293, 306);
+            this.panel2.Size = new System.Drawing.Size(1185, 306);
             this.panel2.TabIndex = 2;
             // 
             // FOLV_LibraryList
@@ -441,7 +445,7 @@ namespace VerManagerLibrary_ClassLib
             this.FOLV_LibraryList.Name = "FOLV_LibraryList";
             this.FOLV_LibraryList.ShowGroups = false;
             this.FOLV_LibraryList.ShowImagesOnSubItems = true;
-            this.FOLV_LibraryList.Size = new System.Drawing.Size(1293, 306);
+            this.FOLV_LibraryList.Size = new System.Drawing.Size(1185, 306);
             this.FOLV_LibraryList.SmallImageList = this.imageListSmall;
             this.FOLV_LibraryList.StateImageList = this.imageListSmall;
             this.FOLV_LibraryList.TabIndex = 10;
@@ -479,12 +483,25 @@ namespace VerManagerLibrary_ClassLib
             this.FOLV_Library_CurrentRevisionStatus.Text = "CurrentRevisionStatus";
             this.FOLV_Library_CurrentRevisionStatus.Width = 140;
             // 
+            // FOLV_Library_SolvedVersion
+            // 
+            this.FOLV_Library_SolvedVersion.AspectName = "";
+            this.FOLV_Library_SolvedVersion.Text = "Solved version";
+            this.FOLV_Library_SolvedVersion.Width = 120;
+            // 
+            // FOLV_Library_OldVersion
+            // 
+            this.FOLV_Library_OldVersion.AspectName = "";
+            this.FOLV_Library_OldVersion.FillsFreeSpace = true;
+            this.FOLV_Library_OldVersion.Text = "Old version";
+            this.FOLV_Library_OldVersion.Width = 120;
+            // 
             // splitter1
             // 
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitter1.Location = new System.Drawing.Point(0, 65);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(1293, 3);
+            this.splitter1.Size = new System.Drawing.Size(1185, 3);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
@@ -494,7 +511,7 @@ namespace VerManagerLibrary_ClassLib
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1293, 65);
+            this.panel1.Size = new System.Drawing.Size(1185, 65);
             this.panel1.TabIndex = 0;
             // 
             // groupBoxFilter
@@ -505,7 +522,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBoxFilter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxFilter.Location = new System.Drawing.Point(0, 0);
             this.groupBoxFilter.Name = "groupBoxFilter";
-            this.groupBoxFilter.Size = new System.Drawing.Size(1293, 65);
+            this.groupBoxFilter.Size = new System.Drawing.Size(1185, 65);
             this.groupBoxFilter.TabIndex = 11;
             this.groupBoxFilter.TabStop = false;
             this.groupBoxFilter.Text = "Filter";
@@ -545,65 +562,81 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.splitContainer_ImageContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer_ImageContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer_ImageContainer.MinimumSize = new System.Drawing.Size(460, 0);
             this.splitContainer_ImageContainer.Name = "splitContainer_ImageContainer";
             this.splitContainer_ImageContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // splitContainer_ImageContainer.Panel1
             // 
-            this.splitContainer_ImageContainer.Panel1.Controls.Add(this.listView_Images);
+            this.splitContainer_ImageContainer.Panel1.Controls.Add(this.listView_Attachments);
             // 
             // splitContainer_ImageContainer.Panel2
             // 
             this.splitContainer_ImageContainer.Panel2.Controls.Add(this.PicturePanel);
-            this.splitContainer_ImageContainer.Size = new System.Drawing.Size(432, 742);
-            this.splitContainer_ImageContainer.SplitterDistance = 326;
+            this.splitContainer_ImageContainer.Panel2MinSize = 460;
+            this.splitContainer_ImageContainer.Size = new System.Drawing.Size(540, 742);
+            this.splitContainer_ImageContainer.SplitterDistance = 213;
             this.splitContainer_ImageContainer.TabIndex = 2;
             // 
-            // listView_Images
+            // listView_Attachments
             // 
-            this.listView_Images.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader_ImageName,
-            this.columnHeader_ImagePath});
-            this.listView_Images.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView_Images.HideSelection = false;
-            this.listView_Images.Location = new System.Drawing.Point(0, 0);
-            this.listView_Images.Name = "listView_Images";
-            this.listView_Images.Size = new System.Drawing.Size(432, 326);
-            this.listView_Images.TabIndex = 0;
-            this.listView_Images.UseCompatibleStateImageBehavior = false;
-            this.listView_Images.View = System.Windows.Forms.View.Details;
-            this.listView_Images.SelectedIndexChanged += new System.EventHandler(this.ListView_Images_SelectedIndexChanged);
-            this.listView_Images.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView_Images_MouseClick);
+            this.listView_Attachments.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader_AttachmentName,
+            this.columnHeader_AttachmentPath});
+            this.listView_Attachments.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_Attachments.FullRowSelect = true;
+            this.listView_Attachments.HideSelection = false;
+            this.listView_Attachments.Location = new System.Drawing.Point(0, 0);
+            this.listView_Attachments.Name = "listView_Attachments";
+            this.listView_Attachments.Size = new System.Drawing.Size(540, 213);
+            this.listView_Attachments.TabIndex = 0;
+            this.listView_Attachments.UseCompatibleStateImageBehavior = false;
+            this.listView_Attachments.View = System.Windows.Forms.View.Details;
+            this.listView_Attachments.SelectedIndexChanged += new System.EventHandler(this.ListView_Attachments_SelectedIndexChanged);
+            this.listView_Attachments.DoubleClick += new System.EventHandler(this.ListView_Attachments_DoubleClick);
+            this.listView_Attachments.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView_Images_MouseClick);
             // 
-            // columnHeader_ImageName
+            // columnHeader_AttachmentName
             // 
-            this.columnHeader_ImageName.Text = "ImageName";
-            this.columnHeader_ImageName.Width = 200;
+            this.columnHeader_AttachmentName.Text = "AttachmentName";
+            this.columnHeader_AttachmentName.Width = 200;
             // 
-            // columnHeader_ImagePath
+            // columnHeader_AttachmentPath
             // 
-            this.columnHeader_ImagePath.Text = "ImagePath";
-            this.columnHeader_ImagePath.Width = 300;
+            this.columnHeader_AttachmentPath.Text = "AttachmentPath";
+            this.columnHeader_AttachmentPath.Width = 336;
             // 
             // PicturePanel
             // 
+            this.PicturePanel.AutoScroll = true;
             this.PicturePanel.BackColor = System.Drawing.Color.White;
             this.PicturePanel.Controls.Add(this.pictureBox_ImageDisplay);
+            this.PicturePanel.Controls.Add(this.kwForm1);
             this.PicturePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PicturePanel.Location = new System.Drawing.Point(0, 0);
             this.PicturePanel.Name = "PicturePanel";
-            this.PicturePanel.Size = new System.Drawing.Size(432, 412);
+            this.PicturePanel.Size = new System.Drawing.Size(540, 525);
             this.PicturePanel.TabIndex = 0;
             // 
             // pictureBox_ImageDisplay
             // 
-            this.pictureBox_ImageDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox_ImageDisplay.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox_ImageDisplay.Location = new System.Drawing.Point(3, 3);
             this.pictureBox_ImageDisplay.Name = "pictureBox_ImageDisplay";
-            this.pictureBox_ImageDisplay.Size = new System.Drawing.Size(432, 412);
-            this.pictureBox_ImageDisplay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_ImageDisplay.Size = new System.Drawing.Size(535, 520);
+            this.pictureBox_ImageDisplay.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_ImageDisplay.TabIndex = 0;
             this.pictureBox_ImageDisplay.TabStop = false;
+            // 
+            // button_AddKW
+            // 
+            this.button_AddKW.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_AddKW.Location = new System.Drawing.Point(1609, 53);
+            this.button_AddKW.Name = "button_AddKW";
+            this.button_AddKW.Size = new System.Drawing.Size(108, 36);
+            this.button_AddKW.TabIndex = 13;
+            this.button_AddKW.Text = "Add knowledgeware";
+            this.button_AddKW.UseVisualStyleBackColor = true;
+            this.button_AddKW.Click += new System.EventHandler(this.button_AddKW_Click);
             // 
             // button_AddPic
             // 
@@ -639,7 +672,7 @@ namespace VerManagerLibrary_ClassLib
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteImage);
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteAttachment);
             // 
             // contextMenuStrip_SelectedItems
             // 
@@ -655,18 +688,15 @@ namespace VerManagerLibrary_ClassLib
             this.toolStripMenuItem1.Text = "Delete";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.DeleteSelectedItem);
             // 
-            // FOLV_Library_OldVersion
+            // kwForm1
             // 
-            this.FOLV_Library_OldVersion.AspectName = "";
-            this.FOLV_Library_OldVersion.FillsFreeSpace = true;
-            this.FOLV_Library_OldVersion.Text = "Old version";
-            this.FOLV_Library_OldVersion.Width = 120;
-            // 
-            // FOLV_Library_SolvedVersion
-            // 
-            this.FOLV_Library_SolvedVersion.AspectName = "";
-            this.FOLV_Library_SolvedVersion.Text = "Solved version";
-            this.FOLV_Library_SolvedVersion.Width = 120;
+            this.kwForm1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kwForm1.Location = new System.Drawing.Point(0, 0);
+            this.kwForm1.MinimumSize = new System.Drawing.Size(400, 400);
+            this.kwForm1.Name = "kwForm1";
+            this.kwForm1.Size = new System.Drawing.Size(540, 525);
+            this.kwForm1.TabIndex = 1;
+            this.kwForm1.Visible = false;
             // 
             // RevisionForm
             // 
@@ -720,6 +750,7 @@ namespace VerManagerLibrary_ClassLib
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_ImageContainer)).EndInit();
             this.splitContainer_ImageContainer.ResumeLayout(false);
             this.PicturePanel.ResumeLayout(false);
+            this.PicturePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ImageDisplay)).EndInit();
             this.contextMenuStrip_Images.ResumeLayout(false);
             this.contextMenuStrip_SelectedItems.ResumeLayout(false);
@@ -758,9 +789,9 @@ namespace VerManagerLibrary_ClassLib
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_Images;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer_ImageContainer;
-        private System.Windows.Forms.ListView listView_Images;
-        private System.Windows.Forms.ColumnHeader columnHeader_ImageName;
-        private System.Windows.Forms.ColumnHeader columnHeader_ImagePath;
+        private System.Windows.Forms.ListView listView_Attachments;
+        private System.Windows.Forms.ColumnHeader columnHeader_AttachmentName;
+        private System.Windows.Forms.ColumnHeader columnHeader_AttachmentPath;
         private System.Windows.Forms.Panel PicturePanel;
         private System.Windows.Forms.PictureBox pictureBox_ImageDisplay;
         private System.Windows.Forms.SplitContainer splitContainer_ID_Importance_Comment;
@@ -777,5 +808,7 @@ namespace VerManagerLibrary_ClassLib
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private BrightIdeasSoftware.OLVColumn FOLV_Library_OldVersion;
         private BrightIdeasSoftware.OLVColumn FOLV_Library_SolvedVersion;
+        private System.Windows.Forms.Button button_AddKW;
+        private UserControls.KWForm kwForm1;
     }
 }

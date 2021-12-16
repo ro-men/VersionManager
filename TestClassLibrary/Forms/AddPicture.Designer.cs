@@ -60,7 +60,7 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
             this.splitContainer1.Panel2.Controls.Add(this.pictureBox_Screenshot);
-            this.splitContainer1.Size = new System.Drawing.Size(281, 319);
+            this.splitContainer1.Size = new System.Drawing.Size(466, 266);
             this.splitContainer1.SplitterDistance = 210;
             this.splitContainer1.TabIndex = 3;
             // 
@@ -114,9 +114,9 @@ namespace VerManagerLibrary_ClassLib
             // 
             // pictureBox_Screenshot
             // 
-            this.pictureBox_Screenshot.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox_Screenshot.Location = new System.Drawing.Point(3, 3);
             this.pictureBox_Screenshot.Name = "pictureBox_Screenshot";
-            this.pictureBox_Screenshot.Size = new System.Drawing.Size(50, 200);
+            this.pictureBox_Screenshot.Size = new System.Drawing.Size(245, 256);
             this.pictureBox_Screenshot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Screenshot.TabIndex = 4;
             this.pictureBox_Screenshot.TabStop = false;
@@ -127,7 +127,7 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 319);
+            this.ClientSize = new System.Drawing.Size(466, 266);
             this.Controls.Add(this.splitContainer1);
             this.MinimumSize = new System.Drawing.Size(240, 300);
             this.Name = "AddPicture";
