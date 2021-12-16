@@ -74,6 +74,10 @@ namespace VerManagerLibrary_ClassLib.UserControls
             dataList["##Value:##"] = textBox_Value.Text;
             System.IO.Directory.CreateDirectory(sLocation);
             File.WriteAllLines(localFilePath, dataList.Select(x => x.Key + "\t" + x.Value).ToArray());
+            if (!ORevision.Attachments.Contains(localFilePath))
+            {
+                ORevision.Attachments.Add(localFilePath);
+            }
             localParentForm.Close();
         }
         Form localParentForm;

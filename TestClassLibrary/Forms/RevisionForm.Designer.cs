@@ -595,6 +595,7 @@ namespace VerManagerLibrary_ClassLib
             this.listView_Attachments.SelectedIndexChanged += new System.EventHandler(this.ListView_Attachments_SelectedIndexChanged);
             this.listView_Attachments.DoubleClick += new System.EventHandler(this.ListView_Attachments_DoubleClick);
             this.listView_Attachments.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ListView_Images_MouseClick);
+            this.listView_Attachments.Resize += new System.EventHandler(this.ListView_Attachments_Resize);
             // 
             // columnHeader_AttachmentName
             // 

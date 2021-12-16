@@ -68,9 +68,10 @@ namespace VerManagerLibrary_ClassLib
             // button_NewRevision
             // 
             this.button_NewRevision.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_NewRevision.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button_NewRevision.Location = new System.Drawing.Point(7, 654);
             this.button_NewRevision.Name = "button_NewRevision";
-            this.button_NewRevision.Size = new System.Drawing.Size(131, 42);
+            this.button_NewRevision.Size = new System.Drawing.Size(120, 42);
             this.button_NewRevision.TabIndex = 6;
             this.button_NewRevision.Text = "NewRevision";
             this.button_NewRevision.UseVisualStyleBackColor = true;
@@ -96,6 +97,7 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Stablo_Status,
             this.clmn_Stablo_Modified});
             this.treeListView_Stablo.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeListView_Stablo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.treeListView_Stablo.FullRowSelect = true;
             this.treeListView_Stablo.GridLines = true;
             this.treeListView_Stablo.HideSelection = false;
@@ -151,21 +153,16 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.imageList_group.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList_group.ImageStream")));
             this.imageList_group.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList_group.Images.SetKeyName(0, "OK_32x32.png");
-            this.imageList_group.Images.SetKeyName(1, "NO_32x32.png");
-            this.imageList_group.Images.SetKeyName(2, "Obsolete_50x50.png");
-            this.imageList_group.Images.SetKeyName(3, "Warning_32x32.png");
-            this.imageList_group.Images.SetKeyName(4, "Group_00.png");
-            this.imageList_group.Images.SetKeyName(5, "InMemory_32.png");
-            this.imageList_group.Images.SetKeyName(6, "icons8-green-circle-48.png");
+            this.imageList_group.Images.SetKeyName(0, "icons8-green-circle-48.png");
             // 
             // checkBox_DisplayAsList
             // 
             this.checkBox_DisplayAsList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_DisplayAsList.AutoSize = true;
-            this.checkBox_DisplayAsList.Location = new System.Drawing.Point(7, 517);
+            this.checkBox_DisplayAsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBox_DisplayAsList.Location = new System.Drawing.Point(7, 514);
             this.checkBox_DisplayAsList.Name = "checkBox_DisplayAsList";
-            this.checkBox_DisplayAsList.Size = new System.Drawing.Size(89, 17);
+            this.checkBox_DisplayAsList.Size = new System.Drawing.Size(110, 20);
             this.checkBox_DisplayAsList.TabIndex = 11;
             this.checkBox_DisplayAsList.Text = "Display as list";
             this.checkBox_DisplayAsList.UseVisualStyleBackColor = true;
@@ -191,6 +188,7 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_Status,
             this.clmn_Lista_Modified});
             this.OLV_DocumentsLista.Cursor = System.Windows.Forms.Cursors.Default;
+            this.OLV_DocumentsLista.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.OLV_DocumentsLista.FullRowSelect = true;
             this.OLV_DocumentsLista.GridLines = true;
             this.OLV_DocumentsLista.GroupImageList = this.imageList_group;
@@ -235,7 +233,7 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_Status.AspectName = "Status";
             this.clmn_Lista_Status.IsEditable = false;
             this.clmn_Lista_Status.Text = "Status";
-            this.clmn_Lista_Status.Width = 150;
+            this.clmn_Lista_Status.Width = 200;
             // 
             // clmn_Lista_Modified
             // 
@@ -303,9 +301,10 @@ namespace VerManagerLibrary_ClassLib
             this.checkBox_ShowOnloaded.Checked = true;
             this.checkBox_ShowOnloaded.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_ShowOnloaded.Enabled = false;
-            this.checkBox_ShowOnloaded.Location = new System.Drawing.Point(102, 517);
+            this.checkBox_ShowOnloaded.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBox_ShowOnloaded.Location = new System.Drawing.Point(7, 537);
             this.checkBox_ShowOnloaded.Name = "checkBox_ShowOnloaded";
-            this.checkBox_ShowOnloaded.Size = new System.Drawing.Size(100, 17);
+            this.checkBox_ShowOnloaded.Size = new System.Drawing.Size(120, 20);
             this.checkBox_ShowOnloaded.TabIndex = 13;
             this.checkBox_ShowOnloaded.Text = "Show unloaded";
             this.checkBox_ShowOnloaded.UseVisualStyleBackColor = true;
@@ -324,11 +323,12 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_II_ImportanceLevel,
             this.clmn_Lista_II_SolvedStatus});
             this.OLV_RevisionList.Cursor = System.Windows.Forms.Cursors.Default;
+            this.OLV_RevisionList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.OLV_RevisionList.FullRowSelect = true;
             this.OLV_RevisionList.HideSelection = false;
-            this.OLV_RevisionList.Location = new System.Drawing.Point(223, 509);
+            this.OLV_RevisionList.Location = new System.Drawing.Point(133, 509);
             this.OLV_RevisionList.Name = "OLV_RevisionList";
-            this.OLV_RevisionList.Size = new System.Drawing.Size(1071, 187);
+            this.OLV_RevisionList.Size = new System.Drawing.Size(1161, 187);
             this.OLV_RevisionList.TabIndex = 14;
             this.OLV_RevisionList.UseCompatibleStateImageBehavior = false;
             this.OLV_RevisionList.View = System.Windows.Forms.View.Details;
@@ -345,7 +345,7 @@ namespace VerManagerLibrary_ClassLib
             // clmn_Lista_II_ImportanceLevel
             // 
             this.clmn_Lista_II_ImportanceLevel.Text = "Importance level";
-            this.clmn_Lista_II_ImportanceLevel.Width = 100;
+            this.clmn_Lista_II_ImportanceLevel.Width = 200;
             // 
             // clmn_Lista_II_SolvedStatus
             // 

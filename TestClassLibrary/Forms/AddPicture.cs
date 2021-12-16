@@ -72,7 +72,7 @@ namespace VerManagerLibrary_ClassLib
             if (pictureBox_Screenshot.Image != null)
             {
                 int index = ORevision.Attachments.Count() + 1;
-                string newName = "IMG_" + ORevision.RevisionID + "_" + index.ToString() + ".jpg";
+                string newName = "IMG_" + ORevision.RevisionID + "-" + index.ToString() + ".jpg";
                 System.IO.Directory.CreateDirectory(sLocation);
                 pictureBox_Screenshot.Image.Save(sLocation + newName, ImageFormat.Jpeg);
                 if (!ORevision.Attachments.Contains(sLocation + newName))

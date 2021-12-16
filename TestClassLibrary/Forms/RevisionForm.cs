@@ -69,7 +69,7 @@ namespace VerManagerLibrary_ClassLib
                 x.RevisionDict[ORevision.RevisionID] != 2
                 ));
             else FOLV_LibraryList.SetObjects(Library.Values.Where(x => !FirstLevelItems.Contains(x)));
-            UpdateImages();
+            UpdateAttachments();
         }
         private void SetupColumns()
         {
@@ -359,14 +359,15 @@ namespace VerManagerLibrary_ClassLib
         {
             if (pictureBox_ImageDisplay.Image != null)   pictureBox_ImageDisplay.Image.Dispose();
             pictureBox_ImageDisplay.Image = null;
-            pictureBox_ImageDisplay.BringToFront();
+            pictureBox_ImageDisplay.Visible = true;
+            kwForm1.Visible = false;
             foreach (ListViewItem item in listView_Attachments.SelectedItems)
             {
                 string attachmentPath = item.SubItems[1].Text;
                 File.Delete(attachmentPath);
                 ORevision.Attachments.Remove(attachmentPath);
             }
-            UpdateImages();
+            UpdateAttachments();
         }
         private void ListView_Attachments_Resize(object sender, System.EventArgs e)
         {
@@ -394,9 +395,9 @@ namespace VerManagerLibrary_ClassLib
         }
         private void ChildClosed(object sender, EventArgs e)
         {
-            UpdateImages();
+            UpdateAttachments();
         }
-        private void UpdateImages()
+        private void UpdateAttachments()
         {
             listView_Attachments.Items.Clear();
             if (ORevision.Attachments != null)
