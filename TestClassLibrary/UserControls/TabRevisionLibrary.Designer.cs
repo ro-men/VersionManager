@@ -120,6 +120,7 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_RevisionsList.AllColumns.Add(this.FDLV_Importance_level);
             this.FDLV_RevisionsList.AllColumns.Add(this.FDLV_Revision_SolvedStatus);
             this.FDLV_RevisionsList.AlternateRowBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.FDLV_RevisionsList.BackColor = System.Drawing.Color.AntiqueWhite;
             this.FDLV_RevisionsList.CellEditUseWholeCell = false;
             this.FDLV_RevisionsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.FDLV_Revision_ID,
@@ -180,6 +181,7 @@ namespace VerManagerLibrary_ClassLib
             this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_PartName);
             this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_RevisionSolved);
             this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_Level);
+            this.DLV_ItemsList.BackColor = System.Drawing.Color.AntiqueWhite;
             this.DLV_ItemsList.CellEditUseWholeCell = false;
             this.DLV_ItemsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.DLV_Items_PartName,

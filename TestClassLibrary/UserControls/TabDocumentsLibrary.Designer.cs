@@ -79,11 +79,12 @@ namespace VerManagerLibrary_ClassLib
             // 
             // button_NewRevision
             // 
-            this.button_NewRevision.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_NewRevision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.button_NewRevision.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button_NewRevision.Location = new System.Drawing.Point(6, 180);
             this.button_NewRevision.Name = "button_NewRevision";
-            this.button_NewRevision.Size = new System.Drawing.Size(133, 42);
+            this.button_NewRevision.Size = new System.Drawing.Size(148, 42);
             this.button_NewRevision.TabIndex = 6;
             this.button_NewRevision.Text = "NewRevision";
             this.button_NewRevision.UseVisualStyleBackColor = true;
