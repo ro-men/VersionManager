@@ -158,12 +158,12 @@ namespace VerManagerLibrary_ClassLib
         /// <summary>
         /// Ovo cita iz fileAtributa na lokalnom disku.
         /// </summary>
-        public DateTime LocalFileDate { get { return new FileInfo(VMLCoordinator.localCore + Key).LastWriteTime; } }
+        public DateTime? LocalFileDate { get { return new FileInfo(VMLCoordinator.localCore + Key).LastWriteTime; } }
         /// <summary>
         /// Ovo cita iz baze podataka.
         /// Ako je dokument zakljucana na aktivnog usera, onda provjerava vrijeme sa serverom.
         /// </summary>
-        public DateTime ServerFileDate { get { return new FileInfo(VMLCoordinator.serverCore + Key).LastWriteTime; } }
+        public DateTime? ServerFileDate { get { return new FileInfo(VMLCoordinator.serverCore + Key).LastWriteTime; } }
         /// <summary>
         /// Cita iz baze.
         /// Da bi se moglo editirati, dokument mora biti zakjucan na korisnika.
@@ -192,10 +192,18 @@ namespace VerManagerLibrary_ClassLib
         /// </summary>
         public bool Used { get { return ParentsDict.Count != 0; } }
         /// <summary>
-        /// 
+        /// Bool koji određuje da li dokument postoji na serveru.
+        /// Ranije je bila fileExists funkcija, no zbog brzine odaziva je promjenjeno u provjeru zapisa vremena u bazi.
         /// </summary>
-        public bool OnServer { get { return System.IO.File.Exists(VMLCoordinator.serverCore + Key); } }
-        public bool OnLocalDisc { get { return System.IO.File.Exists(VMLCoordinator.localCore + Key); } }
+        public bool OnServer { get { return ServerFileDate != null; } }
+        /// <summary>
+        /// Bool koji određuje da li dokument postoji lokalno.
+        /// </summary>
+        public bool OnLocalDisc { get { return LocalFileDate != null; } }
+        /// <summary>
+        /// Status dokumenta koji regulira moguće radnje na istom. (upload, sync, download ...)
+        /// Treba još uskladiti sa CatiaDocNet statusom
+        /// </summary>
         public string Status { get {
                 if (dataBaseFileDate == null)
                 {
@@ -234,6 +242,9 @@ namespace VerManagerLibrary_ClassLib
                     }
                 }
             } }
+        /// <summary>
+        /// Bool koji definira da li je dokument ucitan u session Catia-e.
+        /// </summary>
         public bool InSession { get; set; }
         /// <summary>
         /// 0 - izvorno odabran dokument u reviziji - unsolved revision <br/>
@@ -247,15 +258,28 @@ namespace VerManagerLibrary_ClassLib
             if (revisionDict.ContainsKey(revisionID)) return revisionDict[revisionID];
             return 5;
         }
+        /// <summary>
+        /// Product ima children komponente.
+        /// </summary>
         public bool HasChindren { get { return childrenDict.Count != 0; } }
+        /// <summary>
+        /// DocumentClass objekt je izmjenjen i spremanje je potrebno.
+        /// </summary>
         private bool modified = false;
+        public bool Modified { get { return modified; } }
+        /// <summary>
+        /// Privremena procedura za upload dokumenta na mrežu.
+        /// Ovo ce preuzeti CatiaDocNet
+        /// </summary>
         public void UploadDoc()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(VMLCoordinator.serverCore + Key));
             System.IO.File.Copy(VMLCoordinator.localCore + Key, VMLCoordinator.serverCore + Key,true);
             modified = false;
         }
-        public bool Modified { get { return modified; } }
+        /// <summary>
+        /// Document PartName
+        /// </summary>
         public string PartName { get { return Path.GetFileName(Key); } }
         public string Key { get; set; }
         /// <summary>
@@ -270,6 +294,11 @@ namespace VerManagerLibrary_ClassLib
             if (RawClass.Version != "") version = RawClass.Version;
             else IncreaseVersion();
         }
+        /// <summary>
+        /// Metoda za inicijalno popunjavanje "parent" i "children" kolekcija.
+        /// </summary>
+        /// <param name="RawClass"></param>
+        /// <param name="DCLibrary"></param>
         public void FillSiblings(DocumentClassRAW RawClass,Dictionary<string,DocumentClass> DCLibrary)
         {
             RawClass.Children.ForEach(i =>
