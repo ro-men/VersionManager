@@ -225,10 +225,10 @@ namespace VerManagerLibrary_ClassLib
                 RevisionClass newRevision = new RevisionClass();
                 newRevision.CreateRevisionID();
                 foreach (DocumentClass documentClass in selectedItems) {
-                    documentClass.IncreaseVersion();
-                    string[] docAttributes = { "3", documentClass.Version, documentClass.OldVersion };
+                    //documentClass.IncreaseVersion();
+                    string[] docAttributes = { "0", null, null };
                     newRevision.AddRevisionDocument(documentClass.Key, docAttributes);
-                    documentClass.AddRevision(newRevision.RevisionID, 3);
+                    documentClass.AddRevision(newRevision.RevisionID, 0);
                 }
 
                 var newForm = new RevisionForm();

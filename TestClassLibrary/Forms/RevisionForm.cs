@@ -77,7 +77,6 @@ namespace VerManagerLibrary_ClassLib
             {
                 return !"25".Contains(((DocumentClass)rowObject).RevisionStatus(ORevision.RevisionID).ToString());
             };
-
             this.FOLV_LibraryList.BooleanCheckStatePutter = delegate (Object rowObject, bool newValue)
             {
                 if (newValue == true)
@@ -93,16 +92,13 @@ namespace VerManagerLibrary_ClassLib
                 }
                 return newValue;
             };
-
-
-
             this.FOLV_Library_Resolved.AspectGetter = delegate (object x)
             {
                 return "34".Contains(((DocumentClass)x).RevisionStatus(ORevision.RevisionID).ToString());
             };
             this.FOLV_Library_Resolved.AspectPutter = delegate (object x, object newValue)
             {
-                if (((DocumentClass)x).RevisionStatus(ORevision.RevisionID) != 2)
+                if (((DocumentClass)x).RevisionStatus(ORevision.RevisionID) != 2 && ((DocumentClass)x).RevisionStatus(ORevision.RevisionID) != 5)
                 {
                     if ((bool)newValue)
                     {
@@ -188,8 +184,11 @@ namespace VerManagerLibrary_ClassLib
                 }
                 else
                 {
-                    ((DocumentClass)x).IncreaseVersion();
-                    string[] docAttributes = { "0", ((DocumentClass)x).Version, ((DocumentClass)x).OldVersion };
+                    if (((DocumentClass)x).OldVersion != null && ((DocumentClass)x).OldVersion == ORevision.RevisionDocuments[((DocumentClass)x).Key][2])
+                    {
+                        ((DocumentClass)x).UndoVersionIncrease();
+                    }
+                    string[] docAttributes = { "0", null, null };
                     ORevision.ModifyRevisionDocument(((DocumentClass)x).Key, docAttributes);
                     ((DocumentClass)x).ModifyRevision(ORevision.RevisionID, 0);
                 }
@@ -204,6 +203,30 @@ namespace VerManagerLibrary_ClassLib
                 if (((DocumentClass)x).RevisionStatus(ORevision.RevisionID) > 2) return 0;
                 return 1;
             };
+            this.FDLV_Selected_SolvedVersion.AspectGetter = delegate (object x)
+            {
+                if (ORevision.RevisionDocuments.ContainsKey(((DocumentClass)x).Key))
+                {
+                    if (string.IsNullOrEmpty(ORevision.RevisionDocuments[((DocumentClass)x).Key][1])) return null;
+                    else return ORevision.RevisionDocuments[((DocumentClass)x).Key][1];
+                }
+                else
+                {
+                    return null;
+                }
+            };
+            this.FDLV_Selected_OldVersion.AspectGetter = delegate (object x)
+            {
+                if (ORevision.RevisionDocuments.ContainsKey(((DocumentClass)x).Key))
+                {
+                    if (string.IsNullOrEmpty(ORevision.RevisionDocuments[((DocumentClass)x).Key][2])) return null;
+                    else return ORevision.RevisionDocuments[((DocumentClass)x).Key][2];
+                }
+                else
+                {
+                    return null;
+                }
+            };
         }
         private void ComboBoxSetup()
         {
@@ -216,7 +239,7 @@ namespace VerManagerLibrary_ClassLib
             comboBoxFilterColumn.SelectedIndex = 0;
             FOLV_LibraryList.AllColumns[0].Searchable = true;
         }
-        private void TextBoxFilterLibraryItems_TextChanged(object sender, EventArgs e)
+        private void TextBox_FilterLibraryItems_TextChanged(object sender, EventArgs e)
         {
             if (textBoxFilterLibraryItems.TextLength > 1)
             {
@@ -227,7 +250,7 @@ namespace VerManagerLibrary_ClassLib
                 FOLV_LibraryList.ModelFilter = null;
             }
         }
-        private void ComboBoxFilterColumn_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_FilterColumn_SelectedIndexChanged(object sender, EventArgs e)
         {
             FOLV_LibraryList.AllColumns.ForEach(x => x.Searchable = false);
             FOLV_LibraryList.AllColumns[comboBoxFilterColumn.SelectedIndex].Searchable = true;
@@ -373,7 +396,6 @@ namespace VerManagerLibrary_ClassLib
         {
             SizeLastColumn((ListView)sender);
         }
-
         private void SizeLastColumn(ListView lv)
         {
             lv.Columns[lv.Columns.Count - 1].Width = -2;
@@ -386,7 +408,7 @@ namespace VerManagerLibrary_ClassLib
             addPictureForm.FormClosed += new FormClosedEventHandler(ChildClosed);
             addPictureForm.ShowDialog();
         }
-        private void button_AddKW_Click(object sender, EventArgs e)
+        private void Button_AddKW_Click(object sender, EventArgs e)
         {
             AddKW AddKnowldgewareForm = new AddKW();
             AddKnowldgewareForm.SetRevision(ORevision, "");
@@ -416,7 +438,6 @@ namespace VerManagerLibrary_ClassLib
                 if (listView_Attachments.FocusedItem != null) contextMenuStrip_Images.Show(Cursor.Position);
             }
         }
-
         private void FDLV_SelectedList_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)

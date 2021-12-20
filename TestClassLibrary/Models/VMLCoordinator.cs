@@ -125,7 +125,6 @@ namespace VerManagerLibrary_ClassLib
             }
             DocumentDictionary = await VMLCoordinator.CollectInSessionDocuments();
         }
-        
         public static async Task<Dictionary<string, DocumentClass>> CollectInSessionDocuments()
         {
             Console.WriteLine("CollectDocuments  ->  Start");

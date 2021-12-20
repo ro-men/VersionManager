@@ -31,7 +31,7 @@ namespace VerManagerLibrary_ClassLib
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabDocumentsLibrary));
-            this.button_NewRevision = new System.Windows.Forms.Button();
+            this.button_CreateRevision = new System.Windows.Forms.Button();
             this.imageList_group = new System.Windows.Forms.ImageList(this.components);
             this.checkBox_DisplayAsList = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip_MissingDataBaseInput = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -77,30 +77,32 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_Controls.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button_NewRevision
+            // button_CreateRevision
             // 
-            this.button_NewRevision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.button_CreateRevision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_NewRevision.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_NewRevision.Location = new System.Drawing.Point(6, 180);
-            this.button_NewRevision.Name = "button_NewRevision";
-            this.button_NewRevision.Size = new System.Drawing.Size(148, 42);
-            this.button_NewRevision.TabIndex = 6;
-            this.button_NewRevision.Text = "NewRevision";
-            this.button_NewRevision.UseVisualStyleBackColor = true;
-            this.button_NewRevision.Click += new System.EventHandler(this.Button_NewRevision_Click);
+            this.button_CreateRevision.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_CreateRevision.Location = new System.Drawing.Point(11, 135);
+            this.button_CreateRevision.Name = "button_CreateRevision";
+            this.button_CreateRevision.Size = new System.Drawing.Size(128, 40);
+            this.button_CreateRevision.TabIndex = 6;
+            this.button_CreateRevision.Text = "Create Revision";
+            this.button_CreateRevision.UseVisualStyleBackColor = true;
+            this.button_CreateRevision.Click += new System.EventHandler(this.Button_NewRevision_Click);
             // 
             // imageList_group
             // 
             this.imageList_group.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList_group.ImageStream")));
             this.imageList_group.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList_group.Images.SetKeyName(0, "icons8-green-circle-48.png");
+            this.imageList_group.Images.SetKeyName(1, "solved_16x16.jpg");
+            this.imageList_group.Images.SetKeyName(2, "unsolved_16x16.jpg");
             // 
             // checkBox_DisplayAsList
             // 
             this.checkBox_DisplayAsList.AutoSize = true;
             this.checkBox_DisplayAsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBox_DisplayAsList.Location = new System.Drawing.Point(10, 45);
+            this.checkBox_DisplayAsList.Location = new System.Drawing.Point(11, 42);
             this.checkBox_DisplayAsList.Name = "checkBox_DisplayAsList";
             this.checkBox_DisplayAsList.Size = new System.Drawing.Size(110, 20);
             this.checkBox_DisplayAsList.TabIndex = 11;
@@ -167,7 +169,7 @@ namespace VerManagerLibrary_ClassLib
             this.checkBox_ShowOnloaded.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox_ShowOnloaded.Enabled = false;
             this.checkBox_ShowOnloaded.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBox_ShowOnloaded.Location = new System.Drawing.Point(10, 19);
+            this.checkBox_ShowOnloaded.Location = new System.Drawing.Point(11, 16);
             this.checkBox_ShowOnloaded.Name = "checkBox_ShowOnloaded";
             this.checkBox_ShowOnloaded.Size = new System.Drawing.Size(120, 20);
             this.checkBox_ShowOnloaded.TabIndex = 13;
@@ -194,7 +196,8 @@ namespace VerManagerLibrary_ClassLib
             this.OLV_RevisionList.HideSelection = false;
             this.OLV_RevisionList.Location = new System.Drawing.Point(0, 0);
             this.OLV_RevisionList.Name = "OLV_RevisionList";
-            this.OLV_RevisionList.Size = new System.Drawing.Size(1133, 228);
+            this.OLV_RevisionList.Size = new System.Drawing.Size(1143, 190);
+            this.OLV_RevisionList.SmallImageList = this.imageList_group;
             this.OLV_RevisionList.TabIndex = 14;
             this.OLV_RevisionList.UseCompatibleStateImageBehavior = false;
             this.OLV_RevisionList.View = System.Windows.Forms.View.Details;
@@ -245,7 +248,7 @@ namespace VerManagerLibrary_ClassLib
             this.OLV_DocumentsLista.HideSelection = false;
             this.OLV_DocumentsLista.Location = new System.Drawing.Point(0, 0);
             this.OLV_DocumentsLista.Name = "OLV_DocumentsLista";
-            this.OLV_DocumentsLista.Size = new System.Drawing.Size(1297, 387);
+            this.OLV_DocumentsLista.Size = new System.Drawing.Size(1297, 425);
             this.OLV_DocumentsLista.SmallImageList = this.imageList_group;
             this.OLV_DocumentsLista.TabIndex = 12;
             this.OLV_DocumentsLista.UseAlternatingBackColors = true;
@@ -283,7 +286,7 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_Status.AspectName = "Status";
             this.clmn_Lista_Status.IsEditable = false;
             this.clmn_Lista_Status.Text = "Status";
-            this.clmn_Lista_Status.Width = 200;
+            this.clmn_Lista_Status.Width = 150;
             // 
             // clmn_Lista_Modified
             // 
@@ -317,7 +320,7 @@ namespace VerManagerLibrary_ClassLib
             this.treeListView_Stablo.Location = new System.Drawing.Point(0, 0);
             this.treeListView_Stablo.Name = "treeListView_Stablo";
             this.treeListView_Stablo.ShowGroups = false;
-            this.treeListView_Stablo.Size = new System.Drawing.Size(1297, 387);
+            this.treeListView_Stablo.Size = new System.Drawing.Size(1297, 425);
             this.treeListView_Stablo.SmallImageList = this.imageList_group;
             this.treeListView_Stablo.TabIndex = 4;
             this.treeListView_Stablo.UseAlternatingBackColors = true;
@@ -378,7 +381,7 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.splitContainer_Donji);
             this.splitContainerMain.Size = new System.Drawing.Size(1297, 619);
-            this.splitContainerMain.SplitterDistance = 387;
+            this.splitContainerMain.SplitterDistance = 425;
             this.splitContainerMain.TabIndex = 15;
             // 
             // splitContainer_Donji
@@ -396,19 +399,19 @@ namespace VerManagerLibrary_ClassLib
             // splitContainer_Donji.Panel2
             // 
             this.splitContainer_Donji.Panel2.Controls.Add(this.OLV_RevisionList);
-            this.splitContainer_Donji.Size = new System.Drawing.Size(1297, 228);
-            this.splitContainer_Donji.SplitterDistance = 160;
+            this.splitContainer_Donji.Size = new System.Drawing.Size(1297, 190);
+            this.splitContainer_Donji.SplitterDistance = 150;
             this.splitContainer_Donji.TabIndex = 0;
             // 
             // groupBox_Controls
             // 
-            this.groupBox_Controls.Controls.Add(this.button_NewRevision);
+            this.groupBox_Controls.Controls.Add(this.button_CreateRevision);
             this.groupBox_Controls.Controls.Add(this.checkBox_DisplayAsList);
             this.groupBox_Controls.Controls.Add(this.checkBox_ShowOnloaded);
             this.groupBox_Controls.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_Controls.Location = new System.Drawing.Point(0, 0);
             this.groupBox_Controls.Name = "groupBox_Controls";
-            this.groupBox_Controls.Size = new System.Drawing.Size(160, 228);
+            this.groupBox_Controls.Size = new System.Drawing.Size(150, 190);
             this.groupBox_Controls.TabIndex = 16;
             this.groupBox_Controls.TabStop = false;
             // 
@@ -444,7 +447,7 @@ namespace VerManagerLibrary_ClassLib
         private BrightIdeasSoftware.TreeListView treeListView_Stablo;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_PartName;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_FullName;
-        private System.Windows.Forms.Button button_NewRevision;
+        private System.Windows.Forms.Button button_CreateRevision;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_Nomenclature;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_Status;
         private System.Windows.Forms.CheckBox checkBox_DisplayAsList;

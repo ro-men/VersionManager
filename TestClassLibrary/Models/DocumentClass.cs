@@ -140,24 +140,60 @@ namespace VerManagerLibrary_ClassLib
             version = oldVersion;
             oldVersion = null;
         }
+        private string lockValue;
+        public string GetLockValue { get { return lockValue; } }
+        public void SetLock() { 
+            if (lockValue == "")
+            {
+                lockValue = Environment.UserName;
+            }
+        }
+        /// <summary>
+        /// Ovo cita iz baze podataka.
+        /// </summary>
         private DateTime? dataBaseFileDate;
         public DateTime? DataBaseFileDate { 
             get { return dataBaseFileDate; } 
             set { dataBaseFileDate = value; modified = true; }}
+        /// <summary>
+        /// Ovo cita iz fileAtributa na lokalnom disku.
+        /// </summary>
         public DateTime LocalFileDate { get { return new FileInfo(VMLCoordinator.localCore + Key).LastWriteTime; } }
+        /// <summary>
+        /// Ovo cita iz baze podataka.
+        /// Ako je dokument zakljucana na aktivnog usera, onda provjerava vrijeme sa serverom.
+        /// </summary>
         public DateTime ServerFileDate { get { return new FileInfo(VMLCoordinator.serverCore + Key).LastWriteTime; } }
-        private string oldNomenclature;
-        public string OldNomenclature { get { return oldNomenclature; } }
+        /// <summary>
+        /// Cita iz baze.
+        /// Da bi se moglo editirati, dokument mora biti zakjucan na korisnika.
+        /// </summary>
         private string newNomenclature;
         public string NewNomenclature { 
             get { return newNomenclature; } 
             set { newNomenclature = value; modified = true; } }
+        /// <summary>
+        /// Privremeni spremnik stare nomenklature prije zapisa u bazu. Za slucaj odustajanja.
+        /// </summary>
+        private string oldNomenclature;
+        public string OldNomenclature { get { return oldNomenclature; } }
+        /// <summary>
+        /// Procedura koja privremeno sluzi za postavljanje vrijednosti nomenklatura u objektu.
+        /// Vrijednost uzima iz baze. Za nove objekte iz parametra u Catia dokumentu.
+        /// </summary>
+        /// <param name="oValue"></param>
         public void SetInitaialNomenclature(string oValue)
         {
             oldNomenclature = oValue;
             newNomenclature = oValue;
         }
+        /// <summary>
+        /// Interni parametar. Nema komunikacije sa bazom.
+        /// </summary>
         public bool Used { get { return ParentsDict.Count != 0; } }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool OnServer { get { return System.IO.File.Exists(VMLCoordinator.serverCore + Key); } }
         public bool OnLocalDisc { get { return System.IO.File.Exists(VMLCoordinator.localCore + Key); } }
         public string Status { get {
@@ -222,7 +258,6 @@ namespace VerManagerLibrary_ClassLib
         public bool Modified { get { return modified; } }
         public string PartName { get { return Path.GetFileName(Key); } }
         public string Key { get; set; }
-
         /// <summary>
         /// Metoda koja izgradi "DocumentClass" instancu na temelju "sirove" instance koja je ucitana JsonSerializer-om.
         /// </summary>
@@ -232,7 +267,8 @@ namespace VerManagerLibrary_ClassLib
             completeRevisionsDict.Where(kvp => kvp.Value.RevisionDocuments.ContainsKey(Key)).ToList().ForEach(x => revisionDict.Add(x.Key, Int32.Parse(x.Value.RevisionDocuments[Key][0])));
             dataBaseFileDate = RawClass.LibraryTime;
             SetInitaialNomenclature(RawClass.Nomenclture);
-            version = RawClass.Version;
+            if (RawClass.Version != "") version = RawClass.Version;
+            else IncreaseVersion();
         }
         public void FillSiblings(DocumentClassRAW RawClass,Dictionary<string,DocumentClass> DCLibrary)
         {
