@@ -33,7 +33,7 @@ namespace VerManagerLibrary_ClassLib
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TabDocumentsLibrary));
             this.button_CreateRevision = new System.Windows.Forms.Button();
             this.imageList_group = new System.Windows.Forms.ImageList(this.components);
-            this.checkBox_DisplayAsList = new System.Windows.Forms.CheckBox();
+            this.checkBox_DisplayType = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip_MissingDataBaseInput = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.Register_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Delete_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,7 +41,6 @@ namespace VerManagerLibrary_ClassLib
             this.contextMenuStrip_New = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.StoreInVML_Library = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPartNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBox_ShowOnloaded = new System.Windows.Forms.CheckBox();
             this.OLV_RevisionList = new BrightIdeasSoftware.ObjectListView();
             this.clmn_Lista_II_RevisionID = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Lista_II_ImportanceLevel = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -51,16 +50,23 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_FullName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Lista_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Lista_Status = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_Version = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Lista_Modified = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.treeListView_Stablo = new BrightIdeasSoftware.TreeListView();
             this.clmn_Stablo_PartName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Stablo_FullName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Stablo_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Stablo_Status = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_Version = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Stablo_Modified = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.splitContainer_Donji = new System.Windows.Forms.SplitContainer();
             this.groupBox_Controls = new System.Windows.Forms.GroupBox();
+            this.label_Search = new System.Windows.Forms.Label();
+            this.comboBoxFilterColumn = new System.Windows.Forms.ComboBox();
+            this.textBoxFilterLibraryItems = new System.Windows.Forms.TextBox();
+            this.radioButton_Library = new System.Windows.Forms.RadioButton();
+            this.radioButton_InSession = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip_MissingDataBaseInput.SuspendLayout();
             this.contextMenuStrip_New.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OLV_RevisionList)).BeginInit();
@@ -79,14 +85,13 @@ namespace VerManagerLibrary_ClassLib
             // 
             // button_CreateRevision
             // 
-            this.button_CreateRevision.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button_CreateRevision.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button_CreateRevision.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_CreateRevision.Location = new System.Drawing.Point(11, 135);
+            this.button_CreateRevision.Location = new System.Drawing.Point(6, 141);
             this.button_CreateRevision.Name = "button_CreateRevision";
-            this.button_CreateRevision.Size = new System.Drawing.Size(128, 40);
+            this.button_CreateRevision.Size = new System.Drawing.Size(86, 40);
             this.button_CreateRevision.TabIndex = 6;
-            this.button_CreateRevision.Text = "Create Revision";
+            this.button_CreateRevision.Text = "Create New Revision";
             this.button_CreateRevision.UseVisualStyleBackColor = true;
             this.button_CreateRevision.Click += new System.EventHandler(this.Button_NewRevision_Click);
             // 
@@ -98,17 +103,19 @@ namespace VerManagerLibrary_ClassLib
             this.imageList_group.Images.SetKeyName(1, "solved_16x16.jpg");
             this.imageList_group.Images.SetKeyName(2, "unsolved_16x16.jpg");
             // 
-            // checkBox_DisplayAsList
+            // checkBox_DisplayType
             // 
-            this.checkBox_DisplayAsList.AutoSize = true;
-            this.checkBox_DisplayAsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBox_DisplayAsList.Location = new System.Drawing.Point(11, 42);
-            this.checkBox_DisplayAsList.Name = "checkBox_DisplayAsList";
-            this.checkBox_DisplayAsList.Size = new System.Drawing.Size(110, 20);
-            this.checkBox_DisplayAsList.TabIndex = 11;
-            this.checkBox_DisplayAsList.Text = "Display as list";
-            this.checkBox_DisplayAsList.UseVisualStyleBackColor = true;
-            this.checkBox_DisplayAsList.CheckedChanged += new System.EventHandler(this.CheckBox_DisplayAsList_CheckedChanged);
+            this.checkBox_DisplayType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_DisplayType.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox_DisplayType.AutoSize = true;
+            this.checkBox_DisplayType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBox_DisplayType.Location = new System.Drawing.Point(294, 13);
+            this.checkBox_DisplayType.Name = "checkBox_DisplayType";
+            this.checkBox_DisplayType.Size = new System.Drawing.Size(101, 26);
+            this.checkBox_DisplayType.TabIndex = 11;
+            this.checkBox_DisplayType.Text = "Display as list";
+            this.checkBox_DisplayType.UseVisualStyleBackColor = true;
+            this.checkBox_DisplayType.CheckedChanged += new System.EventHandler(this.CheckBox_DisplayType_CheckedChanged);
             // 
             // contextMenuStrip_MissingDataBaseInput
             // 
@@ -162,21 +169,6 @@ namespace VerManagerLibrary_ClassLib
             this.copyPartNameToolStripMenuItem.Text = "Copy PartName";
             this.copyPartNameToolStripMenuItem.Click += new System.EventHandler(this.copyPartNameToolStripMenuItem_Click);
             // 
-            // checkBox_ShowOnloaded
-            // 
-            this.checkBox_ShowOnloaded.AutoSize = true;
-            this.checkBox_ShowOnloaded.Checked = true;
-            this.checkBox_ShowOnloaded.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_ShowOnloaded.Enabled = false;
-            this.checkBox_ShowOnloaded.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBox_ShowOnloaded.Location = new System.Drawing.Point(11, 16);
-            this.checkBox_ShowOnloaded.Name = "checkBox_ShowOnloaded";
-            this.checkBox_ShowOnloaded.Size = new System.Drawing.Size(120, 20);
-            this.checkBox_ShowOnloaded.TabIndex = 13;
-            this.checkBox_ShowOnloaded.Text = "Show unloaded";
-            this.checkBox_ShowOnloaded.UseVisualStyleBackColor = true;
-            this.checkBox_ShowOnloaded.CheckedChanged += new System.EventHandler(this.CheckBox_ShowOnloaded_CheckedChanged);
-            // 
             // OLV_RevisionList
             // 
             this.OLV_RevisionList.AllColumns.Add(this.clmn_Lista_II_RevisionID);
@@ -196,7 +188,7 @@ namespace VerManagerLibrary_ClassLib
             this.OLV_RevisionList.HideSelection = false;
             this.OLV_RevisionList.Location = new System.Drawing.Point(0, 0);
             this.OLV_RevisionList.Name = "OLV_RevisionList";
-            this.OLV_RevisionList.Size = new System.Drawing.Size(1143, 190);
+            this.OLV_RevisionList.Size = new System.Drawing.Size(893, 190);
             this.OLV_RevisionList.SmallImageList = this.imageList_group;
             this.OLV_RevisionList.TabIndex = 14;
             this.OLV_RevisionList.UseCompatibleStateImageBehavior = false;
@@ -209,7 +201,7 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_II_RevisionID.AspectName = "RevisionID";
             this.clmn_Lista_II_RevisionID.Groupable = false;
             this.clmn_Lista_II_RevisionID.Text = "RevisionID";
-            this.clmn_Lista_II_RevisionID.Width = 150;
+            this.clmn_Lista_II_RevisionID.Width = 250;
             // 
             // clmn_Lista_II_ImportanceLevel
             // 
@@ -229,6 +221,7 @@ namespace VerManagerLibrary_ClassLib
             this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_FullName);
             this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Nomenclature);
             this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Status);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Version);
             this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Modified);
             this.OLV_DocumentsLista.BackColor = System.Drawing.Color.AntiqueWhite;
             this.OLV_DocumentsLista.CellEditActivation = BrightIdeasSoftware.ObjectListView.CellEditActivateMode.DoubleClick;
@@ -238,6 +231,7 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_FullName,
             this.clmn_Lista_Nomenclature,
             this.clmn_Lista_Status,
+            this.clmn_Lista_Version,
             this.clmn_Lista_Modified});
             this.OLV_DocumentsLista.Cursor = System.Windows.Forms.Cursors.Default;
             this.OLV_DocumentsLista.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -288,12 +282,18 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_Status.Text = "Status";
             this.clmn_Lista_Status.Width = 150;
             // 
+            // clmn_Lista_Version
+            // 
+            this.clmn_Lista_Version.AspectName = "Version";
+            this.clmn_Lista_Version.Text = "Version";
+            this.clmn_Lista_Version.Width = 120;
+            // 
             // clmn_Lista_Modified
             // 
             this.clmn_Lista_Modified.AspectName = "";
             this.clmn_Lista_Modified.FillsFreeSpace = true;
             this.clmn_Lista_Modified.Text = "Modified";
-            this.clmn_Lista_Modified.Width = 120;
+            this.clmn_Lista_Modified.Width = 150;
             // 
             // treeListView_Stablo
             // 
@@ -301,6 +301,7 @@ namespace VerManagerLibrary_ClassLib
             this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_FullName);
             this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Nomenclature);
             this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Status);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Version);
             this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Modified);
             this.treeListView_Stablo.BackColor = System.Drawing.Color.AntiqueWhite;
             this.treeListView_Stablo.CellEditActivation = BrightIdeasSoftware.ObjectListView.CellEditActivateMode.DoubleClick;
@@ -310,6 +311,7 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Stablo_FullName,
             this.clmn_Stablo_Nomenclature,
             this.clmn_Stablo_Status,
+            this.clmn_Stablo_Version,
             this.clmn_Stablo_Modified});
             this.treeListView_Stablo.Cursor = System.Windows.Forms.Cursors.Default;
             this.treeListView_Stablo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -357,13 +359,20 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Stablo_Status.AspectName = "Status";
             this.clmn_Stablo_Status.IsEditable = false;
             this.clmn_Stablo_Status.Text = "Status";
-            this.clmn_Stablo_Status.Width = 150;
+            this.clmn_Stablo_Status.Width = 151;
+            // 
+            // clmn_Stablo_Version
+            // 
+            this.clmn_Stablo_Version.AspectName = "Version";
+            this.clmn_Stablo_Version.Text = "Version";
+            this.clmn_Stablo_Version.Width = 120;
             // 
             // clmn_Stablo_Modified
             // 
+            this.clmn_Stablo_Modified.AspectName = "Modified";
             this.clmn_Stablo_Modified.FillsFreeSpace = true;
             this.clmn_Stablo_Modified.Text = "Modified";
-            this.clmn_Stablo_Modified.Width = 120;
+            this.clmn_Stablo_Modified.Width = 150;
             // 
             // splitContainerMain
             // 
@@ -400,20 +409,85 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.splitContainer_Donji.Panel2.Controls.Add(this.OLV_RevisionList);
             this.splitContainer_Donji.Size = new System.Drawing.Size(1297, 190);
-            this.splitContainer_Donji.SplitterDistance = 150;
+            this.splitContainer_Donji.SplitterDistance = 400;
             this.splitContainer_Donji.TabIndex = 0;
             // 
             // groupBox_Controls
             // 
+            this.groupBox_Controls.Controls.Add(this.label_Search);
+            this.groupBox_Controls.Controls.Add(this.comboBoxFilterColumn);
+            this.groupBox_Controls.Controls.Add(this.textBoxFilterLibraryItems);
+            this.groupBox_Controls.Controls.Add(this.radioButton_Library);
+            this.groupBox_Controls.Controls.Add(this.radioButton_InSession);
             this.groupBox_Controls.Controls.Add(this.button_CreateRevision);
-            this.groupBox_Controls.Controls.Add(this.checkBox_DisplayAsList);
-            this.groupBox_Controls.Controls.Add(this.checkBox_ShowOnloaded);
+            this.groupBox_Controls.Controls.Add(this.checkBox_DisplayType);
             this.groupBox_Controls.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_Controls.Location = new System.Drawing.Point(0, 0);
             this.groupBox_Controls.Name = "groupBox_Controls";
-            this.groupBox_Controls.Size = new System.Drawing.Size(150, 190);
+            this.groupBox_Controls.Size = new System.Drawing.Size(400, 190);
             this.groupBox_Controls.TabIndex = 16;
             this.groupBox_Controls.TabStop = false;
+            // 
+            // label_Search
+            // 
+            this.label_Search.AutoSize = true;
+            this.label_Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label_Search.Location = new System.Drawing.Point(4, 23);
+            this.label_Search.Name = "label_Search";
+            this.label_Search.Size = new System.Drawing.Size(72, 16);
+            this.label_Search.TabIndex = 16;
+            this.label_Search.Text = "Search by:";
+            this.label_Search.Visible = false;
+            // 
+            // comboBoxFilterColumn
+            // 
+            this.comboBoxFilterColumn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterColumn.FormattingEnabled = true;
+            this.comboBoxFilterColumn.Location = new System.Drawing.Point(4, 47);
+            this.comboBoxFilterColumn.Name = "comboBoxFilterColumn";
+            this.comboBoxFilterColumn.Size = new System.Drawing.Size(111, 21);
+            this.comboBoxFilterColumn.TabIndex = 15;
+            this.comboBoxFilterColumn.Visible = false;
+            // 
+            // textBoxFilterLibraryItems
+            // 
+            this.textBoxFilterLibraryItems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxFilterLibraryItems.CausesValidation = false;
+            this.textBoxFilterLibraryItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxFilterLibraryItems.Location = new System.Drawing.Point(124, 48);
+            this.textBoxFilterLibraryItems.Name = "textBoxFilterLibraryItems";
+            this.textBoxFilterLibraryItems.Size = new System.Drawing.Size(273, 21);
+            this.textBoxFilterLibraryItems.TabIndex = 14;
+            this.textBoxFilterLibraryItems.Visible = false;
+            this.textBoxFilterLibraryItems.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFilterLibraryItems_KeyDown);
+            // 
+            // radioButton_Library
+            // 
+            this.radioButton_Library.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton_Library.AutoSize = true;
+            this.radioButton_Library.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.radioButton_Library.Location = new System.Drawing.Point(328, 159);
+            this.radioButton_Library.Name = "radioButton_Library";
+            this.radioButton_Library.Size = new System.Drawing.Size(67, 20);
+            this.radioButton_Library.TabIndex = 13;
+            this.radioButton_Library.Text = "Library";
+            this.radioButton_Library.UseVisualStyleBackColor = true;
+            this.radioButton_Library.CheckedChanged += new System.EventHandler(this.radioButton_Library_CheckedChanged);
+            // 
+            // radioButton_InSession
+            // 
+            this.radioButton_InSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton_InSession.AutoSize = true;
+            this.radioButton_InSession.Checked = true;
+            this.radioButton_InSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.radioButton_InSession.Location = new System.Drawing.Point(243, 159);
+            this.radioButton_InSession.Name = "radioButton_InSession";
+            this.radioButton_InSession.Size = new System.Drawing.Size(86, 20);
+            this.radioButton_InSession.TabIndex = 12;
+            this.radioButton_InSession.TabStop = true;
+            this.radioButton_InSession.Text = "In session";
+            this.radioButton_InSession.UseVisualStyleBackColor = true;
             // 
             // TabDocumentsLibrary
             // 
@@ -450,7 +524,7 @@ namespace VerManagerLibrary_ClassLib
         private System.Windows.Forms.Button button_CreateRevision;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_Nomenclature;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_Status;
-        private System.Windows.Forms.CheckBox checkBox_DisplayAsList;
+        private System.Windows.Forms.CheckBox checkBox_DisplayType;
         private BrightIdeasSoftware.ObjectListView OLV_DocumentsLista;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_PartName;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_FullName;
@@ -463,9 +537,8 @@ namespace VerManagerLibrary_ClassLib
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_New;
         private System.Windows.Forms.ToolStripMenuItem StoreInVML_Library;
         private System.Windows.Forms.ToolStripMenuItem copyPartNameToolStripMenuItem;
-        private BrightIdeasSoftware.OLVColumn clmn_Stablo_Modified;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_Version;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_Modified;
-        private System.Windows.Forms.CheckBox checkBox_ShowOnloaded;
         private System.Windows.Forms.ToolStripMenuItem collapseAllToolStripMenuItem;
         private BrightIdeasSoftware.ObjectListView OLV_RevisionList;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_II_RevisionID;
@@ -474,5 +547,12 @@ namespace VerManagerLibrary_ClassLib
         private System.Windows.Forms.SplitContainer splitContainerMain;
         private System.Windows.Forms.SplitContainer splitContainer_Donji;
         private System.Windows.Forms.GroupBox groupBox_Controls;
+        private BrightIdeasSoftware.OLVColumn clmn_Lista_Version;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_Modified;
+        private System.Windows.Forms.RadioButton radioButton_Library;
+        private System.Windows.Forms.RadioButton radioButton_InSession;
+        private System.Windows.Forms.ComboBox comboBoxFilterColumn;
+        private System.Windows.Forms.TextBox textBoxFilterLibraryItems;
+        private System.Windows.Forms.Label label_Search;
     }
 }

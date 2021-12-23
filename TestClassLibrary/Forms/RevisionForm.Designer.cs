@@ -53,6 +53,8 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_Selected_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FDLV_Selected_Resolved = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.FDLV_Selected_CurrentRevisionStatus = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.FDLV_Selected_SolvedVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.FDLV_Selected_OldVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.FOLV_LibraryList = new BrightIdeasSoftware.FastObjectListView();
             this.FOLV_Library_PartName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -81,8 +83,6 @@ namespace VerManagerLibrary_ClassLib
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip_SelectedItems = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.FDLV_Selected_SolvedVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.FDLV_Selected_OldVersion = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.kwForm1 = new VerManagerLibrary_ClassLib.KWForm();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Glavni)).BeginInit();
             this.splitContainer_Glavni.Panel1.SuspendLayout();
@@ -227,7 +227,7 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_ID_and_Importance.Panel2.Controls.Add(this.groupBox_Importance);
             this.splitContainer_ID_and_Importance.Panel2MinSize = 200;
             this.splitContainer_ID_and_Importance.Size = new System.Drawing.Size(1291, 50);
-            this.splitContainer_ID_and_Importance.SplitterDistance = 1065;
+            this.splitContainer_ID_and_Importance.SplitterDistance = 1068;
             this.splitContainer_ID_and_Importance.SplitterWidth = 1;
             this.splitContainer_ID_and_Importance.TabIndex = 0;
             // 
@@ -238,7 +238,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_ID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_ID.Location = new System.Drawing.Point(0, 0);
             this.groupBox_ID.Name = "groupBox_ID";
-            this.groupBox_ID.Size = new System.Drawing.Size(1065, 50);
+            this.groupBox_ID.Size = new System.Drawing.Size(1068, 50);
             this.groupBox_ID.TabIndex = 26;
             this.groupBox_ID.TabStop = false;
             // 
@@ -261,7 +261,7 @@ namespace VerManagerLibrary_ClassLib
             this.textBoxRevisionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxRevisionID.Location = new System.Drawing.Point(98, 15);
             this.textBoxRevisionID.Name = "textBoxRevisionID";
-            this.textBoxRevisionID.Size = new System.Drawing.Size(930, 21);
+            this.textBoxRevisionID.Size = new System.Drawing.Size(933, 21);
             this.textBoxRevisionID.TabIndex = 31;
             // 
             // groupBox_Importance
@@ -271,7 +271,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_Importance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_Importance.Location = new System.Drawing.Point(0, 0);
             this.groupBox_Importance.Name = "groupBox_Importance";
-            this.groupBox_Importance.Size = new System.Drawing.Size(225, 50);
+            this.groupBox_Importance.Size = new System.Drawing.Size(222, 50);
             this.groupBox_Importance.TabIndex = 27;
             this.groupBox_Importance.TabStop = false;
             // 
@@ -283,7 +283,7 @@ namespace VerManagerLibrary_ClassLib
             "High",
             "Medium",
             "Low"});
-            this.comboBox_Importance.Location = new System.Drawing.Point(140, 15);
+            this.comboBox_Importance.Location = new System.Drawing.Point(137, 15);
             this.comboBox_Importance.Name = "comboBox_Importance";
             this.comboBox_Importance.Size = new System.Drawing.Size(69, 21);
             this.comboBox_Importance.TabIndex = 34;
@@ -378,6 +378,7 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_SelectedList.Cursor = System.Windows.Forms.Cursors.Default;
             this.FDLV_SelectedList.DataSource = null;
             this.FDLV_SelectedList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FDLV_SelectedList.FullRowSelect = true;
             this.FDLV_SelectedList.HideSelection = false;
             this.FDLV_SelectedList.Location = new System.Drawing.Point(3, 16);
             this.FDLV_SelectedList.Name = "FDLV_SelectedList";
@@ -418,6 +419,17 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_Selected_CurrentRevisionStatus.Text = "CurrentResolveStatus";
             this.FDLV_Selected_CurrentRevisionStatus.Width = 140;
             // 
+            // FDLV_Selected_SolvedVersion
+            // 
+            this.FDLV_Selected_SolvedVersion.Text = "Solved version";
+            this.FDLV_Selected_SolvedVersion.Width = 120;
+            // 
+            // FDLV_Selected_OldVersion
+            // 
+            this.FDLV_Selected_OldVersion.FillsFreeSpace = true;
+            this.FDLV_Selected_OldVersion.Text = "Old version";
+            this.FDLV_Selected_OldVersion.Width = 120;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.FOLV_LibraryList);
@@ -449,6 +461,7 @@ namespace VerManagerLibrary_ClassLib
             this.FOLV_Library_OldVersion});
             this.FOLV_LibraryList.Cursor = System.Windows.Forms.Cursors.Default;
             this.FOLV_LibraryList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FOLV_LibraryList.FullRowSelect = true;
             this.FOLV_LibraryList.HideSelection = false;
             this.FOLV_LibraryList.Location = new System.Drawing.Point(0, 0);
             this.FOLV_LibraryList.Name = "FOLV_LibraryList";
@@ -698,17 +711,6 @@ namespace VerManagerLibrary_ClassLib
             this.toolStripMenuItem1.Size = new System.Drawing.Size(107, 22);
             this.toolStripMenuItem1.Text = "Delete";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.DeleteSelectedItem);
-            // 
-            // FDLV_Selected_SolvedVersion
-            // 
-            this.FDLV_Selected_SolvedVersion.Text = "Solved version";
-            this.FDLV_Selected_SolvedVersion.Width = 120;
-            // 
-            // FDLV_Selected_OldVersion
-            // 
-            this.FDLV_Selected_OldVersion.FillsFreeSpace = true;
-            this.FDLV_Selected_OldVersion.Text = "Old version";
-            this.FDLV_Selected_OldVersion.Width = 120;
             // 
             // kwForm1
             // 

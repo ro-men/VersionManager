@@ -43,7 +43,6 @@ namespace VerManagerLibrary_ClassLib
             displayedDocuments = await VMLCoordinator.CollectInSessionDocuments();
             SetupTree();
             SetupDocumentList();
-            checkBox_ShowOnloaded.Enabled = true;
         }
         #region Treelistview Setup
         //TreeListView osnovni delegatori:
@@ -51,7 +50,7 @@ namespace VerManagerLibrary_ClassLib
         // 2. ChildrenGetter - children collection
         private void SetupTree()
         {
-            clmn_Stablo_Modified.AspectGetter = delegate (object rowObject) {
+            clmn_Stablo_Version.AspectGetter = delegate (object rowObject) {
                 DocumentClass document = (DocumentClass)rowObject;
                 if (document.Modified) return document.Modified;
                 return "";
@@ -245,32 +244,23 @@ namespace VerManagerLibrary_ClassLib
         {
             OLV_RevisionList.UpdateObject(revision);  
         }
-        private void RevisionAdded(List<string> itemsToUpdate)
-        {
-            //treeListView_Stablo.UpdateObjects(displayedDocuments.Values.Where(x => itemsToUpdate.Contains(x.Key)).ToList());    
-        }
         private void List_CellEditStarting(object sender, CellEditEventArgs e)
         {
             e.Control.Bounds = e.ListViewItem.GetSubItemBounds(e.SubItemIndex);
         }
-        private void CheckBox_ShowOnloaded_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox_DisplayType_CheckedChanged(object sender, EventArgs e)
         {
-            if (!checkBox_ShowOnloaded.Checked) displayedDocuments = displayedDocuments.Where(x => x.Value.InSession).ToDictionary(x => x.Key, x => x.Value);
-            else displayedDocuments = VMLCoordinator.DocumentDictionary;
-            SetupTree();
-            SetupDocumentList();
-        }
-        private void CheckBox_DisplayAsList_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox_DisplayAsList.Checked)
+            if (checkBox_DisplayType.Checked)
             {
                 OLV_DocumentsLista.RebuildColumns();
                 OLV_DocumentsLista.BringToFront();
+                checkBox_DisplayType.Text = "Display as tree";
             }
             else
             {
                 treeListView_Stablo.CollapseAll();
                 treeListView_Stablo.BringToFront();
+                checkBox_DisplayType.Text = "Display as list";
             }
         }
         private void Documents_SelectionChanged(object sender, EventArgs e)
@@ -425,8 +415,19 @@ namespace VerManagerLibrary_ClassLib
                 Clipboard.SetText(selectedItems[0].PartName);
         }
         #endregion
+
         #endregion
 
+        private void radioButton_Library_CheckedChanged(object sender, EventArgs e)
+        {
+                comboBoxFilterColumn.Visible = radioButton_Library.Checked;
+                textBoxFilterLibraryItems.Visible = radioButton_Library.Checked;
+                label_Search.Visible = radioButton_Library.Checked;
+        }
 
+        private void textBoxFilterLibraryItems_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) MessageBox.Show("Enter");
+        }
     }
 }

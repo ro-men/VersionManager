@@ -26,7 +26,8 @@ namespace VerManagerLibrary_ClassLib
         private static string rev_JSON = GetConfigurationLine("rev_JSON");
         //public static Dictionary<string, RevisionClass> RevisionDictionary { get; set; } = new Dictionary<string, RevisionClass>();
         public static Dictionary<string, RevisionClass> RevisionDictionary { get; set; } = CollectRevisionDocuments();
-        public static Dictionary<string, DocumentClass> DocumentDictionary { get; set; } = CollectLibraryDocuments();
+        //public static Dictionary<string, DocumentClass> DocumentDictionary { get; set; } = CollectLibraryDocuments();
+        public static Dictionary<string, DocumentClass> DocumentDictionary { get; set; } = new Dictionary<string, DocumentClass>();
         private static HashSet<string> CollectPictures() {
             HashSet<string> attachments = new HashSet<string>();
             try
@@ -94,6 +95,7 @@ namespace VerManagerLibrary_ClassLib
                 return false;
             }
         }
+
         /// <summary>
         /// Ucitava u radnu memoriju Catia-e sve dokumente iz liste.
         /// </summary>
@@ -125,6 +127,8 @@ namespace VerManagerLibrary_ClassLib
             }
             DocumentDictionary = await VMLCoordinator.CollectInSessionDocuments();
         }
+
+        #region AsyncMemoryRead
         public static async Task<Dictionary<string, DocumentClass>> CollectInSessionDocuments()
         {
             Console.WriteLine("CollectDocuments  ->  Start");
@@ -223,13 +227,13 @@ namespace VerManagerLibrary_ClassLib
             Console.WriteLine($"CollectDocuments  ->  Execution Time: {watch.ElapsedMilliseconds} ms");
             return DocumentDictionary;
         }
-        private static void collectChildren(StiDBItem parent, HashSet<string> childernHashSet) 
+        private static void collectChildren(StiDBItem parent, HashSet<string> childernHashSet)
         {
             StiDBChildren stiChildren = (StiDBChildren)parent.GetChildren();
             for (int x = 1; x <= stiChildren.Count; x++)
             {
                 StiDBItem theChild = stiChildren.Item(x);
-                if (theChild.IsCFOType()) 
+                if (theChild.GetDocumentFullPath() == parent.GetDocumentFullPath())
                 {
                     collectChildren(theChild, childernHashSet);
                 }
@@ -241,6 +245,8 @@ namespace VerManagerLibrary_ClassLib
                 }
             }
         }
+        #endregion
+
         private static string GetNomenclature(INFITF.Document oDoc)
         {
             Product oProduct;
@@ -293,84 +299,8 @@ namespace VerManagerLibrary_ClassLib
                     }));
             return libraryDocuments;
         }
-        /// <summary>
-        /// Provjerava da li na serveru postoje Catia dokumenti koji se ne nalaze u bazi podataka.
-        /// U slučaju da ih ima, za iste kreira objekte u "DocumentLibrary".
-        /// </summary>
-        /// <returns></returns>
-        public static async Task<Dictionary<string, DocumentClass>> InitialDictionaryUpdate()
-        {
-            var watchFindNonExistend = new System.Diagnostics.Stopwatch();
-            watchFindNonExistend.Start();
-            List<string> serverFileList = await CreateServerFileList();
-            await Task.Run(() =>
-            {
-                List<string> newDocuments = serverFileList.Except(DocumentDictionary.Keys.ToList()).ToList();
-                foreach(string key in newDocuments)
-                {
-                    DocumentClass documentClass = new DocumentClass
-                    {
-                        Key = key,
-                    };
-                    DocumentDictionary.Add(key, documentClass);
-                }
-            });
-            watchFindNonExistend.Stop();
-            Console.WriteLine($"watchRemoveNonExistend  ->  Execution Time: {watchFindNonExistend.ElapsedMilliseconds} ms");
-            return DocumentDictionary;
-        }
-        public static async Task<List<string>> CreateServerFileList()
-        {
-            List<FileInfo> list = new List<FileInfo>();
-            var watchEnumerateFilesFast = new System.Diagnostics.Stopwatch();
-            await Task.Run(() =>
-            {
-                watchEnumerateFilesFast.Start();
-                list = EnumerateFilesFast(serverCore, @"\.CATPart|\.CATProduct", SearchOption.AllDirectories);
-                watchEnumerateFilesFast.Stop();
-            });
-            Console.WriteLine($"EnumerateFilesFast files count::  {list.Count}  -> time: {watchEnumerateFilesFast.ElapsedMilliseconds} ms");
-            return list.Select(file => file.FullName.Remove(0, serverCore.Length)).ToList();
-        }
-        public static List<FileInfo> EnumerateFilesFast(string path, string searchPatternExpression, SearchOption searchOption)
-        {
-            var dirInfo = new DirectoryInfo(path);
-            List<FileInfo> files;
-            Regex reSearchPattern = new Regex(searchPatternExpression, RegexOptions.IgnoreCase);
-            if (searchOption == SearchOption.TopDirectoryOnly)
-                files = dirInfo.EnumerateFiles("*.*", SearchOption.TopDirectoryOnly).Where(f =>
-                               reSearchPattern.IsMatch(Path.GetExtension(f.FullName)))
-                    .ToList();
-            else
-                files = dirInfo.EnumerateFiles("*.*", SearchOption.TopDirectoryOnly).Where(f =>
-                               reSearchPattern.IsMatch(Path.GetExtension(f.FullName)))
-                    .Union
-                    (
-                        dirInfo.EnumerateDirectories()
-                            .AsParallel()
-                            .SelectMany(di => di.EnumerateFiles("*.*", SearchOption.AllDirectories).Where(f =>
-                               reSearchPattern.IsMatch(Path.GetExtension(f.FullName)))
-                            )
-                    ).ToList();
-            return files;
-        }
-        public static void RemoveSelectionFromLibrary(List<DocumentClass> selectedDocuments)
-        {
-            foreach (DocumentClass documentClass in selectedDocuments)
-            {
-                documentClass.ChildrenDict.Keys.ToList().Where(x => DocumentDictionary.ContainsKey(x)).ToList().ForEach(key =>
-                {
-                    DocumentDictionary[key].RemoveParent(documentClass.Key);
-                });
-                documentClass.ParentsDict.Keys.ToList().Where(x => DocumentDictionary.ContainsKey(x)).ToList().ForEach(key =>
-                {
-                    DocumentDictionary[key].RemoveChild(documentClass.Key);
-                });
-                documentClass.RevisionDict.Keys.ToList().ForEach(key => RevisionDictionary[key].RemoveRevisionDocument(documentClass.Key));
-                DocumentDictionary.Remove(documentClass.Key);
-            };
-        }
         #endregion
+
         public static void StoreDocumentClassesDict()
         {
             var watchStore = new System.Diagnostics.Stopwatch();
