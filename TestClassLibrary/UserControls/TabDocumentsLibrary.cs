@@ -116,44 +116,13 @@ namespace VerManagerLibrary_ClassLib
         private void SetupDocumentList()
         {
             OLV_DocumentsLista.SetObjects(displayedDocuments.Values);
-            clmn_Lista_Modified.AspectGetter = delegate (object rowObject) {
+            comboBoxFilterColumn.SelectedIndex = 0;
+            comboBox_SearchMod.SelectedIndex = 0;
+            clmn_Lista_SyncTime.AspectGetter = delegate (object rowObject) {
                 DocumentClass document = (DocumentClass)rowObject;
                 if (document.Modified) return document.Modified.ToString();
                 return "";
             };
-            clmn_Lista_Status.GroupKeyGetter = delegate (object rowObject) {
-                DocumentClass document = (DocumentClass)rowObject;
-                return document.Status;
-            };
-            clmn_Lista_Status.GroupFormatter = delegate (OLVGroup group, GroupingParameters parms)
-            {
-                switch (group.Key.ToString()) 
-                {
-                    case "":
-                        group.TitleImage = -1;
-                        group.Subtitle = "Up to date. Everything is ok.";
-                        break;
-                    case "New":
-                        group.TitleImage = 0;
-                        group.Subtitle = "Needs to be stored in library and uploaded.";
-                        break;
-                    case "Missing Database Input":
-                        group.TitleImage = 1;
-                        group.Subtitle = "Solve this problem please.";
-                        break;
-                    case "Obsolete version":
-                        group.TitleImage = 2;
-                        group.Subtitle = "Need to update version.";
-                        break;
-                    default:
-                        group.TitleImage = 3;
-                        group.Subtitle = "User didn't upload documents.";
-                        break;
-                }
-
-            };
-            OLV_DocumentsLista.ShowGroups = false;
-            //OLV_DocumentsLista.Sort(clmn_Lista_Status);
         }
         private void OLV_DocumentsLista_FormatRow(object sender, FormatRowEventArgs e)
         {
@@ -418,16 +387,27 @@ namespace VerManagerLibrary_ClassLib
 
         #endregion
 
-        private void radioButton_Library_CheckedChanged(object sender, EventArgs e)
-        {
-                comboBoxFilterColumn.Visible = radioButton_Library.Checked;
-                textBoxFilterLibraryItems.Visible = radioButton_Library.Checked;
-                label_Search.Visible = radioButton_Library.Checked;
-        }
-
         private void textBoxFilterLibraryItems_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) MessageBox.Show("Enter");
+        }
+
+        private void checkBox_Library_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxFilterColumn.Visible = checkBox_Library.Checked;
+            comboBox_SearchMod.Visible = checkBox_Library.Checked;
+            textBoxFilterLibraryItems.Visible = checkBox_Library.Checked;
+            if (!checkBox_Library.Checked)
+            {
+                checkBox_Library.Text = "Display library";
+                VMLCoordinator.DocumentDictionary =  VMLCoordinator.DocumentDictionary.Where(kvp => kvp.Value.InSession).ToDictionary(x => x.Key, x => x.Value);
+                SetupTree();
+                SetupDocumentList();
+            }
+            else
+            {
+                checkBox_Library.Text = "Remove library";
+            }
         }
     }
 }

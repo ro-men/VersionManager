@@ -47,26 +47,35 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_II_SolvedStatus = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.OLV_DocumentsLista = new BrightIdeasSoftware.ObjectListView();
             this.clmn_Lista_PartName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.clmn_Lista_FullName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.clmn_Lista_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_PathCore = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Lista_Status = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_LockedBy = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_LockTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_SyncStatus = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Lista_Version = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.clmn_Lista_Modified = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_LocalTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_ServerTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Lista_SyncTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.treeListView_Stablo = new BrightIdeasSoftware.TreeListView();
             this.clmn_Stablo_PartName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.clmn_Stablo_FullName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.clmn_Stablo_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_PathCore = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Stablo_Status = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_LockedBy = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_LockTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_Nomenclature = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_SyncStatus = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.clmn_Stablo_Version = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.clmn_Stablo_Modified = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_LocalTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_ServerTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.clmn_Stablo_SyncTime = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.splitContainer_Donji = new System.Windows.Forms.SplitContainer();
             this.groupBox_Controls = new System.Windows.Forms.GroupBox();
-            this.label_Search = new System.Windows.Forms.Label();
+            this.checkBox_Library = new System.Windows.Forms.CheckBox();
+            this.comboBox_SearchMod = new System.Windows.Forms.ComboBox();
             this.comboBoxFilterColumn = new System.Windows.Forms.ComboBox();
             this.textBoxFilterLibraryItems = new System.Windows.Forms.TextBox();
-            this.radioButton_Library = new System.Windows.Forms.RadioButton();
-            this.radioButton_InSession = new System.Windows.Forms.RadioButton();
             this.contextMenuStrip_MissingDataBaseInput.SuspendLayout();
             this.contextMenuStrip_New.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.OLV_RevisionList)).BeginInit();
@@ -107,11 +116,10 @@ namespace VerManagerLibrary_ClassLib
             // 
             this.checkBox_DisplayType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBox_DisplayType.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox_DisplayType.AutoSize = true;
             this.checkBox_DisplayType.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBox_DisplayType.Location = new System.Drawing.Point(294, 13);
+            this.checkBox_DisplayType.Location = new System.Drawing.Point(291, 12);
             this.checkBox_DisplayType.Name = "checkBox_DisplayType";
-            this.checkBox_DisplayType.Size = new System.Drawing.Size(101, 26);
+            this.checkBox_DisplayType.Size = new System.Drawing.Size(104, 23);
             this.checkBox_DisplayType.TabIndex = 11;
             this.checkBox_DisplayType.Text = "Display as list";
             this.checkBox_DisplayType.UseVisualStyleBackColor = true;
@@ -218,21 +226,31 @@ namespace VerManagerLibrary_ClassLib
             // OLV_DocumentsLista
             // 
             this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_PartName);
-            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_FullName);
-            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Nomenclature);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_PathCore);
             this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Status);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_LockedBy);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_LockTime);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Nomenclature);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_SyncStatus);
             this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Version);
-            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_Modified);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_LocalTime);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_ServerTime);
+            this.OLV_DocumentsLista.AllColumns.Add(this.clmn_Lista_SyncTime);
             this.OLV_DocumentsLista.BackColor = System.Drawing.Color.AntiqueWhite;
             this.OLV_DocumentsLista.CellEditActivation = BrightIdeasSoftware.ObjectListView.CellEditActivateMode.DoubleClick;
             this.OLV_DocumentsLista.CellEditUseWholeCell = false;
             this.OLV_DocumentsLista.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmn_Lista_PartName,
-            this.clmn_Lista_FullName,
-            this.clmn_Lista_Nomenclature,
+            this.clmn_Lista_PathCore,
             this.clmn_Lista_Status,
+            this.clmn_Lista_LockedBy,
+            this.clmn_Lista_LockTime,
+            this.clmn_Lista_Nomenclature,
+            this.clmn_Lista_SyncStatus,
             this.clmn_Lista_Version,
-            this.clmn_Lista_Modified});
+            this.clmn_Lista_LocalTime,
+            this.clmn_Lista_ServerTime,
+            this.clmn_Lista_SyncTime});
             this.OLV_DocumentsLista.Cursor = System.Windows.Forms.Cursors.Default;
             this.OLV_DocumentsLista.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OLV_DocumentsLista.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -261,19 +279,13 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_PartName.Text = "PartName";
             this.clmn_Lista_PartName.Width = 200;
             // 
-            // clmn_Lista_FullName
+            // clmn_Lista_PathCore
             // 
-            this.clmn_Lista_FullName.AspectName = "Key";
-            this.clmn_Lista_FullName.Groupable = false;
-            this.clmn_Lista_FullName.IsEditable = false;
-            this.clmn_Lista_FullName.Text = "FullName";
-            this.clmn_Lista_FullName.Width = 200;
-            // 
-            // clmn_Lista_Nomenclature
-            // 
-            this.clmn_Lista_Nomenclature.AspectName = "NewNomenclature";
-            this.clmn_Lista_Nomenclature.Text = "Nomenclature";
-            this.clmn_Lista_Nomenclature.Width = 150;
+            this.clmn_Lista_PathCore.AspectName = "Key";
+            this.clmn_Lista_PathCore.Groupable = false;
+            this.clmn_Lista_PathCore.IsEditable = false;
+            this.clmn_Lista_PathCore.Text = "Path";
+            this.clmn_Lista_PathCore.Width = 200;
             // 
             // clmn_Lista_Status
             // 
@@ -282,37 +294,82 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Lista_Status.Text = "Status";
             this.clmn_Lista_Status.Width = 150;
             // 
+            // clmn_Lista_LockedBy
+            // 
+            this.clmn_Lista_LockedBy.IsEditable = false;
+            this.clmn_Lista_LockedBy.Text = "LockedBy";
+            this.clmn_Lista_LockedBy.Width = 120;
+            // 
+            // clmn_Lista_LockTime
+            // 
+            this.clmn_Lista_LockTime.IsEditable = false;
+            this.clmn_Lista_LockTime.Text = "LockTime";
+            this.clmn_Lista_LockTime.Width = 120;
+            // 
+            // clmn_Lista_Nomenclature
+            // 
+            this.clmn_Lista_Nomenclature.AspectName = "NewNomenclature";
+            this.clmn_Lista_Nomenclature.Text = "Nomenclature";
+            this.clmn_Lista_Nomenclature.Width = 150;
+            // 
+            // clmn_Lista_SyncStatus
+            // 
+            this.clmn_Lista_SyncStatus.IsEditable = false;
+            this.clmn_Lista_SyncStatus.Text = "SyncStatus";
+            this.clmn_Lista_SyncStatus.Width = 120;
+            // 
             // clmn_Lista_Version
             // 
             this.clmn_Lista_Version.AspectName = "Version";
+            this.clmn_Lista_Version.IsEditable = false;
             this.clmn_Lista_Version.Text = "Version";
             this.clmn_Lista_Version.Width = 120;
             // 
-            // clmn_Lista_Modified
+            // clmn_Lista_LocalTime
             // 
-            this.clmn_Lista_Modified.AspectName = "";
-            this.clmn_Lista_Modified.FillsFreeSpace = true;
-            this.clmn_Lista_Modified.Text = "Modified";
-            this.clmn_Lista_Modified.Width = 150;
+            this.clmn_Lista_LocalTime.IsEditable = false;
+            this.clmn_Lista_LocalTime.Text = "LocalTime";
+            this.clmn_Lista_LocalTime.Width = 120;
+            // 
+            // clmn_Lista_ServerTime
+            // 
+            this.clmn_Lista_ServerTime.IsEditable = false;
+            this.clmn_Lista_ServerTime.Text = "ServerTime";
+            this.clmn_Lista_ServerTime.Width = 120;
+            // 
+            // clmn_Lista_SyncTime
+            // 
+            this.clmn_Lista_SyncTime.AspectName = "";
+            this.clmn_Lista_SyncTime.FillsFreeSpace = true;
+            this.clmn_Lista_SyncTime.IsEditable = false;
+            this.clmn_Lista_SyncTime.Text = "SyncTime";
+            this.clmn_Lista_SyncTime.Width = 150;
             // 
             // treeListView_Stablo
             // 
             this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_PartName);
-            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_FullName);
-            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Nomenclature);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_PathCore);
             this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Status);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_LockedBy);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_LockTime);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Nomenclature);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_SyncStatus);
             this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Version);
-            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_Modified);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_LocalTime);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_ServerTime);
+            this.treeListView_Stablo.AllColumns.Add(this.clmn_Stablo_SyncTime);
             this.treeListView_Stablo.BackColor = System.Drawing.Color.AntiqueWhite;
             this.treeListView_Stablo.CellEditActivation = BrightIdeasSoftware.ObjectListView.CellEditActivateMode.DoubleClick;
             this.treeListView_Stablo.CellEditUseWholeCell = false;
             this.treeListView_Stablo.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmn_Stablo_PartName,
-            this.clmn_Stablo_FullName,
-            this.clmn_Stablo_Nomenclature,
+            this.clmn_Stablo_PathCore,
             this.clmn_Stablo_Status,
-            this.clmn_Stablo_Version,
-            this.clmn_Stablo_Modified});
+            this.clmn_Stablo_LockedBy,
+            this.clmn_Stablo_LockTime,
+            this.clmn_Stablo_Nomenclature,
+            this.clmn_Stablo_SyncStatus,
+            this.clmn_Stablo_Version});
             this.treeListView_Stablo.Cursor = System.Windows.Forms.Cursors.Default;
             this.treeListView_Stablo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeListView_Stablo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -341,12 +398,31 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Stablo_PartName.Text = "PartName";
             this.clmn_Stablo_PartName.Width = 200;
             // 
-            // clmn_Stablo_FullName
+            // clmn_Stablo_PathCore
             // 
-            this.clmn_Stablo_FullName.AspectName = "Key";
-            this.clmn_Stablo_FullName.IsEditable = false;
-            this.clmn_Stablo_FullName.Text = "FullName";
-            this.clmn_Stablo_FullName.Width = 200;
+            this.clmn_Stablo_PathCore.AspectName = "";
+            this.clmn_Stablo_PathCore.IsEditable = false;
+            this.clmn_Stablo_PathCore.Text = "Path";
+            this.clmn_Stablo_PathCore.Width = 200;
+            // 
+            // clmn_Stablo_Status
+            // 
+            this.clmn_Stablo_Status.AspectName = "Status";
+            this.clmn_Stablo_Status.IsEditable = false;
+            this.clmn_Stablo_Status.Text = "Status";
+            this.clmn_Stablo_Status.Width = 150;
+            // 
+            // clmn_Stablo_LockedBy
+            // 
+            this.clmn_Stablo_LockedBy.IsEditable = false;
+            this.clmn_Stablo_LockedBy.Text = "LockedBy";
+            this.clmn_Stablo_LockedBy.Width = 120;
+            // 
+            // clmn_Stablo_LockTime
+            // 
+            this.clmn_Stablo_LockTime.IsEditable = false;
+            this.clmn_Stablo_LockTime.Text = "LockTime";
+            this.clmn_Stablo_LockTime.Width = 120;
             // 
             // clmn_Stablo_Nomenclature
             // 
@@ -354,25 +430,44 @@ namespace VerManagerLibrary_ClassLib
             this.clmn_Stablo_Nomenclature.Text = "Nomenclature";
             this.clmn_Stablo_Nomenclature.Width = 150;
             // 
-            // clmn_Stablo_Status
+            // clmn_Stablo_SyncStatus
             // 
-            this.clmn_Stablo_Status.AspectName = "Status";
-            this.clmn_Stablo_Status.IsEditable = false;
-            this.clmn_Stablo_Status.Text = "Status";
-            this.clmn_Stablo_Status.Width = 151;
+            this.clmn_Stablo_SyncStatus.IsEditable = false;
+            this.clmn_Stablo_SyncStatus.Text = "SyncStatus";
+            this.clmn_Stablo_SyncStatus.Width = 120;
             // 
             // clmn_Stablo_Version
             // 
             this.clmn_Stablo_Version.AspectName = "Version";
+            this.clmn_Stablo_Version.IsEditable = false;
             this.clmn_Stablo_Version.Text = "Version";
             this.clmn_Stablo_Version.Width = 120;
             // 
-            // clmn_Stablo_Modified
+            // clmn_Stablo_LocalTime
             // 
-            this.clmn_Stablo_Modified.AspectName = "Modified";
-            this.clmn_Stablo_Modified.FillsFreeSpace = true;
-            this.clmn_Stablo_Modified.Text = "Modified";
-            this.clmn_Stablo_Modified.Width = 150;
+            this.clmn_Stablo_LocalTime.DisplayIndex = 8;
+            this.clmn_Stablo_LocalTime.IsEditable = false;
+            this.clmn_Stablo_LocalTime.IsVisible = false;
+            this.clmn_Stablo_LocalTime.Text = "LocalTime";
+            this.clmn_Stablo_LocalTime.Width = 120;
+            // 
+            // clmn_Stablo_ServerTime
+            // 
+            this.clmn_Stablo_ServerTime.DisplayIndex = 9;
+            this.clmn_Stablo_ServerTime.IsEditable = false;
+            this.clmn_Stablo_ServerTime.IsVisible = false;
+            this.clmn_Stablo_ServerTime.Text = "ServerTime";
+            this.clmn_Stablo_ServerTime.Width = 120;
+            // 
+            // clmn_Stablo_SyncTime
+            // 
+            this.clmn_Stablo_SyncTime.AspectName = "";
+            this.clmn_Stablo_SyncTime.DisplayIndex = 10;
+            this.clmn_Stablo_SyncTime.FillsFreeSpace = true;
+            this.clmn_Stablo_SyncTime.IsEditable = false;
+            this.clmn_Stablo_SyncTime.IsVisible = false;
+            this.clmn_Stablo_SyncTime.Text = "SyncTime";
+            this.clmn_Stablo_SyncTime.Width = 150;
             // 
             // splitContainerMain
             // 
@@ -414,11 +509,10 @@ namespace VerManagerLibrary_ClassLib
             // 
             // groupBox_Controls
             // 
-            this.groupBox_Controls.Controls.Add(this.label_Search);
+            this.groupBox_Controls.Controls.Add(this.checkBox_Library);
+            this.groupBox_Controls.Controls.Add(this.comboBox_SearchMod);
             this.groupBox_Controls.Controls.Add(this.comboBoxFilterColumn);
             this.groupBox_Controls.Controls.Add(this.textBoxFilterLibraryItems);
-            this.groupBox_Controls.Controls.Add(this.radioButton_Library);
-            this.groupBox_Controls.Controls.Add(this.radioButton_InSession);
             this.groupBox_Controls.Controls.Add(this.button_CreateRevision);
             this.groupBox_Controls.Controls.Add(this.checkBox_DisplayType);
             this.groupBox_Controls.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -428,24 +522,45 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_Controls.TabIndex = 16;
             this.groupBox_Controls.TabStop = false;
             // 
-            // label_Search
+            // checkBox_Library
             // 
-            this.label_Search.AutoSize = true;
-            this.label_Search.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label_Search.Location = new System.Drawing.Point(4, 23);
-            this.label_Search.Name = "label_Search";
-            this.label_Search.Size = new System.Drawing.Size(72, 16);
-            this.label_Search.TabIndex = 16;
-            this.label_Search.Text = "Search by:";
-            this.label_Search.Visible = false;
+            this.checkBox_Library.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_Library.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox_Library.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBox_Library.Location = new System.Drawing.Point(291, 39);
+            this.checkBox_Library.Name = "checkBox_Library";
+            this.checkBox_Library.Size = new System.Drawing.Size(104, 23);
+            this.checkBox_Library.TabIndex = 18;
+            this.checkBox_Library.Text = "Display library";
+            this.checkBox_Library.UseVisualStyleBackColor = true;
+            this.checkBox_Library.CheckedChanged += new System.EventHandler(this.checkBox_Library_CheckedChanged);
+            // 
+            // comboBox_SearchMod
+            // 
+            this.comboBox_SearchMod.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBox_SearchMod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_SearchMod.FormattingEnabled = true;
+            this.comboBox_SearchMod.Items.AddRange(new object[] {
+            "Equals",
+            "Begins with",
+            "Contains"});
+            this.comboBox_SearchMod.Location = new System.Drawing.Point(204, 13);
+            this.comboBox_SearchMod.Name = "comboBox_SearchMod";
+            this.comboBox_SearchMod.Size = new System.Drawing.Size(85, 21);
+            this.comboBox_SearchMod.TabIndex = 17;
+            this.comboBox_SearchMod.Visible = false;
             // 
             // comboBoxFilterColumn
             // 
             this.comboBoxFilterColumn.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxFilterColumn.FormattingEnabled = true;
-            this.comboBoxFilterColumn.Location = new System.Drawing.Point(4, 47);
+            this.comboBoxFilterColumn.Items.AddRange(new object[] {
+            "PartName",
+            "FullName",
+            "Nomenclature"});
+            this.comboBoxFilterColumn.Location = new System.Drawing.Point(4, 13);
             this.comboBoxFilterColumn.Name = "comboBoxFilterColumn";
-            this.comboBoxFilterColumn.Size = new System.Drawing.Size(111, 21);
+            this.comboBoxFilterColumn.Size = new System.Drawing.Size(85, 21);
             this.comboBoxFilterColumn.TabIndex = 15;
             this.comboBoxFilterColumn.Visible = false;
             // 
@@ -455,39 +570,12 @@ namespace VerManagerLibrary_ClassLib
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFilterLibraryItems.CausesValidation = false;
             this.textBoxFilterLibraryItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxFilterLibraryItems.Location = new System.Drawing.Point(124, 48);
+            this.textBoxFilterLibraryItems.Location = new System.Drawing.Point(4, 41);
             this.textBoxFilterLibraryItems.Name = "textBoxFilterLibraryItems";
-            this.textBoxFilterLibraryItems.Size = new System.Drawing.Size(273, 21);
+            this.textBoxFilterLibraryItems.Size = new System.Drawing.Size(286, 21);
             this.textBoxFilterLibraryItems.TabIndex = 14;
             this.textBoxFilterLibraryItems.Visible = false;
             this.textBoxFilterLibraryItems.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFilterLibraryItems_KeyDown);
-            // 
-            // radioButton_Library
-            // 
-            this.radioButton_Library.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton_Library.AutoSize = true;
-            this.radioButton_Library.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.radioButton_Library.Location = new System.Drawing.Point(328, 159);
-            this.radioButton_Library.Name = "radioButton_Library";
-            this.radioButton_Library.Size = new System.Drawing.Size(67, 20);
-            this.radioButton_Library.TabIndex = 13;
-            this.radioButton_Library.Text = "Library";
-            this.radioButton_Library.UseVisualStyleBackColor = true;
-            this.radioButton_Library.CheckedChanged += new System.EventHandler(this.radioButton_Library_CheckedChanged);
-            // 
-            // radioButton_InSession
-            // 
-            this.radioButton_InSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton_InSession.AutoSize = true;
-            this.radioButton_InSession.Checked = true;
-            this.radioButton_InSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.radioButton_InSession.Location = new System.Drawing.Point(243, 159);
-            this.radioButton_InSession.Name = "radioButton_InSession";
-            this.radioButton_InSession.Size = new System.Drawing.Size(86, 20);
-            this.radioButton_InSession.TabIndex = 12;
-            this.radioButton_InSession.TabStop = true;
-            this.radioButton_InSession.Text = "In session";
-            this.radioButton_InSession.UseVisualStyleBackColor = true;
             // 
             // TabDocumentsLibrary
             // 
@@ -520,14 +608,14 @@ namespace VerManagerLibrary_ClassLib
 
         private BrightIdeasSoftware.TreeListView treeListView_Stablo;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_PartName;
-        private BrightIdeasSoftware.OLVColumn clmn_Stablo_FullName;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_PathCore;
         private System.Windows.Forms.Button button_CreateRevision;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_Nomenclature;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_Status;
         private System.Windows.Forms.CheckBox checkBox_DisplayType;
         private BrightIdeasSoftware.ObjectListView OLV_DocumentsLista;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_PartName;
-        private BrightIdeasSoftware.OLVColumn clmn_Lista_FullName;
+        private BrightIdeasSoftware.OLVColumn clmn_Lista_PathCore;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_Nomenclature;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_Status;
         private System.Windows.Forms.ImageList imageList_group;
@@ -538,7 +626,7 @@ namespace VerManagerLibrary_ClassLib
         private System.Windows.Forms.ToolStripMenuItem StoreInVML_Library;
         private System.Windows.Forms.ToolStripMenuItem copyPartNameToolStripMenuItem;
         private BrightIdeasSoftware.OLVColumn clmn_Stablo_Version;
-        private BrightIdeasSoftware.OLVColumn clmn_Lista_Modified;
+        private BrightIdeasSoftware.OLVColumn clmn_Lista_SyncTime;
         private System.Windows.Forms.ToolStripMenuItem collapseAllToolStripMenuItem;
         private BrightIdeasSoftware.ObjectListView OLV_RevisionList;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_II_RevisionID;
@@ -548,11 +636,20 @@ namespace VerManagerLibrary_ClassLib
         private System.Windows.Forms.SplitContainer splitContainer_Donji;
         private System.Windows.Forms.GroupBox groupBox_Controls;
         private BrightIdeasSoftware.OLVColumn clmn_Lista_Version;
-        private BrightIdeasSoftware.OLVColumn clmn_Stablo_Modified;
-        private System.Windows.Forms.RadioButton radioButton_Library;
-        private System.Windows.Forms.RadioButton radioButton_InSession;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_SyncTime;
         private System.Windows.Forms.ComboBox comboBoxFilterColumn;
         private System.Windows.Forms.TextBox textBoxFilterLibraryItems;
-        private System.Windows.Forms.Label label_Search;
+        private System.Windows.Forms.ComboBox comboBox_SearchMod;
+        private System.Windows.Forms.CheckBox checkBox_Library;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_LockedBy;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_LockTime;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_SyncStatus;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_LocalTime;
+        private BrightIdeasSoftware.OLVColumn clmn_Stablo_ServerTime;
+        private BrightIdeasSoftware.OLVColumn clmn_Lista_LockedBy;
+        private BrightIdeasSoftware.OLVColumn clmn_Lista_LockTime;
+        private BrightIdeasSoftware.OLVColumn clmn_Lista_SyncStatus;
+        private BrightIdeasSoftware.OLVColumn clmn_Lista_LocalTime;
+        private BrightIdeasSoftware.OLVColumn clmn_Lista_ServerTime;
     }
 }

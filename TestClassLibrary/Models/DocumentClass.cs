@@ -156,6 +156,15 @@ namespace VerManagerLibrary_ClassLib
             get { return dataBaseFileDate; } 
             set { dataBaseFileDate = value; modified = true; }}
         /// <summary>
+        /// Ovo cita iz baze podataka.
+        /// </summary>
+        private DateTime? lockTime;
+        public DateTime? LockTime
+        {
+            get { return lockTime; }
+            set { lockTime = value; modified = true; }
+        }
+        /// <summary>
         /// Ovo cita iz fileAtributa na lokalnom disku.
         /// </summary>
         public DateTime? LocalFileDate { get { return new FileInfo(VMLCoordinator.localCore + Key).LastWriteTime; } }
@@ -204,7 +213,12 @@ namespace VerManagerLibrary_ClassLib
         /// Status dokumenta koji regulira moguće radnje na istom. (upload, sync, download ...)
         /// Treba još uskladiti sa CatiaDocNet statusom
         /// </summary>
+        //private string status =
+        //    dataBaseFileDate != null
+        //    ? "Modified": null;
         public string Status { get {
+                //return status;
+
                 if (dataBaseFileDate == null)
                 {
                     if (!OnServer)
@@ -236,7 +250,7 @@ namespace VerManagerLibrary_ClassLib
                             }
                             else
                             {
-                                return "Local version modified.";
+                                return "Modified.";
                             }
                         }
                     }
