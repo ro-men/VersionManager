@@ -1,7 +1,7 @@
 ﻿
 namespace VerManagerLibrary_ClassLib
 {
-    partial class KWForm
+    partial class KWUserControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -111,7 +111,7 @@ namespace VerManagerLibrary_ClassLib
             this.radioButton_KW.TabStop = true;
             this.radioButton_KW.Text = "KW";
             this.radioButton_KW.UseVisualStyleBackColor = true;
-            this.radioButton_KW.CheckedChanged += new System.EventHandler(this.radioButton_KW_CheckedChanged);
+            this.radioButton_KW.CheckedChanged += new System.EventHandler(this.RadioButton_KW_CheckedChanged);
             // 
             // button_Save
             // 
@@ -123,7 +123,7 @@ namespace VerManagerLibrary_ClassLib
             this.button_Save.TabIndex = 6;
             this.button_Save.Text = "Save";
             this.button_Save.UseVisualStyleBackColor = true;
-            this.button_Save.Click += new System.EventHandler(this.button_Save_Click);
+            this.button_Save.Click += new System.EventHandler(this.Button_Save_Click);
             // 
             // label_Value
             // 
@@ -216,7 +216,7 @@ namespace VerManagerLibrary_ClassLib
             this.comboBox_Type.Name = "comboBox_Type";
             this.comboBox_Type.Size = new System.Drawing.Size(717, 21);
             this.comboBox_Type.TabIndex = 1;
-            this.comboBox_Type.SelectedIndexChanged += new System.EventHandler(this.comboBox_Type_SelectedIndexChanged);
+            this.comboBox_Type.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Type_SelectedIndexChanged);
             // 
             // KWForm
             // 

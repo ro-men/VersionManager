@@ -110,7 +110,7 @@ namespace VerManagerLibrary_ClassLib
             this.button_FromFile.TabIndex = 2;
             this.button_FromFile.Text = "From file";
             this.button_FromFile.UseVisualStyleBackColor = true;
-            this.button_FromFile.Click += new System.EventHandler(this.button_FromFile_Click);
+            this.button_FromFile.Click += new System.EventHandler(this.Button_FromFile_Click);
             // 
             // pictureBox_Screenshot
             // 

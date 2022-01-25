@@ -29,24 +29,24 @@ namespace VerManagerLibrary_ClassLib
         /// </summary>
         private void InitializeComponent()
         {
-            this.kwForm1 = new VerManagerLibrary_ClassLib.KWForm();
+            this.kwForm_Input = new VerManagerLibrary_ClassLib.KWUserControl();
             this.SuspendLayout();
             // 
-            // kwForm1
+            // kwForm_Input
             // 
-            this.kwForm1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kwForm1.Location = new System.Drawing.Point(0, 0);
-            this.kwForm1.MinimumSize = new System.Drawing.Size(840, 470);
-            this.kwForm1.Name = "kwForm1";
-            this.kwForm1.Size = new System.Drawing.Size(861, 493);
-            this.kwForm1.TabIndex = 0;
+            this.kwForm_Input.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kwForm_Input.Location = new System.Drawing.Point(0, 0);
+            this.kwForm_Input.MinimumSize = new System.Drawing.Size(840, 470);
+            this.kwForm_Input.Name = "kwForm_Input";
+            this.kwForm_Input.Size = new System.Drawing.Size(861, 493);
+            this.kwForm_Input.TabIndex = 0;
             // 
             // AddKW
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(861, 493);
-            this.Controls.Add(this.kwForm1);
+            this.Controls.Add(this.kwForm_Input);
             this.MinimumSize = new System.Drawing.Size(870, 530);
             this.Name = "AddKW";
             this.Text = "Add Knowledgeware";
@@ -56,6 +56,6 @@ namespace VerManagerLibrary_ClassLib
 
         #endregion
 
-        private KWForm kwForm1;
+        public KWUserControl kwForm_Input;
     }
 }

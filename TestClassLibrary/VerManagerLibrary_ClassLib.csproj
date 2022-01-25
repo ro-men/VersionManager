@@ -99,17 +99,11 @@
     <Compile Include="Models\DocumentClass.cs" />
     <Compile Include="Models\RevisionClass.cs" />
     <Compile Include="Models\RevisionClassRAW.cs" />
-    <Compile Include="Forms\RegisterMissingDataBaseInput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\RegisterMissingDataBaseInput.Designer.cs">
-      <DependentUpon>RegisterMissingDataBaseInput.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\KWForm.cs">
+    <Compile Include="UserControls\KWUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\KWForm.Designer.cs">
-      <DependentUpon>KWForm.cs</DependentUpon>
+    <Compile Include="UserControls\KWUserControl.Designer.cs">
+      <DependentUpon>KWUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabRevisionLibrary.cs">
       <SubType>UserControl</SubType>
@@ -139,14 +133,11 @@
     <EmbeddedResource Include="Forms\AddPicture.resx">
       <DependentUpon>AddPicture.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\RegisterMissingDataBaseInput.resx">
-      <DependentUpon>RegisterMissingDataBaseInput.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RevisionForm.resx">
       <DependentUpon>RevisionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\KWForm.resx">
-      <DependentUpon>KWForm.cs</DependentUpon>
+    <EmbeddedResource Include="UserControls\KWUserControl.resx">
+      <DependentUpon>KWUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TabRevisionLibrary.resx">
       <DependentUpon>TabRevisionLibrary.cs</DependentUpon>

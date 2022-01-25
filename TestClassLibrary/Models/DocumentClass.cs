@@ -9,7 +9,21 @@ using System.IO;
 
 namespace VerManagerLibrary_ClassLib
 {
-    public class DocumentClass
+    public class CatiaFileInfo
+    {
+        #region properties
+        public string Status { get; set; }
+        public DateTime? LocalTime { get; set; }
+        public DateTime? ServerTime { get; set; }
+        public string Name { get; set; }
+        public string Location { get; set; }
+        public string LockedBy { get; set; }
+        public string SyncStatus { get; set; }
+        public DateTime? LockTime { get; set; }
+        public DateTime? SyncTime { get; set; }
+        #endregion
+    }
+    public class DocumentClass : CatiaFileInfo
     {
         #region ChildrenDict
         private Dictionary<string, DocumentClass> childrenDict = new Dictionary<string, DocumentClass>();
@@ -19,18 +33,18 @@ namespace VerManagerLibrary_ClassLib
         {
             if (!childrenDict.ContainsKey(documentClassInstance.Key))
             {
-                childrenDict.Add(documentClassInstance.Key, documentClassInstance); 
-                modified = true;
+                childrenDict.Add(documentClassInstance.Key, documentClassInstance);
+                Modified = true;
             }
         }
         public void RemoveChild(string key) {
-            childrenDict.Remove(key); 
-            modified = true;
+            childrenDict.Remove(key);
+            Modified = true;
         }
         public void ClearChildren()
         {
             childrenDict.Clear();
-            modified = true;
+            Modified = true;
         }
         public IReadOnlyDictionary<string, DocumentClass> ChildrenDict => childrenDict;
         #endregion
@@ -44,8 +58,8 @@ namespace VerManagerLibrary_ClassLib
         {
             if (!parentsDict.ContainsKey(documentClassInstance.Key))
             {
-                parentsDict.Add(documentClassInstance.Key, documentClassInstance); 
-                modified = true;
+                parentsDict.Add(documentClassInstance.Key, documentClassInstance);
+                Modified = true;
             }
         }
         public void RemoveParent(string key)
@@ -53,13 +67,13 @@ namespace VerManagerLibrary_ClassLib
             if (parentsDict.ContainsKey(key))
             {
                 parentsDict.Remove(key);
-                modified = true;
+                Modified = true;
             }
         }
         public void ClearParents()
         {
-            parentsDict.Clear(); 
-            modified = true;
+            parentsDict.Clear();
+            Modified = true;
         }
         public IReadOnlyDictionary<string, DocumentClass> ParentsDict => parentsDict;
         #endregion
@@ -67,7 +81,7 @@ namespace VerManagerLibrary_ClassLib
         /// <summary>
         /// Imenik sa svim revizijama koje su vezane na aktualni dokument.<para/>
         /// </summary>
-        private Dictionary<string, long> revisionDict = new Dictionary<string, long>();
+        private readonly Dictionary<string, long> revisionDict = new Dictionary<string, long>();
         /// <summary>
         /// Add a new Revision to dictionary::
         /// </summary>
@@ -84,178 +98,72 @@ namespace VerManagerLibrary_ClassLib
             if (!revisionDict.ContainsKey(RevisionID))
             {
                 revisionDict.Add(RevisionID, rD_Info);
-                modified = true;
+                Modified = true;
             }
             else if (revisionDict[RevisionID] > rD_Info)
             {
                 revisionDict[RevisionID] = rD_Info;
-                modified = true;
+                Modified = true;
             }
         }
         public void RemoveRevision(string key)
         {
             revisionDict.Remove(key);
-            modified = true;
+            Modified = true;
         }
         public void ClearRevisions()
         {
             revisionDict.Clear();
-            modified = true;
-        }
-        public void ModifyRevision(string RevisionID, long rD_Info)
-        {
-            if (revisionDict.ContainsKey(RevisionID))
-            {
-                revisionDict[RevisionID] = rD_Info;
-                modified = true;
-            }
+            Modified = true;
         }
         public IReadOnlyDictionary<string, long> RevisionDict => revisionDict;
         #endregion
-        private string oldVersion;
-        public string OldVersion { get { return oldVersion; } }
-
-        private string version;
+        public Document CatiaDoc{ get; set; }
+        #region Version
+        public string SqlVersion { get; set; }
         /// <summary>
         /// Environment.UserName + "_V_" + Number
         /// </summary>
-        public string Version { get { return version; } }
+        public string OldVersion { get; set; }
+        public string LocalVersion {get; set; }
         public void IncreaseVersion()
         {
-            int number;
-            if (version != null)
-            {
-                number = Int32.Parse(version.Split('_').Last()) + 1;
-                modified = true;
-            }
-            else
-            {
-                number = 1;
-            }
-            oldVersion = version;
-            version = Environment.UserName + "_V_" + number.ToString();
+            int number = Int32.Parse(LocalVersion.Split('_').Last()) + 1;
+            OldVersion = LocalVersion;
+            LocalVersion = Environment.UserName + "_V_" + number.ToString();
+            VMLCoordinator.SetLocalVersion(CatiaDoc, LocalVersion);
+            CatiaDoc.Save();
+            Modified = true;
         }
         public void UndoVersionIncrease()
         {
-            version = oldVersion;
-            oldVersion = null;
-        }
-        private string lockValue;
-        public string GetLockValue { get { return lockValue; } }
-        public void SetLock() { 
-            if (lockValue == "")
+            if (OldVersion != null)
             {
-                lockValue = Environment.UserName;
+                LocalVersion = OldVersion;
+                VMLCoordinator.SetLocalVersion(CatiaDoc, LocalVersion);
+                CatiaDoc.Save();
+                OldVersion = null;
+                Modified = true;
             }
         }
-        /// <summary>
-        /// Ovo cita iz baze podataka.
-        /// </summary>
-        private DateTime? dataBaseFileDate;
-        public DateTime? DataBaseFileDate { 
-            get { return dataBaseFileDate; } 
-            set { dataBaseFileDate = value; modified = true; }}
-        /// <summary>
-        /// Ovo cita iz baze podataka.
-        /// </summary>
-        private DateTime? lockTime;
-        public DateTime? LockTime
-        {
-            get { return lockTime; }
-            set { lockTime = value; modified = true; }
-        }
-        /// <summary>
-        /// Ovo cita iz fileAtributa na lokalnom disku.
-        /// </summary>
-        public DateTime? LocalFileDate { get { return new FileInfo(VMLCoordinator.localCore + Key).LastWriteTime; } }
-        /// <summary>
-        /// Ovo cita iz baze podataka.
-        /// Ako je dokument zakljucana na aktivnog usera, onda provjerava vrijeme sa serverom.
-        /// </summary>
-        public DateTime? ServerFileDate { get { return new FileInfo(VMLCoordinator.serverCore + Key).LastWriteTime; } }
+        #endregion
+        #region Nomenclature
         /// <summary>
         /// Cita iz baze.
         /// Da bi se moglo editirati, dokument mora biti zakjucan na korisnika.
         /// </summary>
-        private string newNomenclature;
-        public string NewNomenclature { 
-            get { return newNomenclature; } 
-            set { newNomenclature = value; modified = true; } }
+        public string LocalNomenclature { get; set; }
         /// <summary>
         /// Privremeni spremnik stare nomenklature prije zapisa u bazu. Za slucaj odustajanja.
         /// </summary>
-        private string oldNomenclature;
-        public string OldNomenclature { get { return oldNomenclature; } }
+        public string SqlNomenclature { get; set; }
         /// <summary>
         /// Procedura koja privremeno sluzi za postavljanje vrijednosti nomenklatura u objektu.
         /// Vrijednost uzima iz baze. Za nove objekte iz parametra u Catia dokumentu.
         /// </summary>
         /// <param name="oValue"></param>
-        public void SetInitaialNomenclature(string oValue)
-        {
-            oldNomenclature = oValue;
-            newNomenclature = oValue;
-        }
-        /// <summary>
-        /// Interni parametar. Nema komunikacije sa bazom.
-        /// </summary>
-        public bool Used { get { return ParentsDict.Count != 0; } }
-        /// <summary>
-        /// Bool koji određuje da li dokument postoji na serveru.
-        /// Ranije je bila fileExists funkcija, no zbog brzine odaziva je promjenjeno u provjeru zapisa vremena u bazi.
-        /// </summary>
-        public bool OnServer { get { return ServerFileDate != null; } }
-        /// <summary>
-        /// Bool koji određuje da li dokument postoji lokalno.
-        /// </summary>
-        public bool OnLocalDisc { get { return LocalFileDate != null; } }
-        /// <summary>
-        /// Status dokumenta koji regulira moguće radnje na istom. (upload, sync, download ...)
-        /// Treba još uskladiti sa CatiaDocNet statusom
-        /// </summary>
-        //private string status =
-        //    dataBaseFileDate != null
-        //    ? "Modified": null;
-        public string Status { get {
-                //return status;
-
-                if (dataBaseFileDate == null)
-                {
-                    if (!OnServer)
-                    {
-                        return "New";
-                    }
-                    else
-                    {
-                        return "Missing Database Input";
-                    }
-                }
-                else
-                {
-                    if (!OnServer)
-                    {
-                        return "Missing server file - " + version;
-                    }
-                    else
-                    {
-                        if (ServerFileDate < dataBaseFileDate)
-                        {
-                            return "Server version obsolete: " + version;
-                        }
-                        else
-                        {
-                            if (LocalFileDate == dataBaseFileDate)
-                            {
-                                return "";
-                            }
-                            else
-                            {
-                                return "Modified.";
-                            }
-                        }
-                    }
-                }
-            } }
+        #endregion
+        public string Key { get { return Location + Name; } }
         /// <summary>
         /// Bool koji definira da li je dokument ucitan u session Catia-e.
         /// </summary>
@@ -273,39 +181,32 @@ namespace VerManagerLibrary_ClassLib
             return 5;
         }
         /// <summary>
-        /// Product ima children komponente.
-        /// </summary>
-        public bool HasChindren { get { return childrenDict.Count != 0; } }
-        /// <summary>
         /// DocumentClass objekt je izmjenjen i spremanje je potrebno.
         /// </summary>
-        private bool modified = false;
-        public bool Modified { get { return modified; } }
+        public bool Modified { get; set; }
         /// <summary>
         /// Privremena procedura za upload dokumenta na mrežu.
         /// Ovo ce preuzeti CatiaDocNet
         /// </summary>
+
+        #region Privremeno_IZBACITI
         public void UploadDoc()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(VMLCoordinator.serverCore + Key));
             System.IO.File.Copy(VMLCoordinator.localCore + Key, VMLCoordinator.serverCore + Key,true);
-            modified = false;
+            Modified = false;
         }
-        /// <summary>
-        /// Document PartName
-        /// </summary>
-        public string PartName { get { return Path.GetFileName(Key); } }
-        public string Key { get; set; }
+
         /// <summary>
         /// Metoda koja izgradi "DocumentClass" instancu na temelju "sirove" instance koja je ucitana JsonSerializer-om.
         /// </summary>
         /// <param name="RawClass"></param>
         public void BuildDocumentClass(DocumentClassRAW RawClass, Dictionary<string, RevisionClass> completeRevisionsDict) {
-            Key = RawClass.Key;
-            completeRevisionsDict.Where(kvp => kvp.Value.RevisionDocuments.ContainsKey(Key)).ToList().ForEach(x => revisionDict.Add(x.Key, Int32.Parse(x.Value.RevisionDocuments[Key][0])));
-            dataBaseFileDate = RawClass.LibraryTime;
-            SetInitaialNomenclature(RawClass.Nomenclture);
-            if (RawClass.Version != "") version = RawClass.Version;
+            Location = new FileInfo(RawClass.Key).Directory.FullName + @"\";
+            Name = new FileInfo(RawClass.Key).Name;
+            completeRevisionsDict.Where(kvp => kvp.Value.RevisionDocuments.ContainsKey(Key)).ToList().ForEach(x => revisionDict.Add(x.Key, x.Value.RevisionDocuments[Key].RD_Value));
+            SqlNomenclature = RawClass.Nomenclture;
+            if (RawClass.Version != "") SqlVersion = RawClass.Version;
             else IncreaseVersion();
         }
         /// <summary>
@@ -330,5 +231,6 @@ namespace VerManagerLibrary_ClassLib
                 };
             });
         }
+        #endregion
     }
 }

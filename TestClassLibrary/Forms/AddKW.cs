@@ -22,9 +22,9 @@ namespace VerManagerLibrary_ClassLib
         public void SetRevision(RevisionClass x, string KWPath)
         {
             revision = x;
-            this.FormDelegateCallBack += new FormDelegate(kwForm1.SetParent);
+            this.FormDelegateCallBack += new FormDelegate(kwForm_Input.SetParent);
             FormDelegateCallBack(this);
-            kwForm1.InitialInput(KWPath, false, revision);
+            kwForm_Input.InitialInput(KWPath, false, revision);
         }
     }
 }

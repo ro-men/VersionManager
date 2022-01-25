@@ -32,8 +32,8 @@ namespace VerManagerLibrary_ClassLib
             if (!this.DesignMode)
             {
                 treeListView_Stablo.BringToFront();
-                displayedDocuments = VMLCoordinator.DocumentDictionary;
-                SetupTree();
+                SetupCombos();
+                SetupDocumentTreelist();
                 SetupDocumentList();
                 InitialTabUpdate();
             }
@@ -41,30 +41,27 @@ namespace VerManagerLibrary_ClassLib
         private async void InitialTabUpdate()
         {
             displayedDocuments = await VMLCoordinator.CollectInSessionDocuments();
-            SetupTree();
+            SetupDocumentTreelist();
             SetupDocumentList();
+            Console.WriteLine(groupBox_Controls.Width);
+            Console.WriteLine(comboBox_Operation.Width);
         }
-        #region Treelistview Setup
+        #region Document Treelistview Setup
         //TreeListView osnovni delegatori:
         // 1. CanExpandGetter - Info da li cvor ima childrene?
         // 2. ChildrenGetter - children collection
-        private void SetupTree()
+        private void SetupDocumentTreelist()
         {
-            clmn_Stablo_Version.AspectGetter = delegate (object rowObject) {
-                DocumentClass document = (DocumentClass)rowObject;
-                if (document.Modified) return document.Modified;
-                return "";
-            };
             clmn_Stablo_PartName.ImageGetter = delegate (object rowObject)
             {
                 DocumentClass document = (DocumentClass)rowObject;
-                if (document.InSession) return 6;
+                if (document.InSession) return 0;
                 else return -1;
             };
             this.treeListView_Stablo.CanExpandGetter = delegate (object x)
             {
                 DocumentClass inst = (DocumentClass)x;
-                return inst.HasChindren;
+                return inst.ChildrenDict.Count != 0;
             };
             this.treeListView_Stablo.ChildrenGetter = delegate (object x)
             {
@@ -89,42 +86,22 @@ namespace VerManagerLibrary_ClassLib
             
             foreach (DocumentClass di in displayedDocuments.Values)
             {
-                //if ((di.InSession) && (!di.Used) | (di.ParentsDict.Values.Where(x => x.InSession).Count() == 0))
-                if (!di.Used )
+                if (di.ParentsDict.Count == 0)
                     roots.Add(di);
             }
             this.treeListView_Stablo.Roots = roots;
         }
-        private void TreeListView_Stablo_FormatRow(object sender, FormatRowEventArgs e)
-        {
-            DocumentClass document = (DocumentClass)e.Model;
-            if (document.RevisionDict.Count() != 0)
-            {
-                if (document.RevisionDict.Values.Min() < 2)
-                {
-                    e.Item.BackColor = Color.Red;
-                }
-                else if (document.RevisionDict.Values.Contains(2))
-                {
-                    e.Item.BackColor = Color.LightPink;
-                }
-            }
-        }
-
-        #endregion
-        #region Document Listview Setup
         private void SetupDocumentList()
         {
-            OLV_DocumentsLista.SetObjects(displayedDocuments.Values);
-            comboBoxFilterColumn.SelectedIndex = 0;
-            comboBox_SearchMod.SelectedIndex = 0;
-            clmn_Lista_SyncTime.AspectGetter = delegate (object rowObject) {
+            clmn_Lista_PartName.ImageGetter = delegate (object rowObject)
+            {
                 DocumentClass document = (DocumentClass)rowObject;
-                if (document.Modified) return document.Modified.ToString();
-                return "";
+                if (document.InSession) return 0;
+                else return -1;
             };
+            OLV_DocumentsLista.SetObjects(displayedDocuments.Values);
         }
-        private void OLV_DocumentsLista_FormatRow(object sender, FormatRowEventArgs e)
+        private void ListView_FormatRow(object sender, FormatRowEventArgs e)
         {
             DocumentClass document = (DocumentClass)e.Model;
             if (document.RevisionDict.Count() != 0)
@@ -139,20 +116,22 @@ namespace VerManagerLibrary_ClassLib
                 }
             }
         }
-        #endregion
-        #region Revision Listview Setup
-        private void OLV_RevisionList_FormatRow(object sender, FormatRowEventArgs e)
+        private void ListView_FormatCell(object sender, FormatCellEventArgs e)
         {
-            RevisionClass revision = (RevisionClass)e.Model;
-            if (revision.SolvedStatus == true)
+            DocumentClass document = (DocumentClass)e.Model;
+            if (e.ColumnIndex == this.clmn_Stablo_Nomenclature.Index && document.SqlNomenclature != null && document.LocalNomenclature != document.SqlNomenclature) 
             {
-                e.Item.BackColor = Color.LightGreen;
+                e.SubItem.ForeColor = Color.Red;
             }
-            else
+            if (e.ColumnIndex == this.clmn_Stablo_Version.Index && document.SqlVersion != null && document.LocalVersion != document.SqlVersion)
             {
-                e.Item.BackColor = Color.LightPink;
+                e.SubItem.ForeColor = Color.Red;
             }
         }
+        
+        #endregion
+
+        #region Revision Listview Setup
         private void SetupRevisionList()
         {
             if (selectedItems.Count == 1)
@@ -167,6 +146,12 @@ namespace VerManagerLibrary_ClassLib
                         else if (revision.ImportanceLvl == 1) return "Medium";
                         return "Low";
                     };
+                    clmn_Lista_II_RevisionObject.AspectGetter = delegate (object rowObject)
+                    {
+                        RevisionClass revision = (RevisionClass)rowObject;
+                        if (revision.RevisionDocuments.ContainsKey(selectedItems[0].Key)) return "Selection";
+                        return "Child";
+                    };
                     OLV_RevisionList.SetObjects(VMLCoordinator.RevisionDictionary.Values.ToList().Where(x => keyValues.Contains(x.RevisionID)));
                 }
                 else
@@ -178,40 +163,44 @@ namespace VerManagerLibrary_ClassLib
             {
                 OLV_RevisionList.ClearObjects();
             }
-            clmn_Lista_II_SolvedStatus.GroupKeyGetter = delegate (object rowObject) {
-                RevisionClass revision = (RevisionClass)rowObject;
-                return revision.SolvedStatus;
-            };
-            OLV_RevisionList.ShowGroups = true;
-            OLV_RevisionList.Sort(clmn_Lista_II_SolvedStatus);
         }
+
         #endregion
         #region Event Handlers
         private void Button_NewRevision_Click(object sender, EventArgs e)
         {
             if (selectedItems.Count != 0) {
-                RevisionClass newRevision = new RevisionClass();
-                newRevision.CreateRevisionID();
-                foreach (DocumentClass documentClass in selectedItems) {
-                    //documentClass.IncreaseVersion();
-                    string[] docAttributes = { "0", null, null };
-                    newRevision.AddRevisionDocument(documentClass.Key, docAttributes);
-                    documentClass.AddRevision(newRevision.RevisionID, 0);
-                }
+                if (selectedItems.Where(x => x.Status == "New").Count() == 0)
+                {
+                    RevisionClass newRevision = new RevisionClass();
+                    newRevision.CreateRevisionID();
+                    foreach (DocumentClass documentClass in selectedItems)
+                    {
+                        RevisionClass.DocInfo docAttributes = new RevisionClass.DocInfo
+                        { 
+                            RD_Value = 0, 
+                            OldVersion = null, 
+                            NewVersion = null, 
+                        };
+                        newRevision.AddRevisionDocument(documentClass.Key, docAttributes);
+                    }
 
-                var newForm = new RevisionForm();
-                newForm.FormInput(newRevision, VMLCoordinator.DocumentDictionary);
-                newForm.RevisionObjectDelegate  = new RevisionObjectDelegate(RevisionModified);
-                newForm.ShowDialog();
+                    var newForm = new RevisionForm();
+                    newForm.FormInput(newRevision, VMLCoordinator.DocumentDictionary);
+                    newForm.RevisionObjectDelegate = new RevisionObjectDelegate(RevisionModified);
+                    newForm.ShowDialog();
+                }
+                else { MessageBox.Show("Nemoguće je kreirati reviziju sa novim dokumentom. Odabrani dokumenti moraju imati postojeću verziju na mreži.", "Unable to create revision.", MessageBoxButtons.OK); }
             }
             else
             {
-                MessageBox.Show("Da bi kreirali reviziju morate odabrati barem jedan dokument iz liste.", "Unable to create", MessageBoxButtons.OK);
+                MessageBox.Show("Da bi kreirali reviziju morate odabrati barem jedan dokument iz liste.", "Unable to create revision.", MessageBoxButtons.OK);
             }
         }
         private void RevisionModified(RevisionClass revision)
         {
-            OLV_RevisionList.UpdateObject(revision);  
+            if (!VMLCoordinator.RevisionDictionary.ContainsKey(revision.RevisionID)) VMLCoordinator.RevisionDictionary.Add(revision.RevisionID, revision);
+            OLV_RevisionList.UpdateObject(revision);
         }
         private void List_CellEditStarting(object sender, CellEditEventArgs e)
         {
@@ -247,7 +236,6 @@ namespace VerManagerLibrary_ClassLib
         {
             var newForm = new RevisionForm();
             newForm.FormInput((RevisionClass)OLV_RevisionList.SelectedObject, VMLCoordinator.DocumentDictionary);
-            //newForm.revisionStored = new RevisionStoredDelegate(this.RevisionAdded);
             newForm.RevisionObjectDelegate = new RevisionObjectDelegate(RevisionModified);
             newForm.checkBox_FilterLibrary.Checked = true;
             newForm.ShowDialog();
@@ -262,6 +250,28 @@ namespace VerManagerLibrary_ClassLib
                     if (selectedItems.Count == 1) { copyPartNameToolStripMenuItem.Enabled = true; } else { copyPartNameToolStripMenuItem.Enabled = false; }
                     contextMenuStrip_New.Show(Cursor.Position);
                 }
+            }
+        }
+        private void TextBoxFilterLibraryItems_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) MessageBox.Show("Enter");
+        }
+        private void CheckBox_Library_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBox_Operation.Visible = checkBox_Library.Checked; ;
+            comboBox_Mod.Visible = checkBox_Library.Checked; ;
+            comboBox_SearchAttribute.Visible = checkBox_Library.Checked; ;
+            textBoxFilterLibraryItems.Visible = checkBox_Library.Checked;
+            if (!checkBox_Library.Checked)
+            {
+                checkBox_Library.Text = "Display library";
+                VMLCoordinator.DocumentDictionary = VMLCoordinator.DocumentDictionary.Where(kvp => kvp.Value.InSession).ToDictionary(x => x.Key, x => x.Value);
+                SetupDocumentTreelist();
+                SetupDocumentList();
+            }
+            else
+            {
+                checkBox_Library.Text = "Remove library";
             }
         }
 
@@ -290,54 +300,13 @@ namespace VerManagerLibrary_ClassLib
                 OLV_DocumentsLista.RebuildColumns();
             }
         }
-        private void StoreLastVersionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //GOJCETA PROCEDURA KOJA ZA LISTU ADRESA PROVJERAVA DA LI JE UPLOAD MOGUĆ
-            bool possibleUpload = true;
-
-            selectedItems.ForEach(item => {
-                DocumentClass documentClass = (DocumentClass)item;
-                string versionUserName = documentClass.Version.Split('_').First();
-                if (documentClass.LocalFileDate == documentClass.DataBaseFileDate) { 
-                }
-            });
-        }
-        private void collapseAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CollapseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             treeListView_Stablo.CollapseAll();
         }
         #endregion
-
         #region contextMenuStrip_New
-        private void StoreInVML_Library_Click(object sender, EventArgs e)
-        {
-            foreach (DocumentClass documentClass in selectedItems.ToList())
-            {
-                AdNewChildrenToSelection(documentClass);
-            }
-            RegisterMissingDataBaseInput registerMissingDataBaseInput = new RegisterMissingDataBaseInput();
-            registerMissingDataBaseInput.SetupForm(selectedItems);
-            registerMissingDataBaseInput.Show();
-            //if (selectedItems.Where(x => x.NewNomenclature == null).Count() == 0)
-            //{
-            //    foreach (DocumentClass documentClass in selectedItems)
-            //    {
-            //        UpdateFileParameters(documentClass);
-            //        VMLCoordinator.LibraryDocumentDictionary.Add(documentClass.Key, documentClass);
-            //    }
-            //    VMLCoordinator.StoreDocumentClassesDict();
-            //    foreach (DocumentClass documentClass in selectedItems)
-            //    {
-            //        documentClass.UploadDoc();
-            //    }
-            //    MessageBox.Show("Spremljeno je " + selectedItems.Count + " dokumenata.", "Saved", MessageBoxButtons.OK);
-            //    OLV_InSessionLista.RefreshSelectedObjects();
-            //}
-            //else 
-            //{
-            //    MessageBox.Show("Documents without \"Nomenclature\" can not be uploaded.","Unable to upload document.", MessageBoxButtons.OK);
-            //}
-        }
+
         private void AdNewChildrenToSelection(DocumentClass documentClass)
         {
             foreach (DocumentClass child in documentClass.ChildrenDict.Values)
@@ -366,48 +335,83 @@ namespace VerManagerLibrary_ClassLib
                 PartDocument oPartDoc = (PartDocument)oDoc;
                 oProduct = oPartDoc.Product.ReferenceProduct;
             }
-            oProduct.set_Nomenclature(documentClass.NewNomenclature);
+            oProduct.set_Nomenclature(documentClass.LocalNomenclature);
             StrParam Version;
             try
             {
                 Version = (StrParam)oProduct.UserRefProperties.Item("Version");
-                Version.set_Value(documentClass.Version);
+                Version.set_Value(documentClass.LocalVersion);
             }
             catch
             {
-                Version = oProduct.UserRefProperties.CreateString("Version", documentClass.Version);
+                Version = oProduct.UserRefProperties.CreateString("Version", documentClass.LocalVersion);
             }
             oDoc.Save();
         }
-        private void copyPartNameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CopyPartNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-                Clipboard.SetText(selectedItems[0].PartName);
+                Clipboard.SetText(selectedItems[0].Name);
         }
+
         #endregion
 
         #endregion
-
-        private void textBoxFilterLibraryItems_KeyDown(object sender, KeyEventArgs e)
+        private void SetupCombos()
         {
-            if (e.KeyCode == Keys.Enter) MessageBox.Show("Enter");
+            comboBox_Operation.Items.AddRange(new string[] { "Add to list", "New search" });
+            comboBox_Operation.SelectedIndex = 0;
+            comboBox_SearchAttribute.Items.AddRange(new string[] { "PartName", "Nomenclature", "Path" });
+            comboBox_SearchAttribute.SelectedIndex = 0;
+            comboBox_Mod.Items.AddRange(new string[] { "Equals", "Begins with", "Contains" });
+            comboBox_Mod.SelectedIndex = 0;
+        }
+        private readonly ToolTip Tip = new ToolTip
+        {
+            AutoPopDelay = 5000,
+            InitialDelay = 1000,
+            ReshowDelay = 1000,
+            BackColor = Color.LightYellow,
+        };
+        private void OLV_DocumentsLista_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
+        {
+            Tip.RemoveAll();
+            ObjectListView lista = (ObjectListView)sender;
+            OLVListItem oLVListItem = (OLVListItem)e.Item;
+            DocumentClass documentClass = (DocumentClass)oLVListItem.RowObject;
+            Point p = lista.PointToClient(Cursor.Position);
+            string columnName = this.GetColumnName(p, lista);
+            string desc = "";
+            switch (columnName) {
+                case "Nomenclature":
+                    if (documentClass.LocalNomenclature != documentClass.SqlNomenclature) desc = "Sql Nomenclature:\t" + documentClass.SqlNomenclature;
+                    break;
+                case "Version":
+                    if (documentClass.LocalVersion != documentClass.SqlVersion) desc = "Sql Version:\t" + documentClass.SqlVersion;
+                    break;
+                default:
+                    break;
+            }
+            if (desc != "")
+            {
+                Tip.SetToolTip(lista, desc);
+            }
+        }
+        private string GetColumnName(Point hitPoint, ObjectListView objectListView)
+        {
+            string name = objectListView.Columns[0].Name;
+            int right = 0;
+            for (int j = 0; j < objectListView.Columns.Count; j++)
+            {
+                right += objectListView.Columns[j].Width;
+                if (hitPoint.X < right)
+                {
+                    name = objectListView.Columns[j].Text;
+                    break;
+                }
+            }
+            return name;
         }
 
-        private void checkBox_Library_CheckedChanged(object sender, EventArgs e)
-        {
-            comboBoxFilterColumn.Visible = checkBox_Library.Checked;
-            comboBox_SearchMod.Visible = checkBox_Library.Checked;
-            textBoxFilterLibraryItems.Visible = checkBox_Library.Checked;
-            if (!checkBox_Library.Checked)
-            {
-                checkBox_Library.Text = "Display library";
-                VMLCoordinator.DocumentDictionary =  VMLCoordinator.DocumentDictionary.Where(kvp => kvp.Value.InSession).ToDictionary(x => x.Key, x => x.Value);
-                SetupTree();
-                SetupDocumentList();
-            }
-            else
-            {
-                checkBox_Library.Text = "Remove library";
-            }
-        }
+
     }
 }

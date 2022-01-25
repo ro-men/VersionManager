@@ -12,25 +12,16 @@ using System.Windows.Forms;
 
 namespace VerManagerLibrary_ClassLib
 {
-    public partial class KWForm : UserControl
+    public partial class KWUserControl : UserControl
     {
-        private string[] inputData;
+        public StringHashSetDelegate KWPathDelegate;
         private RevisionClass ORevision;
-        private string sLocation = VMLCoordinator.attachmentsFolder + @"\";
+        private string[] inputData;
+        private readonly string tempLocation = Path.GetTempPath();
+        private readonly string sLocation = VMLCoordinator.attachmentsFolder + @"\";
         private string sName;
         private string localFilePath;
-        private  void SetName()
-        {
-            int index= 1;
-            sName = "KW_CODE_" + ORevision.RevisionID + "_" + index.ToString() + ".txt";
-            while (File.Exists(sLocation + sName))
-            {
-                index++;
-                sName = "KW_CODE_" + ORevision.RevisionID + "_" + index.ToString() + ".txt";
-            }
-        }
-
-        Dictionary<string,string> dataList = new Dictionary<string, string>() 
+        private readonly Dictionary<string,string> dataList = new Dictionary<string, string>() 
         {
             { "##Type:##","0" },
             { "##Name:##","" },
@@ -38,12 +29,21 @@ namespace VerManagerLibrary_ClassLib
             { "##Language:##","KW" },
             { "##Value:##","" },
         };
-
-        public KWForm()
+        private Form localParentForm;
+        public KWUserControl()
         {
             InitializeComponent();
         }
-
+        private void SetName()
+        {
+            int index = 1;
+            sName = "KW_CODE_" + ORevision.RevisionID + "_" + index.ToString() + ".txt";
+            while (File.Exists(tempLocation + sName) || File.Exists(sLocation + sName))
+            {
+                index++;
+                sName = "KW_CODE_" + ORevision.RevisionID + "_" + index.ToString() + ".txt";
+            }
+        }
         private void FillDictionary()
         {
             foreach(string key in dataList.Keys.ToList())
@@ -67,20 +67,16 @@ namespace VerManagerLibrary_ClassLib
                 }
             };
         }
-        private void button_Save_Click(object sender, EventArgs e)
+        private void Button_Save_Click(object sender, EventArgs e)
         {
             dataList["##Name:##"] = textBox_Name.Text;
             dataList["##Input_1:##"] = textBox_Input_1.Text;
             dataList["##Value:##"] = textBox_Value.Text;
-            System.IO.Directory.CreateDirectory(sLocation);
+            System.IO.Directory.CreateDirectory(tempLocation);
             File.WriteAllLines(localFilePath, dataList.Select(x => x.Key + "\t" + x.Value).ToArray());
-            if (!ORevision.Attachments.Contains(localFilePath))
-            {
-                ORevision.Attachments.Add(localFilePath);
-            }
+            KWPathDelegate?.Invoke(new HashSet<string> { localFilePath });
             localParentForm.Close();
         }
-        Form localParentForm;
         public void SetParent(Form parentForm)
         {
             localParentForm = parentForm;
@@ -96,7 +92,7 @@ namespace VerManagerLibrary_ClassLib
             else
             {
                 SetName();
-                localFilePath = sLocation + sName;
+                localFilePath = tempLocation + sName;
             }
 
             button_Save.Visible = !displayMode;
@@ -113,7 +109,7 @@ namespace VerManagerLibrary_ClassLib
             textBox_Value.Text = dataList["##Value:##"];
             if (dataList["##Language:##"] == "VB") radioButton_VB.Checked = true;
         }
-        private void comboBox_Type_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_Type_SelectedIndexChanged(object sender, EventArgs e)
         {
             dataList["##Type:##"] = comboBox_Type.SelectedIndex.ToString();
             switch (comboBox_Type.SelectedIndex)
@@ -150,8 +146,7 @@ namespace VerManagerLibrary_ClassLib
                     break;
             }
         }
-
-        private void radioButton_KW_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton_KW_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_VB.Checked == true) dataList["##Language:##"] = "VB";
         }

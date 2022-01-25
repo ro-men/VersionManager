@@ -7234,8 +7234,33 @@ namespace BrightIdeasSoftware
                 return;
             menuItemClicked.Checked = !menuItemClicked.Checked;
             col.IsVisible = menuItemClicked.Checked;
+            OLVColumn lastDisplayed = MaxDisplayIndex();
+            lastDisplayed.FillsFreeSpace = true;
             this.contextMenuStaysOpen = this.SelectColumnsMenuStaysOpen;
             this.BeginInvoke(new MethodInvoker(this.RebuildColumns));
+            foreach (OLVColumn ocolumn in this.Columns)
+            {
+                ocolumn.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
+            }
+        }
+        private OLVColumn MaxDisplayIndex()
+        {
+            List<OLVColumn> sorted = new List<OLVColumn>();
+            foreach (OLVColumn col in this.allColumns)
+            {
+                if (col.IsVisible)
+                {
+                    sorted.Add(col);
+                    if (col.FillsFreeSpace) 
+                    {
+                        col.FillsFreeSpace = false;
+                    };
+                };
+            }
+            sorted.Sort(delegate (OLVColumn x, OLVColumn y) {
+                return x.LastDisplayIndex.CompareTo(y.LastDisplayIndex);
+            });
+            return sorted[sorted.Count - 1];
         }
         private bool contextMenuStaysOpen;
 
@@ -7279,7 +7304,7 @@ namespace BrightIdeasSoftware
         private void RememberDisplayIndicies() {
             // Remember the display indexes so we can put them back at a later date
             foreach (OLVColumn x in this.AllColumns)
-                x.LastDisplayIndex = x.DisplayIndex;
+                x.LastDisplayIndex = x.DisplayIndex; 
         }
 
         /// <summary>

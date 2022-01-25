@@ -42,8 +42,10 @@ namespace VerManagerLibrary_ClassLib
             this.textBoxComent = new System.Windows.Forms.TextBox();
             this.DLV_ItemsList = new BrightIdeasSoftware.DataListView();
             this.DLV_Items_PartName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.DLV_Items_Path = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.DLV_Items_RevisionSolved = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.DLV_Items_Level = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.DLV_Items_OldVer = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.DLV_Items_NewVer = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.contextMenu_RightClick.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Main)).BeginInit();
             this.splitContainer_Main.Panel1.SuspendLayout();
@@ -142,6 +144,7 @@ namespace VerManagerLibrary_ClassLib
             this.FDLV_RevisionsList.View = System.Windows.Forms.View.Details;
             this.FDLV_RevisionsList.VirtualMode = true;
             this.FDLV_RevisionsList.CellRightClick += new System.EventHandler<BrightIdeasSoftware.CellRightClickEventArgs>(this.FDLV_RevisionsList_CellRightClick);
+            this.FDLV_RevisionsList.FormatRow += new System.EventHandler<BrightIdeasSoftware.FormatRowEventArgs>(this.FDLV_RevisionsList_FormatRow);
             this.FDLV_RevisionsList.SelectedIndexChanged += new System.EventHandler(this.FDLV_RevisionsList_SelectionChanged);
             this.FDLV_RevisionsList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.StartRevisionEdit);
             // 
@@ -179,14 +182,18 @@ namespace VerManagerLibrary_ClassLib
             // DLV_ItemsList
             // 
             this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_PartName);
+            this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_Path);
             this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_RevisionSolved);
-            this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_Level);
+            this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_OldVer);
+            this.DLV_ItemsList.AllColumns.Add(this.DLV_Items_NewVer);
             this.DLV_ItemsList.BackColor = System.Drawing.Color.AntiqueWhite;
             this.DLV_ItemsList.CellEditUseWholeCell = false;
             this.DLV_ItemsList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.DLV_Items_PartName,
+            this.DLV_Items_Path,
             this.DLV_Items_RevisionSolved,
-            this.DLV_Items_Level});
+            this.DLV_Items_OldVer,
+            this.DLV_Items_NewVer});
             this.DLV_ItemsList.Cursor = System.Windows.Forms.Cursors.Default;
             this.DLV_ItemsList.DataSource = null;
             this.DLV_ItemsList.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -194,17 +201,25 @@ namespace VerManagerLibrary_ClassLib
             this.DLV_ItemsList.HideSelection = false;
             this.DLV_ItemsList.Location = new System.Drawing.Point(0, 0);
             this.DLV_ItemsList.Name = "DLV_ItemsList";
+            this.DLV_ItemsList.ShowGroups = false;
             this.DLV_ItemsList.Size = new System.Drawing.Size(1540, 385);
             this.DLV_ItemsList.TabIndex = 2;
             this.DLV_ItemsList.UseCompatibleStateImageBehavior = false;
             this.DLV_ItemsList.View = System.Windows.Forms.View.Details;
+            this.DLV_ItemsList.FormatRow += new System.EventHandler<BrightIdeasSoftware.FormatRowEventArgs>(this.DLV_ItemsList_FormatRow);
             // 
             // DLV_Items_PartName
             // 
-            this.DLV_Items_PartName.AspectName = "Key";
+            this.DLV_Items_PartName.AspectName = "Name";
             this.DLV_Items_PartName.Sortable = false;
             this.DLV_Items_PartName.Text = "PartName";
-            this.DLV_Items_PartName.Width = 500;
+            this.DLV_Items_PartName.Width = 400;
+            // 
+            // DLV_Items_Path
+            // 
+            this.DLV_Items_Path.AspectName = "Location";
+            this.DLV_Items_Path.Text = "Location";
+            this.DLV_Items_Path.Width = 400;
             // 
             // DLV_Items_RevisionSolved
             // 
@@ -212,11 +227,17 @@ namespace VerManagerLibrary_ClassLib
             this.DLV_Items_RevisionSolved.Text = "RevisionSolved";
             this.DLV_Items_RevisionSolved.Width = 120;
             // 
-            // DLV_Items_Level
+            // DLV_Items_OldVer
             // 
-            this.DLV_Items_Level.FillsFreeSpace = true;
-            this.DLV_Items_Level.Text = "Level";
-            this.DLV_Items_Level.Width = 120;
+            this.DLV_Items_OldVer.AspectName = "";
+            this.DLV_Items_OldVer.Text = "OldVersion";
+            this.DLV_Items_OldVer.Width = 120;
+            // 
+            // DLV_Items_NewVer
+            // 
+            this.DLV_Items_NewVer.FillsFreeSpace = true;
+            this.DLV_Items_NewVer.Text = "NewVersion";
+            this.DLV_Items_NewVer.Width = 120;
             // 
             // TabRevisionLibrary
             // 
@@ -256,6 +277,8 @@ namespace VerManagerLibrary_ClassLib
         private BrightIdeasSoftware.DataListView DLV_ItemsList;
         private BrightIdeasSoftware.OLVColumn DLV_Items_PartName;
         private BrightIdeasSoftware.OLVColumn DLV_Items_RevisionSolved;
-        private BrightIdeasSoftware.OLVColumn DLV_Items_Level;
+        private BrightIdeasSoftware.OLVColumn DLV_Items_NewVer;
+        private BrightIdeasSoftware.OLVColumn DLV_Items_Path;
+        private BrightIdeasSoftware.OLVColumn DLV_Items_OldVer;
     }
 }

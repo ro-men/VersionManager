@@ -13,6 +13,7 @@ using System.Windows.Forms;
 
 namespace VerManagerLibrary_ClassLib
 {
+    public delegate void StringHashSetDelegate(HashSet<string> StringHashSetValue);
     public partial class AddPicture : Form
     {
         public AddPicture()
@@ -20,11 +21,14 @@ namespace VerManagerLibrary_ClassLib
             InitializeComponent();
         }
         private RevisionClass ORevision;
-        private string sLocation = VMLCoordinator.attachmentsFolder + @"\";
+        private readonly string tempLocation = Path.GetTempPath();
+        private readonly string sLocation = VMLCoordinator.attachmentsFolder + @"\";
+        public StringHashSetDelegate PicturePathDelegate;
+        private readonly HashSet<string> FilePaths = new HashSet<string>();
         public void SetRevision(RevisionClass oRevision) {
             ORevision = oRevision;
         }
-        private void button_FromFile_Click(object sender, EventArgs e)
+        private void Button_FromFile_Click(object sender, EventArgs e)
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
@@ -36,20 +40,21 @@ namespace VerManagerLibrary_ClassLib
                 string[] files = ofd.FileNames;
                 foreach(string file in files)
                 {
-                    int index = ORevision.Attachments.Count() + 1;
+                    int index = 1;
                     string newName = "IMG_" + ORevision.RevisionID + "_" + index.ToString() + Path.GetExtension(file);
-                    while (File.Exists(sLocation + newName))
+                    while (File.Exists(tempLocation + newName) || File.Exists(sLocation + newName))
                     {
                         index++;
                         newName = "IMG_" + ORevision.RevisionID + "_" + index.ToString() + Path.GetExtension(file);
                     }
-                    File.Copy(file, sLocation + newName);
-                    if (!ORevision.Attachments.Contains(sLocation + newName))
+                    File.Copy(file, tempLocation + newName);
+                    if (!FilePaths.Contains(tempLocation + newName))
                     {
-                        ORevision.Attachments.Add(sLocation + newName);
+                        FilePaths.Add(tempLocation + newName);
                     }
                 }
-            this.Close();
+                PicturePathDelegate?.Invoke(FilePaths);
+                this.Close();
             }
         }
 
@@ -66,24 +71,30 @@ namespace VerManagerLibrary_ClassLib
             if (pictureBox_Screenshot.Image != null) pictureBox_Screenshot.Image.Dispose();
             pictureBox_Screenshot.Image = bitmap;
         }
-
         private void button_Save_Click(object sender, EventArgs e)
         {
             if (pictureBox_Screenshot.Image != null)
             {
-                int index = ORevision.Attachments.Count() + 1;
+                int index = 1;
                 string newName = "IMG_" + ORevision.RevisionID + "-" + index.ToString() + ".jpg";
-                System.IO.Directory.CreateDirectory(sLocation);
-                pictureBox_Screenshot.Image.Save(sLocation + newName, ImageFormat.Jpeg);
-                if (!ORevision.Attachments.Contains(sLocation + newName))
+                while (File.Exists(tempLocation + newName) || File.Exists(sLocation + newName))
                 {
-                    ORevision.Attachments.Add(sLocation + newName);
+                    index++;
+                    newName = "IMG_" + ORevision.RevisionID + "_" + index.ToString() + ".jpg";
                 }
+                System.IO.Directory.CreateDirectory(tempLocation);
+                pictureBox_Screenshot.Image.Save(tempLocation + newName, ImageFormat.Jpeg);
+
+                if (!FilePaths.Contains(tempLocation + newName))
+                {
+                    FilePaths.Add(tempLocation + newName);
+                }
+                PicturePathDelegate?.Invoke(FilePaths);
                 this.Close();
             }
             else
             {
-                MessageBox.Show(this,"You must take a screenshot to save it.","No screenshot...",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show(this,"You must take a screenshot or select files to save it.","No screenshot...",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
         }
 
