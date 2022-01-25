@@ -33,8 +33,8 @@ namespace VerManagerLibrary_ClassLib
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tabControl_Main = new System.Windows.Forms.TabControl();
             this.tabPage_Documents = new System.Windows.Forms.TabPage();
-            this.tabDocumentsLibrary1 = new VerManagerLibrary_ClassLib.TabDocumentsLibrary();
             this.tabPage_Revisions = new System.Windows.Forms.TabPage();
+            this.tabDocumentsLibrary1 = new VerManagerLibrary_ClassLib.TabDocumentsLibrary();
             this.tabRevisionList1 = new VerManagerLibrary_ClassLib.TabRevisionLibrary();
             this.tabControl_Main.SuspendLayout();
             this.tabPage_Documents.SuspendLayout();
@@ -72,15 +72,6 @@ namespace VerManagerLibrary_ClassLib
             this.tabPage_Documents.Text = "Documents";
             this.tabPage_Documents.UseVisualStyleBackColor = true;
             // 
-            // tabDocumentsLibrary1
-            // 
-            this.tabDocumentsLibrary1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabDocumentsLibrary1.Location = new System.Drawing.Point(3, 3);
-            this.tabDocumentsLibrary1.Margin = new System.Windows.Forms.Padding(4);
-            this.tabDocumentsLibrary1.Name = "tabDocumentsLibrary1";
-            this.tabDocumentsLibrary1.Size = new System.Drawing.Size(1501, 750);
-            this.tabDocumentsLibrary1.TabIndex = 0;
-            // 
             // tabPage_Revisions
             // 
             this.tabPage_Revisions.Controls.Add(this.tabRevisionList1);
@@ -91,6 +82,14 @@ namespace VerManagerLibrary_ClassLib
             this.tabPage_Revisions.TabIndex = 2;
             this.tabPage_Revisions.Text = "Revisions";
             this.tabPage_Revisions.UseVisualStyleBackColor = true;
+            // 
+            // tabDocumentsLibrary1
+            // 
+            this.tabDocumentsLibrary1.Location = new System.Drawing.Point(3, 3);
+            this.tabDocumentsLibrary1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabDocumentsLibrary1.Name = "tabDocumentsLibrary1";
+            this.tabDocumentsLibrary1.Size = new System.Drawing.Size(1501, 750);
+            this.tabDocumentsLibrary1.TabIndex = 0;
             // 
             // tabRevisionList1
             // 

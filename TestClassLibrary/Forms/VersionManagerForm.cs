@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using INFITF;
 using System.Runtime.InteropServices;
 using ProductStructureTypeLib;
-using BrightIdeasSoftware;
 
 namespace VerManagerLibrary_ClassLib
 {
