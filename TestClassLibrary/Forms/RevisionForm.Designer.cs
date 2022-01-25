@@ -71,12 +71,18 @@ namespace VerManagerLibrary_ClassLib
             this.comboBoxFilterColumn = new System.Windows.Forms.ComboBox();
             this.checkBox_FilterLibrary = new System.Windows.Forms.CheckBox();
             this.textBoxFilterLibraryItems = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox_Mod = new System.Windows.Forms.ComboBox();
+            this.comboBox_SearchAttribute = new System.Windows.Forms.ComboBox();
+            this.comboBox_Operation = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.splitContainer_ImageContainer = new System.Windows.Forms.SplitContainer();
             this.listView_Attachments = new System.Windows.Forms.ListView();
             this.columnHeader_AttachmentName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_AttachmentPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.PicturePanel = new System.Windows.Forms.Panel();
             this.pictureBox_ImageDisplay = new System.Windows.Forms.PictureBox();
+            this.kwForm_Display = new VerManagerLibrary_ClassLib.KWUserControl();
             this.Button_AddKW = new System.Windows.Forms.Button();
             this.Button_AddPic = new System.Windows.Forms.Button();
             this.button_StoreRevision = new System.Windows.Forms.Button();
@@ -84,12 +90,6 @@ namespace VerManagerLibrary_ClassLib
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip_SelectedItems = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem_Remove = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBox_Operation = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox_SearchAttribute = new System.Windows.Forms.ComboBox();
-            this.comboBox_Mod = new System.Windows.Forms.ComboBox();
-            this.kwForm_Display = new VerManagerLibrary_ClassLib.KWUserControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_Glavni)).BeginInit();
             this.splitContainer_Glavni.Panel1.SuspendLayout();
             this.splitContainer_Glavni.Panel2.SuspendLayout();
@@ -127,6 +127,7 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_FilterNQuery.Panel2.SuspendLayout();
             this.splitContainer_FilterNQuery.SuspendLayout();
             this.groupBox_Filter.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_ImageContainer)).BeginInit();
             this.splitContainer_ImageContainer.Panel1.SuspendLayout();
             this.splitContainer_ImageContainer.Panel2.SuspendLayout();
@@ -135,7 +136,6 @@ namespace VerManagerLibrary_ClassLib
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ImageDisplay)).BeginInit();
             this.contextMenuStrip_Images.SuspendLayout();
             this.contextMenuStrip_SelectedItems.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageListSmall
@@ -238,7 +238,7 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_ID_and_Importance.Panel2.Controls.Add(this.groupBox_Importance);
             this.splitContainer_ID_and_Importance.Panel2MinSize = 200;
             this.splitContainer_ID_and_Importance.Size = new System.Drawing.Size(1291, 50);
-            this.splitContainer_ID_and_Importance.SplitterDistance = 1056;
+            this.splitContainer_ID_and_Importance.SplitterDistance = 1059;
             this.splitContainer_ID_and_Importance.SplitterWidth = 1;
             this.splitContainer_ID_and_Importance.TabIndex = 0;
             // 
@@ -249,7 +249,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_ID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_ID.Location = new System.Drawing.Point(0, 0);
             this.groupBox_ID.Name = "groupBox_ID";
-            this.groupBox_ID.Size = new System.Drawing.Size(1056, 50);
+            this.groupBox_ID.Size = new System.Drawing.Size(1059, 50);
             this.groupBox_ID.TabIndex = 26;
             this.groupBox_ID.TabStop = false;
             // 
@@ -272,7 +272,7 @@ namespace VerManagerLibrary_ClassLib
             this.textBoxRevisionID.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBoxRevisionID.Location = new System.Drawing.Point(98, 15);
             this.textBoxRevisionID.Name = "textBoxRevisionID";
-            this.textBoxRevisionID.Size = new System.Drawing.Size(921, 21);
+            this.textBoxRevisionID.Size = new System.Drawing.Size(924, 21);
             this.textBoxRevisionID.TabIndex = 31;
             // 
             // groupBox_Importance
@@ -282,7 +282,7 @@ namespace VerManagerLibrary_ClassLib
             this.groupBox_Importance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_Importance.Location = new System.Drawing.Point(0, 0);
             this.groupBox_Importance.Name = "groupBox_Importance";
-            this.groupBox_Importance.Size = new System.Drawing.Size(234, 50);
+            this.groupBox_Importance.Size = new System.Drawing.Size(231, 50);
             this.groupBox_Importance.TabIndex = 27;
             this.groupBox_Importance.TabStop = false;
             // 
@@ -294,7 +294,7 @@ namespace VerManagerLibrary_ClassLib
             "High",
             "Medium",
             "Low"});
-            this.comboBox_Importance.Location = new System.Drawing.Point(149, 15);
+            this.comboBox_Importance.Location = new System.Drawing.Point(146, 15);
             this.comboBox_Importance.Name = "comboBox_Importance";
             this.comboBox_Importance.Size = new System.Drawing.Size(69, 21);
             this.comboBox_Importance.TabIndex = 34;
@@ -611,6 +611,58 @@ namespace VerManagerLibrary_ClassLib
             this.textBoxFilterLibraryItems.TabIndex = 7;
             this.textBoxFilterLibraryItems.TextChanged += new System.EventHandler(this.TextBox_FilterLibraryItems_TextChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboBox_Mod);
+            this.groupBox1.Controls.Add(this.comboBox_SearchAttribute);
+            this.groupBox1.Controls.Add(this.comboBox_Operation);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(643, 65);
+            this.groupBox1.TabIndex = 12;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search library";
+            // 
+            // comboBox_Mod
+            // 
+            this.comboBox_Mod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Mod.FormattingEnabled = true;
+            this.comboBox_Mod.Location = new System.Drawing.Point(210, 23);
+            this.comboBox_Mod.Name = "comboBox_Mod";
+            this.comboBox_Mod.Size = new System.Drawing.Size(100, 21);
+            this.comboBox_Mod.TabIndex = 10;
+            // 
+            // comboBox_SearchAttribute
+            // 
+            this.comboBox_SearchAttribute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_SearchAttribute.FormattingEnabled = true;
+            this.comboBox_SearchAttribute.Location = new System.Drawing.Point(110, 23);
+            this.comboBox_SearchAttribute.Name = "comboBox_SearchAttribute";
+            this.comboBox_SearchAttribute.Size = new System.Drawing.Size(100, 21);
+            this.comboBox_SearchAttribute.TabIndex = 9;
+            // 
+            // comboBox_Operation
+            // 
+            this.comboBox_Operation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_Operation.FormattingEnabled = true;
+            this.comboBox_Operation.Location = new System.Drawing.Point(10, 23);
+            this.comboBox_Operation.Name = "comboBox_Operation";
+            this.comboBox_Operation.Size = new System.Drawing.Size(100, 21);
+            this.comboBox_Operation.TabIndex = 8;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.CausesValidation = false;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBox1.Location = new System.Drawing.Point(310, 23);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(323, 21);
+            this.textBox1.TabIndex = 7;
+            // 
             // splitContainer_ImageContainer
             // 
             this.splitContainer_ImageContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -682,6 +734,16 @@ namespace VerManagerLibrary_ClassLib
             this.pictureBox_ImageDisplay.TabIndex = 0;
             this.pictureBox_ImageDisplay.TabStop = false;
             // 
+            // kwForm_Display
+            // 
+            this.kwForm_Display.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kwForm_Display.Location = new System.Drawing.Point(0, 0);
+            this.kwForm_Display.MinimumSize = new System.Drawing.Size(400, 400);
+            this.kwForm_Display.Name = "kwForm_Display";
+            this.kwForm_Display.Size = new System.Drawing.Size(589, 525);
+            this.kwForm_Display.TabIndex = 1;
+            this.kwForm_Display.Visible = false;
+            // 
             // Button_AddKW
             // 
             this.Button_AddKW.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -743,68 +805,6 @@ namespace VerManagerLibrary_ClassLib
             this.toolStripMenuItem_Remove.Text = "Remove from selection";
             this.toolStripMenuItem_Remove.Click += new System.EventHandler(this.DeleteSelectedItem);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.comboBox_Mod);
-            this.groupBox1.Controls.Add(this.comboBox_SearchAttribute);
-            this.groupBox1.Controls.Add(this.comboBox_Operation);
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(643, 65);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Search library";
-            // 
-            // comboBox_Operation
-            // 
-            this.comboBox_Operation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_Operation.FormattingEnabled = true;
-            this.comboBox_Operation.Location = new System.Drawing.Point(10, 23);
-            this.comboBox_Operation.Name = "comboBox_Operation";
-            this.comboBox_Operation.Size = new System.Drawing.Size(100, 21);
-            this.comboBox_Operation.TabIndex = 8;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.CausesValidation = false;
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox1.Location = new System.Drawing.Point(310, 23);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(323, 21);
-            this.textBox1.TabIndex = 7;
-            // 
-            // comboBox_SearchAttribute
-            // 
-            this.comboBox_SearchAttribute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_SearchAttribute.FormattingEnabled = true;
-            this.comboBox_SearchAttribute.Location = new System.Drawing.Point(110, 23);
-            this.comboBox_SearchAttribute.Name = "comboBox_SearchAttribute";
-            this.comboBox_SearchAttribute.Size = new System.Drawing.Size(100, 21);
-            this.comboBox_SearchAttribute.TabIndex = 9;
-            // 
-            // comboBox_Mod
-            // 
-            this.comboBox_Mod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_Mod.FormattingEnabled = true;
-            this.comboBox_Mod.Location = new System.Drawing.Point(210, 23);
-            this.comboBox_Mod.Name = "comboBox_Mod";
-            this.comboBox_Mod.Size = new System.Drawing.Size(100, 21);
-            this.comboBox_Mod.TabIndex = 10;
-            // 
-            // kwForm_Display
-            // 
-            this.kwForm_Display.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kwForm_Display.Location = new System.Drawing.Point(0, 0);
-            this.kwForm_Display.MinimumSize = new System.Drawing.Size(400, 400);
-            this.kwForm_Display.Name = "kwForm_Display";
-            this.kwForm_Display.Size = new System.Drawing.Size(589, 525);
-            this.kwForm_Display.TabIndex = 1;
-            this.kwForm_Display.Visible = false;
-            // 
             // RevisionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -856,6 +856,8 @@ namespace VerManagerLibrary_ClassLib
             this.splitContainer_FilterNQuery.ResumeLayout(false);
             this.groupBox_Filter.ResumeLayout(false);
             this.groupBox_Filter.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.splitContainer_ImageContainer.Panel1.ResumeLayout(false);
             this.splitContainer_ImageContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_ImageContainer)).EndInit();
@@ -865,8 +867,6 @@ namespace VerManagerLibrary_ClassLib
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_ImageDisplay)).EndInit();
             this.contextMenuStrip_Images.ResumeLayout(false);
             this.contextMenuStrip_SelectedItems.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
